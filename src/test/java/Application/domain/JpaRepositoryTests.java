@@ -1,7 +1,7 @@
 package Application.domain;
 
-import application.domain.Board;
-import application.domain.BoardRepository;
+import application.domain.Post;
+import application.domain.PostRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,27 +19,27 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class JpaRepositoryTests {
     @Autowired
-    private BoardRepository boardRepository;
+    private PostRepository postRepository;
 
     @Before
     public void before(){
-        boardRepository.deleteAll();
+        postRepository.deleteAll();
 
-        Board board = Board.builder()
+        Post board = Post.builder()
                 .title("테스트 게시글입니다.")
                 .content("테스트 내용입니다.")
                 .writer("gun")
                 .hit(0l)
                 .build();
 
-        boardRepository.save(board);
+        postRepository.save(board);
     }
     @Test
     public void testBoardInsert(){
         String title = "테스트 게시글입니다.";
         String content = "테스트 내용입니다.";
 
-        Board readBoard = boardRepository.findAll().get(0);
+        Post readBoard = postRepository.findAll().get(0);
 
         assertEquals(title, readBoard.getTitle());
         assertEquals(content, readBoard.getContent());
@@ -49,9 +49,9 @@ public class JpaRepositoryTests {
         String title = "테스트 게시글입니다.";
         String content = "테스트 내용입니다.";
 
-        List<Board> list = boardRepository.findAll();
+        List<Post> list = postRepository.findAll();
 
-        Board readBoard = list.get(0);
+        Post readBoard = list.get(0);
 
         assertEquals(title, readBoard.getTitle());
         assertEquals(content, readBoard.getContent());
@@ -61,18 +61,18 @@ public class JpaRepositoryTests {
         String title = "테스트 게시글입니다.";
         String content = "테스트 내용입니다.";
 
-        boardRepository.deleteById(1l);
+        postRepository.deleteById(1l);
     }
     @Test
     public void testBoardUpdate(){
         String title = "수정된 제목";
         String content = "수정된 내용";
 
-        Board board = boardRepository.findAll().get(0);
+        Post board = postRepository.findAll().get(0);
         board.update(title, content);
-        boardRepository.save(board);
+        postRepository.save(board);
 
-        Board readBoard = boardRepository.findAll().get(0);
+        Post readBoard = postRepository.findAll().get(0);
 
         assertEquals(title, readBoard.getTitle());
         assertEquals(content, readBoard.getContent());

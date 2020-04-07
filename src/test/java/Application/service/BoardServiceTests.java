@@ -1,10 +1,10 @@
 package Application.service;
 
-import application.domain.Board;
-import application.domain.BoardRepository;
-import application.dto.BoardRequestDTO;
-import application.dto.BoardResponseDTO;
-import application.service.BoardService;
+import application.domain.Post;
+import application.domain.PostRepository;
+import application.dto.PostRequestDTO;
+import application.dto.PostResponseDTO;
+import application.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,16 +20,16 @@ import static org.junit.Assert.*;
 @Slf4j
 public class BoardServiceTests {
     @Autowired
-    private BoardService boardService;
+    private PostService postService;
 
     @Autowired
-    private BoardRepository boardRepository;
+    private PostRepository boardRepository;
 
     @Before
     public void before(){
         boardRepository.deleteAll();
 
-        Board board = Board.builder()
+        Post board = Post.builder()
                 .title("제목 테스트")
                 .content("내용 테스트")
                 .writer("안녕")
@@ -40,31 +40,31 @@ public class BoardServiceTests {
 
     @Test
     public void testBoardInsert(){
-        BoardRequestDTO dto = BoardRequestDTO.builder()
+        PostRequestDTO dto = PostRequestDTO.builder()
                 .title("제목 테스트")
                 .content("내용 테스트")
                 .writer("안녕")
                 .build();
 
-        boardService.insertBoard(dto);
+        postService.insertPost(dto);
 
-        Board board = boardRepository.findAll().get(1);
+        Post board = boardRepository.findAll().get(1);
         assertEquals(board.getTitle(), dto.getTitle());
         assertEquals(board.getContent(), dto.getContent());
         assertEquals(board.getWriter(), dto.getWriter());
     }
     @Test
     public void testBoardUpdate(){
-        BoardRequestDTO updateDto = BoardRequestDTO.builder()
+        PostRequestDTO updateDto = PostRequestDTO.builder()
                 .title("수정된 제목")
                 .content("수정된 내용")
                 .build();
 
-        Long updateId = boardService.selectBoardList().get(0).getId();
-        boardService.updateBoard(updateId, updateDto);
+        Long updateId = postService.selectBoardList().get(0).getId();
+        postService.updatePost(updateId, updateDto);
 
 
-        Board board = boardRepository.findAll().get(0);
+        Post board = boardRepository.findAll().get(0);
         assertEquals(updateDto.getTitle(), board.getTitle());
         assertEquals(updateDto.getContent(), board.getContent());
     }
@@ -73,16 +73,16 @@ public class BoardServiceTests {
         String title = "제목 테스트";
         String content = "내용 테스트";
 
-        BoardResponseDTO responseDTO = boardService.selectBoardList().get(0);
+        PostResponseDTO responseDTO = postService.selectBoardList().get(0);
 
         assertEquals(responseDTO.getTitle(), title);
         assertEquals(responseDTO.getContent(), content);
     }
     @Test
     public void testBoardDelete(){
-        BoardResponseDTO responseDTO = boardService.selectBoardList().get(0);
+        PostResponseDTO responseDTO = postService.selectBoardList().get(0);
 
-        boardService.deleteBoard(responseDTO.getId());
+        postService.deletePost(responseDTO.getId());
 
         if(boardRepository.findAll().size() > 0){
             fail("삭제 실패");

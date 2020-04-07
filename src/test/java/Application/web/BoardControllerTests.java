@@ -1,8 +1,8 @@
 package Application.web;
 
-import application.domain.Board;
-import application.domain.BoardRepository;
-import application.dto.BoardRequestDTO;
+import application.domain.Post;
+import application.domain.PostRepository;
+import application.dto.PostRequestDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -28,18 +28,18 @@ public class BoardControllerTests {
     private MockMvc mockMvc;
 
     @Autowired
-    private BoardRepository boardRepository;
+    private PostRepository postRepository;
 
     @Before
     public void before() {
-        boardRepository.deleteAll();
+        postRepository.deleteAll();
 
-        Board board = Board.builder()
+        Post board = Post.builder()
                 .title("제목 테스트")
                 .content("내용 테스트")
                 .writer("안녕")
                 .build();
-        boardRepository.save(board);
+        postRepository.save(board);
     }
     @Test
     public void testBoardInsert() throws Exception {
@@ -47,7 +47,7 @@ public class BoardControllerTests {
         String content = "내용입니다.";
         String writer = "사용자";
 
-        BoardRequestDTO dto = BoardRequestDTO.builder()
+        PostRequestDTO dto = PostRequestDTO.builder()
                 .title(title)
                 .content(content)
                 .writer(writer)
@@ -58,20 +58,20 @@ public class BoardControllerTests {
                 .content(new ObjectMapper().writeValueAsString(dto))
         )).andExpect(status().isOk());
 
-        Board board = boardRepository.findAll().get(1);
+        Post board = postRepository.findAll().get(1);
         assertEquals(title, board.getTitle());
         assertEquals(content, board.getContent());
         assertEquals(writer, board.getWriter());
     }
     @Test
     public void testBoardUpdate() throws Exception {
-        BoardRequestDTO dto = BoardRequestDTO.builder()
+        PostRequestDTO dto = PostRequestDTO.builder()
                 .title("수정된 제목")
                 .content("수정된 내용")
                 .build();
 
 
-        Long bno = boardRepository.findAll().get(0).getId();
+        Long bno = postRepository.findAll().get(0).getId();
         String requestUrl = "/api/board/update/"+bno;
 
         mockMvc.perform((put(requestUrl)
@@ -79,7 +79,7 @@ public class BoardControllerTests {
                 .content(new ObjectMapper().writeValueAsString(dto))
         )).andExpect(status().isOk());
 
-        Board board = boardRepository.findAll().get(0);
+        Post board = postRepository.findAll().get(0);
         assertEquals(dto.getTitle(), board.getTitle());
         assertEquals(dto.getContent(), board.getContent());
     }
@@ -91,12 +91,12 @@ public class BoardControllerTests {
     }
     @Test
     public void testBoardDelete() throws Exception {
-        Long bno = boardRepository.findAll().get(0).getId();
+        Long bno = postRepository.findAll().get(0).getId();
         mockMvc.perform(delete("/api/board/delete/"+bno))
                 .andExpect(status().isOk())
                 .andDo(print());
 
-        if(boardRepository.findAll().size() > 0){
+        if(postRepository.findAll().size() > 0){
             fail("삭제 실패");
         }
     }

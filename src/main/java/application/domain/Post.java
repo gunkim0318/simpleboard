@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @ToString
-public class Board extends TimeEntity {
+public class Post extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +27,7 @@ public class Board extends TimeEntity {
     private Long hit;
 
     @Builder
-    public Board(String title, String content, String writer, Long hit){
+    public Post(String title, String content, String writer, Long hit){
         this.title = title;
         this.content = content;
         this.writer = writer;
