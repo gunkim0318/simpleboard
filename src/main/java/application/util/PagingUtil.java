@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
  */
 @ToString
 @NoArgsConstructor
-@Slf4j
 @Getter
 public class PagingUtil {
     //화면에 보여질 게시글 수
@@ -20,12 +19,17 @@ public class PagingUtil {
     private int pageNum = 1;
 
     private int totalPageNum;
+
+    private int totalPostNum;
     /**
      * 실제 페이지 번호는 0부터 시작되기 때문에 실제 반영 시 -1을 해줌
      * @return
      */
-    public int getPageNum(){
-        return (this.pageNum - 1);
+    public int getPageNum() {
+        if(this.pageNum > 0){
+            return (this.pageNum - 1);
+        }
+        return this.pageNum;
     }
 
     /**
@@ -38,6 +42,21 @@ public class PagingUtil {
             return;
         }
         this.pageNum = pageNum;
+    }
+    public void setTotalPostNum(int totalPostNum){
+        this.totalPostNum = totalPostNum;
+
+        calc();
+    }
+    private void calc(){
+        this.totalPageNum = (this.totalPostNum / this.viewPostCnt);
+
+        if(( this.totalPostNum % this.viewPostCnt) != 0){
+            this.totalPageNum++;
+        }
+        if(pageNum > totalPageNum){
+            this.pageNum = totalPageNum;
+        }
     }
 
     /**
