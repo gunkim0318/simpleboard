@@ -2,15 +2,19 @@ package Application.domain;
 
 import application.domain.Post;
 import application.domain.PostRepository;
+import application.util.PagingUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.awt.print.Pageable;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
@@ -35,7 +39,7 @@ public class JpaRepositoryTests {
         postRepository.save(board);
     }
     @Test
-    public void testBoardInsert(){
+    public void testPostInsert(){
         String title = "테스트 게시글입니다.";
         String content = "테스트 내용입니다.";
 
@@ -45,7 +49,7 @@ public class JpaRepositoryTests {
         assertEquals(content, readBoard.getContent());
     }
     @Test
-    public void testBoardSelect(){
+    public void testPostSelect(){
         String title = "테스트 게시글입니다.";
         String content = "테스트 내용입니다.";
 
@@ -57,14 +61,14 @@ public class JpaRepositoryTests {
         assertEquals(content, readBoard.getContent());
     }
     @Test
-    public void testBoardDelete(){
+    public void testPostDelete(){
         String title = "테스트 게시글입니다.";
         String content = "테스트 내용입니다.";
 
         postRepository.deleteById(1l);
     }
     @Test
-    public void testBoardUpdate(){
+    public void testPostUpdate(){
         String title = "수정된 제목";
         String content = "수정된 내용";
 
@@ -76,5 +80,25 @@ public class JpaRepositoryTests {
 
         assertEquals(title, readBoard.getTitle());
         assertEquals(content, readBoard.getContent());
+    }
+    @Test
+    public void testPostPaging(){
+        //for (1 ~ 154)
+        IntStream.rangeClosed(1, 154).forEach(i -> {
+            Post board = Post.builder()
+                    .title("테스트 게시글입니다.")
+                    .content("테스트 내용입니다.")
+                    .writer("gun")
+                    .hit(0l)
+                    .build();
+
+            postRepository.save(board);
+        });
+        PagingUtil pagingUtil = new PagingUtil();
+        pagingUtil.setPageNum(4);
+        postRepository.findAll(pagingUtil.toEntity()).stream()
+                .forEach(post -> {
+                       log.info("post : "+post);
+        });
     }
 }

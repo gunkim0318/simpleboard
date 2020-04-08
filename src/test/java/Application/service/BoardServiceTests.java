@@ -5,6 +5,7 @@ import application.domain.PostRepository;
 import application.dto.PostRequestDTO;
 import application.dto.PostResponseDTO;
 import application.service.PostService;
+import application.util.PagingUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,7 +61,10 @@ public class BoardServiceTests {
                 .content("수정된 내용")
                 .build();
 
-        Long updateId = postService.selectBoardList().get(0).getId();
+        PagingUtil pagingUtil = new PagingUtil();
+        pagingUtil.setPageNum(1);
+
+        Long updateId = postService.selectBoardList(pagingUtil).get(0).getId();
         postService.updatePost(updateId, updateDto);
 
 
@@ -73,14 +77,20 @@ public class BoardServiceTests {
         String title = "제목 테스트";
         String content = "내용 테스트";
 
-        PostResponseDTO responseDTO = postService.selectBoardList().get(0);
+        PagingUtil pagingUtil = new PagingUtil();
+        pagingUtil.setPageNum(1);
+
+        PostResponseDTO responseDTO = postService.selectBoardList(pagingUtil).get(0);
 
         assertEquals(responseDTO.getTitle(), title);
         assertEquals(responseDTO.getContent(), content);
     }
     @Test
     public void testBoardDelete(){
-        PostResponseDTO responseDTO = postService.selectBoardList().get(0);
+        PagingUtil pagingUtil = new PagingUtil();
+        pagingUtil.setPageNum(1);
+
+        PostResponseDTO responseDTO = postService.selectBoardList(pagingUtil).get(0);
 
         postService.deletePost(responseDTO.getId());
 

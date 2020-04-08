@@ -4,6 +4,7 @@ import application.domain.Post;
 import application.domain.PostRepository;
 import application.dto.PostRequestDTO;
 import application.dto.PostResponseDTO;
+import application.util.PagingUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,8 @@ public class PostService {
     public void insertPost(PostRequestDTO dto){
         postRepository.save(dto.toEntity());
     }
-    public List<PostResponseDTO> selectBoardList(){
-        return postRepository.findAll().stream().map(PostResponseDTO::new).collect(Collectors.toList());
+    public List<PostResponseDTO> selectBoardList(PagingUtil pagingUtil){
+        return postRepository.findAll(pagingUtil.toEntity()).stream().map(PostResponseDTO::new).collect(Collectors.toList());
     }
     public void updatePost(Long id, PostRequestDTO dto){
         Post board = postRepository.findById(id).get();
