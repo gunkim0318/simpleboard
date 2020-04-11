@@ -5,7 +5,7 @@ import application.domain.PostRepository;
 import application.dto.PostRequestDTO;
 import application.dto.PostResponseDTO;
 import application.service.PostService;
-import application.util.PagingUtil;
+import application.dto.PageDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,16 +19,16 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class BoardServiceTests {
+public class PostServiceTests {
     @Autowired
     private PostService postService;
 
     @Autowired
-    private PostRepository boardRepository;
+    private PostRepository postRepository;
 
     @Before
     public void before(){
-        boardRepository.deleteAll();
+        postRepository.deleteAll();
 
         Post board = Post.builder()
                 .title("제목 테스트")
@@ -36,7 +36,7 @@ public class BoardServiceTests {
                 .writer("안녕")
                 .build();
 
-        boardRepository.save(board);
+        postRepository.save(board);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class BoardServiceTests {
 
         postService.insertPost(dto);
 
-        Post board = boardRepository.findAll().get(1);
+        Post board = postRepository.findAll().get(1);
         assertEquals(board.getTitle(), dto.getTitle());
         assertEquals(board.getContent(), dto.getContent());
         assertEquals(board.getWriter(), dto.getWriter());
@@ -61,14 +61,14 @@ public class BoardServiceTests {
                 .content("수정된 내용")
                 .build();
 
-        PagingUtil pagingUtil = new PagingUtil();
+        PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(1);
 
         Long updateId = postService.selectBoardList(pagingUtil).get(0).getId();
         postService.updatePost(updateId, updateDto);
 
 
-        Post board = boardRepository.findAll().get(0);
+        Post board = postRepository.findAll().get(0);
         assertEquals(updateDto.getTitle(), board.getTitle());
         assertEquals(updateDto.getContent(), board.getContent());
     }
@@ -77,7 +77,7 @@ public class BoardServiceTests {
         String title = "제목 테스트";
         String content = "내용 테스트";
 
-        PagingUtil pagingUtil = new PagingUtil();
+        PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(1);
 
         PostResponseDTO responseDTO = postService.selectBoardList(pagingUtil).get(0);
@@ -87,14 +87,14 @@ public class BoardServiceTests {
     }
     @Test
     public void testBoardDelete(){
-        PagingUtil pagingUtil = new PagingUtil();
+        PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(1);
 
         PostResponseDTO responseDTO = postService.selectBoardList(pagingUtil).get(0);
 
         postService.deletePost(responseDTO.getId());
 
-        if(boardRepository.findAll().size() > 0){
+        if(postRepository.findAll().size() > 0){
             fail("삭제 실패");
         }
     }

@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Slf4j
-public class BoardControllerTests {
+public class PostControllerTests {
     @Autowired
     private MockMvc mockMvc;
 

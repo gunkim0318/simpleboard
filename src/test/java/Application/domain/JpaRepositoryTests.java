@@ -2,17 +2,15 @@ package Application.domain;
 
 import application.domain.Post;
 import application.domain.PostRepository;
-import application.util.PagingUtil;
+import application.dto.PageDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -94,7 +92,7 @@ public class JpaRepositoryTests {
 
             postRepository.save(board);
         });
-        PagingUtil pagingUtil = new PagingUtil();
+        PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(4);
         postRepository.findAll(pagingUtil.toEntity()).stream()
                 .forEach(post -> {
