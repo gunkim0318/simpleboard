@@ -21,7 +21,7 @@
             {{#list}}
                 <tr>
                     <td>{{id}}</td>
-                    <td>{{title}}</td>
+                    <td><a href="/board/get?postNum={{id}}">{{title}}</a></td>
                     <td>{{writer}}</td>
                     <td>{{createDate}}</td>
                     <td><span class="uk-badge">{{hit}}</span></td>
@@ -47,7 +47,7 @@
         {{/isNext}}
     {{/pagingUtil}}
     </ul>
-    <button class="uk-button uk-button-primary uk-align-right">글쓰기</button>
+    <button id="addBtn" class="uk-button uk-button-primary uk-align-right">글쓰기</button>
 {{>layout/footer}} <!--</body>-->
     <script>
         $('#pagination li a').on("click", function(e){
@@ -56,5 +56,8 @@
             const pageNum = $(this).attr('href');
 
             location.href="/?pageNum="+pageNum;
+        });
+        $('#addBtn').on('click', function(){
+            location.href='/board/add';
         });
     </script>

@@ -19,7 +19,7 @@ public class PostService {
     public void insertPost(PostRequestDTO dto){
         postRepository.save(dto.toEntity());
     }
-    public List<PostResponseDTO> selectBoardList(PageDTO pagingDTO){
+    public List<PostResponseDTO> selectPostList(PageDTO pagingDTO){
         return postRepository.findAll(pagingDTO.toEntity()).stream().map(PostResponseDTO::new).collect(Collectors.toList());
     }
     public void updatePost(Long id, PostRequestDTO dto){

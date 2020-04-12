@@ -64,7 +64,7 @@ public class PostServiceTests {
         PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(1);
 
-        Long updateId = postService.selectBoardList(pagingUtil).get(0).getId();
+        Long updateId = postService.selectPostList(pagingUtil).get(0).getId();
         postService.updatePost(updateId, updateDto);
 
 
@@ -80,7 +80,7 @@ public class PostServiceTests {
         PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(1);
 
-        PostResponseDTO responseDTO = postService.selectBoardList(pagingUtil).get(0);
+        PostResponseDTO responseDTO = postService.selectPostList(pagingUtil).get(0);
 
         assertEquals(responseDTO.getTitle(), title);
         assertEquals(responseDTO.getContent(), content);
@@ -90,7 +90,7 @@ public class PostServiceTests {
         PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(1);
 
-        PostResponseDTO responseDTO = postService.selectBoardList(pagingUtil).get(0);
+        PostResponseDTO responseDTO = postService.selectPostList(pagingUtil).get(0);
 
         postService.deletePost(responseDTO.getId());
 

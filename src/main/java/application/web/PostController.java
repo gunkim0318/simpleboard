@@ -19,13 +19,17 @@ public class PostController {
 
     @GetMapping("/")
     public String index(@ModelAttribute PageDTO pageDTO, Model model){
-        List<PostResponseDTO> boardList = postService.selectBoardList(pageDTO);
+        List<PostResponseDTO> boardList = postService.selectPostList(pageDTO);
         model.addAttribute("list", boardList);
         model.addAttribute("pagingUtil", new PagingUtil(pageDTO, postService.selectTotalPostCnt()));
-        return "/board/list";
+        return "/post/list";
     }
-    @GetMapping("/board/add")
-    public String add(){
-        return "/board/add";
+    @GetMapping("/post/add")
+    public void add(){
+    }
+
+    @GetMapping("/post/get")
+    public void get(Model model){
+//        model.addAttribute("content", postService.selectBoardContent(id));
     }
 }
