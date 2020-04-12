@@ -3,10 +3,10 @@
     <table style="text-align: center;" class="uk-table uk-table-hover uk-table-divider ">
         <colgroup>
             <col width="10%" />
-            <col width="50%"/>
-            <col width="10%"/>
+            <col width="40%"/>
+            <col width="15%"/>
             <col width="20%"/>
-            <col width="10%"/>
+            <col width="15%"/>
         </colgroup>
         <thead>
             <tr>
@@ -30,22 +30,31 @@
             {{^list}}
                 <tr>
                     <td colspan="5">게시물이 존재하지 않습니다.</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                 </tr>
             {{/list}}
         </tbody>
     </table>
-    <ul class="uk-pagination uk-flex-center" uk-margin>
-        <li><a href="#"><span uk-pagination-previous></span></a></li>
-        <li><a href="#">1</a></li>
-        <li class="uk-disabled"><span>...</span></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">6</a></li>
-        <li class="uk-active"><span>7</span></li>
-        <li><a href="#">8</a></li>
-        <li><a href="#"><span uk-pagination-next></span></a></li>
+    <ul id="pagination" class="uk-pagination uk-flex-center uk-margin">
+    {{#pagingUtil}}
+        {{#isPrev}}
+            <li><a href="{{prevPageNum}}"><span class="uk-margin-small-right" uk-pagination-previous></span> Previous</a></li>
+        {{/isPrev}}
+        {{#pagingList}}
+        <li class="uk-{{active}}"><a href="{{idx}}">{{idx}}</a></li>
+        {{/pagingList}}
+        {{#isNext}}
+            <li><a href="{{nextPageNum}}">Next <span class="uk-margin-small-left" uk-pagination-next></span></a></li>
+        {{/isNext}}
+    {{/pagingUtil}}
     </ul>
+    <button class="uk-button uk-button-primary uk-align-right">글쓰기</button>
 {{>layout/footer}} <!--</body>-->
+    <script>
+        $('#pagination li a').on("click", function(e){
+            e.preventDefault();
+
+            const pageNum = $(this).attr('href');
+
+            location.href="/?pageNum="+pageNum;
+        });
+    </script>
