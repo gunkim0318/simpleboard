@@ -3,10 +3,6 @@ package application.dto;
 import application.domain.Post;
 import lombok.Getter;
 import lombok.ToString;
-import org.apache.tomcat.jni.Local;
-
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

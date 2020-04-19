@@ -49,15 +49,4 @@
     </ul>
     <button id="addBtn" class="uk-button uk-button-primary uk-align-right">글쓰기</button>
 {{>layout/footer}} <!--</body>-->
-    <script>
-        $('#pagination li a').on("click", function(e){
-            e.preventDefault();
-
-            const pageNum = $(this).attr('href');
-
-            location.href="/?pageNum="+pageNum;
-        });
-        $('#addBtn').on('click', function(){
-            location.href='/board/add';
-        });
-    </script>
+<script src="/js/post/list.js"></script>

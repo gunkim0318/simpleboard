@@ -1,3 +1,12 @@
 {{>layout/header}} <!--<body>-->
-{{content}}
+<form class="uk-margin-auto" style="width:80%;">
+    <div class="uk-margin">
+        <input name="title" class="uk-input"type="text" placeholder="제목을 입력하세요">
+    </div>
+    <div class="uk-margin">
+        <textarea name="content" class="uk-textarea" rows="5" placeholder="내용을 입력하세요" style="resize: none;"></textarea>
+    </div>
+    <input name="writer" type="hidden" value="김건"/>
+</form>
 {{>layout/footer}} <!--</body>-->
+<script src="/js/post/add.js"></script>

@@ -25,7 +25,8 @@ public class PostController {
         return "/post/list";
     }
     @GetMapping("/post/add")
-    public void add(){
+    public void add(Model model){
+        model.addAttribute("title", "글 입력");
     }
 
     @GetMapping("/post/get")
