@@ -8,13 +8,14 @@ var add = {
                 url : '/api/post/insert',
                 type : 'post',
                 contentType: 'application/json; charset=UTF-8',
-                data : {
+                data : JSON.stringify({
                     title : $('input[name=title]').val(),
-                    content : $('textarea[name=title]').val(),
+                    content : $('textarea[name=content]').val(),
                     writer : $('input[name=writer]').val()
-                },
+                }),
                 success : function(){
-                    alert('성공!');
+                    alert('게시글 작성이 되었습니다.');
+                    location.href='/';
                 },
                 error : function(err, state, xhr){
                     console.log(err, state, xhr);
