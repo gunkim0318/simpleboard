@@ -36,4 +36,8 @@ public class PostController {
     public void get(@RequestParam("postNum") Long id, Model model){
         model.addAttribute("post", postService.selectBoardContent(id));
     }
+    @GetMapping("/post/modify")
+    public void modify(@RequestParam("postNum") Long id, Model model){
+        model.addAttribute("post", postService.selectBoardContent(id));
+    }
 }

@@ -8,7 +8,9 @@
     <p class="uk-text-lead">
         {{post.content}}
     </p>
-
+    <form id="modiForm" action="/post/modify" method="get">
+        <input type="hidden" name="postNum" value="{{post.id}}"/>
+    </form>
     <div class="uk-grid-small uk-child-width-auto" uk-grid>
         <div>
             <a class="uk-button uk-button-text" href="#">5 Comments</a>
@@ -17,7 +19,7 @@
     <div class="uk-grid">
         <div class="uk-align-center uk-width-auto">
             <button id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
-            <button id="addBtn" class="uk-button uk-button-primary">수정</button>
+            <button id="modiBtn" class="uk-button uk-button-primary">수정</button>
         </div>
     </div>
 </article>
