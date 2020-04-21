@@ -20,7 +20,7 @@ public class PostService {
         postRepository.save(dto.toEntity());
     }
     public List<PostResponseDTO> selectPostList(PageDTO pagingDTO){
-        return postRepository.findAll(pagingDTO.toEntity()).stream().map(PostResponseDTO::new).collect(Collectors.toList());
+        return postRepository.findAllByOrderByIdDesc(pagingDTO.toEntity()).stream().map(PostResponseDTO::new).collect(Collectors.toList());
     }
     public void updatePost(Long id, PostRequestDTO dto){
         Post board = postRepository.findById(id).get();

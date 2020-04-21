@@ -5,13 +5,16 @@ import application.service.PostService;
 import application.dto.PageDTO;
 import application.util.PagingUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class PostController {
@@ -30,7 +33,7 @@ public class PostController {
     }
 
     @GetMapping("/post/get")
-    public void get(Model model){
-//        model.addAttribute("content", postService.selectBoardContent(id));
+    public void get(@RequestParam("postNum") Long id, Model model){
+        model.addAttribute("post", postService.selectBoardContent(id));
     }
 }

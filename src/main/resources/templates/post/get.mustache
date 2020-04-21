@@ -1,12 +1,12 @@
 {{>layout/header}} <!--<body>-->
-<article class="uk-article">
+<article class="uk-article uk-align-center" style="width: 80%">
 
-    <h1 class="uk-article-title"><a class="uk-link-reset" href="">제목</a></h1>
+    <h1 class="uk-article-title"><a class="uk-link-reset" href="">{{post.title}}</a></h1>
 
-    <p class="uk-article-meta">Written by <a href="#">사람</a> 2020-04-12 21:00:00</p>
+    <p class="uk-article-meta">Written by <a href="#">{{post.writer}}</a> {{post.createDate}}</p>
 
     <p class="uk-text-lead">
-        내용입니다.
+        {{post.content}}
     </p>
 
     <div class="uk-grid-small uk-child-width-auto" uk-grid>
@@ -14,6 +14,12 @@
             <a class="uk-button uk-button-text" href="#">5 Comments</a>
         </div>
     </div>
-
+    <div class="uk-grid">
+        <div class="uk-align-center uk-width-auto">
+            <button id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
+            <button id="addBtn" class="uk-button uk-button-primary">수정</button>
+        </div>
+    </div>
 </article>
 {{>layout/footer}} <!--</body>-->
+<script src="/js/post/get.js"></script>

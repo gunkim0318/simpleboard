@@ -1,39 +1,42 @@
 {{>layout/header}} <!--<body>-->
     <div class="uk-heading-medium uk-position-relative uk-position-top-center uk-overlay uk-overlay-default">자유 게시판</div>
-    <table style="text-align: center;" class="uk-table uk-table-hover uk-table-divider ">
-        <colgroup>
-            <col width="10%" />
-            <col width="40%"/>
-            <col width="15%"/>
-            <col width="20%"/>
-            <col width="15%"/>
-        </colgroup>
-        <thead>
-            <tr>
-                <th style="text-align: center;" >번호</th>
-                <th style="text-align: center;" >제목</th>
-                <th style="text-align: center;" >작성자</th>
-                <th style="text-align: center;" >작성일</th>
-                <th style="text-align: center;" >조회수</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#list}}
+    <div style="width: 90%;" class="uk-align-center">
+        <button id="addBtn" class="uk-button uk-button-primary uk-align-right uk-margin-remove-bottom">글쓰기</button>
+        <table style="text-align: center;" class="uk-table uk-table-hover uk-table-divider ">
+            <colgroup>
+                <col width="10%" />
+                <col width="40%"/>
+                <col width="15%"/>
+                <col width="20%"/>
+                <col width="15%"/>
+            </colgroup>
+            <thead>
                 <tr>
-                    <td>{{id}}</td>
-                    <td><a href="/board/get?postNum={{id}}">{{title}}</a></td>
-                    <td>{{writer}}</td>
-                    <td>{{createDate}}</td>
-                    <td><span class="uk-badge">{{hit}}</span></td>
+                    <th style="text-align: center;" >번호</th>
+                    <th style="text-align: center;" >제목</th>
+                    <th style="text-align: center;" >작성자</th>
+                    <th style="text-align: center;" >작성일</th>
+                    <th style="text-align: center;" >조회수</th>
                 </tr>
-            {{/list}}
-            {{^list}}
-                <tr>
-                    <td colspan="5">게시물이 존재하지 않습니다.</td>
-                </tr>
-            {{/list}}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {{#list}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td><a href="/post/get?postNum={{id}}">{{title}}</a></td>
+                        <td>{{writer}}</td>
+                        <td>{{createDate}}</td>
+                        <td><span class="uk-badge">{{hit}}</span></td>
+                    </tr>
+                {{/list}}
+                {{^list}}
+                    <tr>
+                        <td colspan="5">게시물이 존재하지 않습니다.</td>
+                    </tr>
+                {{/list}}
+            </tbody>
+        </table>
+    </div>
     <ul id="pagination" class="uk-pagination uk-flex-center uk-margin">
     {{#pagingUtil}}
         {{#isPrev}}
@@ -47,6 +50,5 @@
         {{/isNext}}
     {{/pagingUtil}}
     </ul>
-    <button id="addBtn" class="uk-button uk-button-primary uk-align-right">글쓰기</button>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/post/list.js"></script>

@@ -21,7 +21,7 @@ public class PostApiController {
      * @param dto
      */
     @PostMapping("/insert")
-    public void insert(@RequestBody PostRequestDTO dto){
+    public void insert(@RequestBody PostRequestDTO dto) {
         boardService.insertPost(dto);
     }
 
