@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>회원가입</title>
+    <link rel="stylesheet" href="/css/uikit.min.css" />
+    <style>
+        .loginFrame{
+            border:1px solid black;
+            width: 30%;
+            border-radius: 10px;
+            margin: 0 auto;
+            background: white;
+            margin-top: 30px;
+        }
+        html{
+            background: #d8eafc;
+        }
+    </style>
+</head>
+<body>
+    <div class="loginFrame">
+        <h1 class="uk-heading-line uk-text-center"><span>회원가입</span></h1>
+        <form class="uk-align-center uk-child-width-1-1">
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                    <input class="uk-input" type="text" placeholder="메일을 입력해주세요">
+                </div>
+            </div>
+            <div class="uk-margin">
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                    <input class="uk-input" type="password" placeholder="비밀번호를 입력해주세요">
+                </div>
+                <div class="uk-inline">
+                    <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                    <input class="uk-input" type="password" placeholder="비밀번호를 확인해주세요">
+                </div>
+            </div>
+            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                <label><input class="uk-radio" type="radio" name="radio2" checked> 남성</label>
+                <label><input class="uk-radio" type="radio" name="radio2"> 여성</label>
+            </div>
+        </form>
+    </div>
+{{>layout/footer}} <!--</body>-->
