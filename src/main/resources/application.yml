@@ -18,3 +18,9 @@ spring:
     url: jdbc:h2:file:~/db/test_db;AUTO_SERVER=TRUE  #접속 URL
     username: test
     password: 1234
+  devtools:
+    livereload:
+      enabled: true
+  mustache:
+    cache: false
+    prefix: file:src/main/resources/templates/
