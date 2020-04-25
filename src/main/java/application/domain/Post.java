@@ -19,18 +19,19 @@ public class Post extends TimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    private String writer;
+    @OneToOne
+    @JoinColumn(nullable = false, name="member_id")
+    private Member member;
 
     @Column(nullable = false)
     @ColumnDefault("0")
     private Long hit;
 
     @Builder
-    public Post(String title, String content, String writer, Long hit){
+    public Post(String title, String content, Member member, Long hit){
         this.title = title;
         this.content = content;
-        this.writer = writer;
+        this.member = member;
         this.hit = hit;
     }
     @PrePersist

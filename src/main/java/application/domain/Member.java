@@ -1,7 +1,12 @@
 package application.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
+@Getter
 @Entity
 public class Member {
     @Id
@@ -24,4 +29,23 @@ public class Member {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Builder
+    public Member(Long id, String email, String password, String nickname, Gender gender, Role role){
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.role = role;
+    }
+    public void updatePassword(String password){
+        this.password = password;
+    }
+    public void updateNickname(String nickname){
+        this.nickname = nickname;
+    }
+    public void updateRole(Role role){
+        this.role = role;
+    }
 }

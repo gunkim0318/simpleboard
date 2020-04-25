@@ -1,8 +1,10 @@
 package application.dto;
 
+import application.domain.Member;
 import application.domain.Post;
 import lombok.Getter;
 import lombok.ToString;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +14,7 @@ public class PostResponseDTO {
     private Long id;
     private String title;
     private String content;
-    private String writer;
+    private Member member;
     private String createDate;
     private Long hit;
 
@@ -20,7 +22,7 @@ public class PostResponseDTO {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.writer = post.getWriter();
+        this.member = post.getMember();
         this.hit = post.getHit();
         this.setCreateDate(post.getCreateDate());
     }
