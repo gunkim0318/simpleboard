@@ -37,4 +37,5 @@ dependencies {
     annotationProcessor group: 'org.projectlombok', name: 'lombok'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mustache'
     implementation group: 'org.springframework.boot', name: 'spring-boot-devtools'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
 }
