@@ -1,44 +1,55 @@
-//package Application.service;
-//
-//import application.domain.Post;
-//import application.domain.PostRepository;
-//import application.dto.PostRequestDTO;
-//import application.dto.PostResponseDTO;
-//import application.service.PostService;
-//import application.dto.PageDTO;
-//import lombok.extern.slf4j.Slf4j;
-//import org.junit.Before;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.context.junit4.SpringRunner;
-//
-//import static org.junit.Assert.*;
-//
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
-//@Slf4j
-//public class PostServiceTests {
-//    @Autowired
-//    private PostService postService;
-//
-//    @Autowired
-//    private PostRepository postRepository;
-//
-//    @Before
-//    public void before(){
-//        postRepository.deleteAll();
-//
-//        Post board = Post.builder()
-//                .title("제목 테스트")
-//                .content("내용 테스트")
-//                .writer("안녕")
-//                .build();
-//
-//        postRepository.save(board);
-//    }
-//
+package Application.service;
+
+import application.domain.*;
+import application.dto.PostRequestDTO;
+import application.dto.PostResponseDTO;
+import application.service.PostService;
+import application.dto.PageDTO;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.Assert.*;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Slf4j
+public class PostServiceTests {
+    @Autowired
+    private PostService postService;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Before
+    public void before(){
+        postRepository.deleteAll();
+
+        Member member = Member.builder()
+                .email("gunkim0318@gmail.com")
+                .password("rlarjs123")
+                .nickname("관리자")
+                .gender(Gender.M)
+                .role(Role.ADMIN)
+                .build();
+        memberRepository.save(member);
+
+        Post board = Post.builder()
+                .title("제목 테스트")
+                .content("내용 테스트")
+                .member(member)
+                .build();
+
+        postRepository.save(board);
+    }
+
 //    @Test
 //    public void testBoardInsert(){
 //        PostRequestDTO dto = PostRequestDTO.builder()
@@ -98,4 +109,4 @@
 //            fail("삭제 실패");
 //        }
 //    }
-//}
+}

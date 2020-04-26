@@ -1,46 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>로그인</title>
-    <link rel="stylesheet" href="/css/uikit.min.css" />
-    <link rel="stylesheet" href="/css/member/signUp.css"/>
-</head>
-<body>
+{{>layout/header}} <!--</body>-->
+<link rel="stylesheet" href="/css/member/signUp.css"/>
     <div class="loginFrame">
     <h1 class="uk-heading-line uk-text-center"><span>회원가입</span></h1>
-    <form class="uk-margin-auto">
+    <form class="uk-margin-auto" action="/member/signUp" method="post" >
+        <input type="hidden" name="_csrf" value="{{#_csrf}}token{{/_csrf}}" />
         <div class="uk-margin uk-child-width-1-1">
             <div class="uk-inline">
                 <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                <input class="uk-input" type="text" placeholder="메일을 입력해주세요">
+                <input name="email" class="uk-input" type="text" placeholder="메일을 입력해주세요">
             </div>
         </div>
         <div class="uk-margin uk-child-width-1-1">
             <div class="uk-inline ">
                 <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                <input class="uk-input" type="password" placeholder="비밀번호를 입력해주세요">
+                <input name="password" class="uk-input" type="password" placeholder="비밀번호를 입력해주세요">
             </div>
         </div>
         <div class="uk-margin uk-child-width-1-1">
             <div class="uk-inline">
                 <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                <input class="uk-input" type="password" placeholder="비밀번호를 확인해주세요">
+                <input name="passwordChk" class="uk-input" type="password" placeholder="비밀번호를 확인해주세요">
             </div>
         </div>
         <div class="uk-margin uk-child-width-1-1">
             <div class="uk-inline">
                 <span class="uk-form-icon" uk-icon="icon: happy"></span>
-                <input class="uk-input" type="password" placeholder="닉네임을 입력해주세요">
+                <input name="nickname" class="uk-input" type="password" placeholder="닉네임을 입력해주세요">
             </div>
         </div>
         <div class="radioBox uk-margin-auto uk-margin-bottom uk-margin-top">
-            <label><input class="uk-radio" type="radio" name="radio2" checked> 남성</label>
-            <label><input class="uk-radio" type="radio" name="radio2"> 여성</label>
+            <label><input name="gender" class="uk-radio" type="radio"  checked> 남성</label>
+            <label><input name="gender" class="uk-radio" type="radio" > 여성</label>
         </div>
         <div class="uk-margin-auto buttonBox">
             <button id="backBtn" class="uk-button uk-button-danger">취소</button>
-            <button id="addBtn" class="uk-button uk-button-primary">입력</button>
+            <button id="signUpBtn" class="uk-button uk-button-primary">입력</button>
         </div>
     </form>
 </div>

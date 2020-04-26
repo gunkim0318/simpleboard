@@ -1,7 +1,10 @@
 var signUp = {
     eventInit : function() {
         $('#backBtn').on('click', function(){
-            history.back();
+            location.href="/";
+        });
+        $('#signUpBtn').on('click', function(){
+            $('form').submit();
         });
     }
 };

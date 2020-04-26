@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>회원가입</title>
-    <link rel="stylesheet" href="/css/uikit.min.css" />
-    <link rel="stylesheet" href="/css/member/signIn.css"/>
-</head>
-<body>
+{{>layout/header}} <!--</body>-->
+<link rel="stylesheet" href="/css/member/signIn.css"/>
 <div class="loginFrame">
     <h1 class="uk-heading-line uk-text-center"><span>로그인</span></h1>
     <form class="uk-margin-auto">
@@ -23,10 +16,11 @@
             </div>
         </div>
         <div class="uk-margin-auto buttonBox">
-            <button id="backBtn" class="uk-button uk-button-danger">취소</button>
-            <button id="addBtn" class="uk-button uk-button-primary">입력</button>
+            <button id="signInBtn" class="uk-button uk-button-primary">로그인</button>
+                <a>혹시 비밀번호를 잊으셨나요?</a>
+            <hr/>
+            <button id="signUpBtn" class="uk-button uk-button-danger">회원가입</button>
         </div>
     </form>
 </div>
 {{>layout/footer}} <!--</body>-->
-<script src="/js/member/signUp.js"></script>

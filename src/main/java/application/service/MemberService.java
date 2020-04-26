@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    public void signIn(MemberRequestDTO dto){
+    public void signUp(MemberRequestDTO dto){
         memberRepository.save(dto.toEntity());
     }
 }

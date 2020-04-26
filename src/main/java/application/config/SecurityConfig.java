@@ -11,16 +11,18 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
-                    .antMatchers("/").permitAll()
-                .and()
+        http.authorizeRequests()
+                // 페이지 권한 설정
+                .antMatchers("/api/**").hasRole("USER")
+                .antMatchers("/post/add").hasRole("USER")
+                .antMatchers("/post/modify").hasRole("USER")
+                .antMatchers("/").permitAll()
+                .antMatchers("/member/signUp").permitAll()
+                .and() // 로그인 설정
                 .formLogin()
-                    .loginPage("/member/signIn")
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .permitAll();
+                .loginPage("/member/signIn")
+                .defaultSuccessUrl("/")
+                .usernameParameter("email");
     }
     @Override
     public void configure(WebSecurity web) throws Exception
