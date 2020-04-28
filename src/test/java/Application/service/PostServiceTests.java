@@ -50,21 +50,24 @@ public class PostServiceTests {
         postRepository.save(board);
     }
 
-//    @Test
-//    public void testBoardInsert(){
-//        PostRequestDTO dto = PostRequestDTO.builder()
-//                .title("제목 테스트")
-//                .content("내용 테스트")
-//                .writer("안녕")
-//                .build();
-//
-//        postService.insertPost(dto);
-//
-//        Post board = postRepository.findAll().get(1);
-//        assertEquals(board.getTitle(), dto.getTitle());
-//        assertEquals(board.getContent(), dto.getContent());
-//        assertEquals(board.getWriter(), dto.getWriter());
-//    }
+    @Test
+    public void testBoardInsert(){
+        Member member = memberRepository.findByEmail("gunkim0318@gmail.com");
+
+        PostRequestDTO dto = PostRequestDTO.builder()
+                .title("제목 테스트")
+                .content("내용 테스트")
+                .member(member)
+                .build();
+
+        postService.insertPost(dto);
+
+        Post board = postRepository.findAll().get(1);
+        log.info(board.toString());
+        assertEquals(board.getTitle(), dto.getTitle());
+        assertEquals(board.getContent(), dto.getContent());
+        assertEquals(board.getMember().getEmail(), dto.getMember().getEmail());
+    }
 //    @Test
 //    public void testBoardUpdate(){
 //        PostRequestDTO updateDto = PostRequestDTO.builder()

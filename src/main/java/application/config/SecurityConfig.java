@@ -1,10 +1,17 @@
 package application.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -18,7 +25,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/post/modify").hasRole("USER")
                 .antMatchers("/").permitAll()
                 .antMatchers("/member/signUp").permitAll()
-                .and() // 로그인 설정
+                //h2-console 사용을 위한 설정 시작
+                .antMatchers("/test_db/**").permitAll()
+                .and()
+                .csrf().ignoringAntMatchers("/test_db/**")
+                .and()
+                .headers()
+                .addHeaderWriter(
+                        new XFrameOptionsHeaderWriter(
+                                new WhiteListedAllowFromStrategy(Arrays.asList("localhost"))    // 여기!
+                        )
+                )
+                .frameOptions().sameOrigin()
+                //h2-console 사용을 위한 설정 종료
+                .and()
                 .formLogin()
                 .loginPage("/member/signIn")
                 .defaultSuccessUrl("/")

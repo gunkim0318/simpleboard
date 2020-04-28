@@ -3,22 +3,22 @@ package application.dto;
 import application.domain.Gender;
 import application.domain.Member;
 import application.domain.Role;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.sun.org.glassfish.gmbal.NameValue;
+import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Getter
+@Setter
 @ToString
 @NoArgsConstructor
 public class MemberRequestDTO {
     private String email;
     private String password;
     private String nickname;
-    private Gender gender;
+    private String gender;
 
     @Builder
-    public MemberRequestDTO(String email, String password, String nickname, Gender gender){
+    public MemberRequestDTO(String email, String password, String nickname, String gender){
         this.email = email;
         this.password = password;
         this.nickname = nickname;
@@ -27,9 +27,9 @@ public class MemberRequestDTO {
     public Member toEntity(){
         return Member.builder()
                 .email(this.email)
-                .password(this.password)
+                .password(new BCryptPasswordEncoder().encode(this.password))
                 .nickname(this.nickname)
-                .gender(this.gender)
+                .gender(Gender.valueOf(gender))
                 .role(Role.USER)
                 .build();
     }

@@ -3,9 +3,6 @@ var signUp = {
         $('#backBtn').on('click', function(){
             location.href="/";
         });
-        $('#signUpBtn').on('click', function(){
-            $('form').submit();
-        });
     }
 };
 signUp.eventInit();

@@ -7,6 +7,7 @@ import application.dto.PostResponseDTO;
 import application.dto.PageDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;

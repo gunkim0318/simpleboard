@@ -3,6 +3,7 @@ package Application.service;
 import application.domain.Gender;
 import application.domain.Member;
 import application.domain.MemberRepository;
+import application.domain.Role;
 import application.dto.MemberRequestDTO;
 import application.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,20 +31,20 @@ public class MemberServiceTests {
     }
 
     @Test
-    public void testSignIn(){
+    public void testSignUp(){
         MemberRequestDTO dto = MemberRequestDTO.builder()
                 .email("gunkim0318@gmail.com")
                 .password("rlarjs123")
                 .nickname("슈퍼맨")
-                .gender(Gender.M)
+                .gender("M")
                 .build();
 
-        memberService.signIn(dto);
+        memberService.signUp(dto);
 
         Member findMember = memberRepository.findAll().get(0);
         assertEquals(dto.getEmail(), findMember.getEmail());
         assertEquals(dto.getPassword(), findMember.getPassword());
         assertEquals(dto.getNickname(), findMember.getNickname());
-        assertEquals(dto.getGender(), findMember.getGender());
+        assertEquals(dto.getGender(), findMember.getGender().name());
     }
 }

@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="/css/member/signUp.css"/>
     <div class="loginFrame">
     <h1 class="uk-heading-line uk-text-center"><span>회원가입</span></h1>
-    <form class="uk-margin-auto" action="/member/signUp" method="post" >
-        <input type="hidden" name="_csrf" value="{{#_csrf}}token{{/_csrf}}" />
+    <form class="uk-margin-auto" action="/member/signUp" method="post">
+        <input name="_csrf" type="hidden" value="{{#_csrf}}token{{/_csrf}}" />
         <div class="uk-margin uk-child-width-1-1">
             <div class="uk-inline">
                 <span class="uk-form-icon" uk-icon="icon: mail"></span>
@@ -29,12 +29,12 @@
             </div>
         </div>
         <div class="radioBox uk-margin-auto uk-margin-bottom uk-margin-top">
-            <label><input name="gender" class="uk-radio" type="radio"  checked> 남성</label>
-            <label><input name="gender" class="uk-radio" type="radio" > 여성</label>
+            <label><input name="gender" class="uk-radio" type="radio" value="M" checked> 남성</label>
+            <label><input name="gender" class="uk-radio" type="radio" value="F"> 여성</label>
         </div>
         <div class="uk-margin-auto buttonBox">
             <button id="backBtn" class="uk-button uk-button-danger">취소</button>
-            <button id="signUpBtn" class="uk-button uk-button-primary">입력</button>
+            <button type="submit" id="signUpBtn" class="uk-button uk-button-primary">입력</button>
         </div>
     </form>
 </div>
