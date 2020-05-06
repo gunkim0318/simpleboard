@@ -2,17 +2,18 @@
 <link rel="stylesheet" href="/css/member/signIn.css"/>
 <div class="loginFrame">
     <h1 class="uk-heading-line uk-text-center"><span>로그인</span></h1>
-    <form class="uk-margin-auto">
+    <form class="uk-margin-auto" action="/member/signIn" method="post">
+        <input name="_csrf" type="hidden" value="{{#_csrf}}token{{/_csrf}}" />
         <div class="uk-margin uk-child-width-1-1">
             <div class="uk-inline">
                 <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                <input class="uk-input" type="text" placeholder="메일">
+                <input name="email" class="uk-input" type="text" placeholder="메일">
             </div>
         </div>
         <div class="uk-margin uk-child-width-1-1">
             <div class="uk-inline ">
                 <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                <input class="uk-input" type="password" placeholder="비밀번호">
+                <input name="password" class="uk-input" type="password" placeholder="비밀번호">
             </div>
         </div>
         <div class="uk-margin-auto buttonBox">
