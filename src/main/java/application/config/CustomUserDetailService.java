@@ -31,7 +31,6 @@ public class CustomUserDetailService implements UserDetailsService {
 
         roles.add(new SimpleGrantedAuthority(member.getRole().getValue()));
 
-        log.warn("MEMBER : "+member);
-        return new User(email, "{noop}"+member.getPassword(), roles);
-        }
+        return new User(email, member.getPassword(), roles);
+    }
 }

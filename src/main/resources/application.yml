@@ -4,7 +4,7 @@ spring:
       enabled: true  # H2 웹 콘솔을 사용
       path: /test_db  # 콘솔의 경로
   jpa:
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: true

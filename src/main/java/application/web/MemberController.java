@@ -1,5 +1,6 @@
 package application.web;
 
+import application.config.CustomUserDetailService;
 import application.dto.MemberRequestDTO;
 import application.service.MemberService;
 import lombok.RequiredArgsConstructor;
