@@ -1,21 +1,15 @@
 package application.config;
 
+import application.domain.Role;
+import application.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -26,18 +20,19 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final CustomUserDetailService customUserDetailService;
+    private final CustomUserDetailsService customUserDetailService;
 
     private final PasswordEncoder passwordEncoder;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 페이지 권한 설정
-                .antMatchers("/api/**").hasRole("USER")
-                .antMatchers("/post/add").hasRole("USER")
-                .antMatchers("/post/modify").hasRole("USER")
+                .antMatchers("/api/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+                .antMatchers("/post/add").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+                .antMatchers("/post/modify").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                 .antMatchers("/").permitAll()
                 .antMatchers("/member/signUp").permitAll()
+                //여기부터는 개발 환경 시 h2-console 사용하기 위한 설정
                 .antMatchers("/test_db/**").permitAll()
                 .and()
                     .csrf().ignoringAntMatchers("/test_db/**")
@@ -49,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             )
                     )
                     .frameOptions().sameOrigin()
+                //여기까지
                 .and()
                     .formLogin()
                     .loginPage("/member/signIn")

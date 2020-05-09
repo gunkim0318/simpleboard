@@ -3,7 +3,7 @@
 <div class="loginFrame">
     <h1 class="uk-heading-line uk-text-center"><span>로그인</span></h1>
     <form class="uk-margin-auto" action="/member/signIn" method="post">
-        <input name="_csrf" type="hidden" value="{{#_csrf}}token{{/_csrf}}" />
+        <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
         <div class="uk-margin uk-child-width-1-1">
             <div class="uk-inline">
                 <span class="uk-form-icon" uk-icon="icon: mail"></span>
@@ -20,8 +20,9 @@
             <button id="signInBtn" class="uk-button uk-button-primary">로그인</button>
                 <a>혹시 비밀번호를 잊으셨나요?</a>
             <hr/>
-            <button id="signUpBtn" class="uk-button uk-button-danger">회원가입</button>
+            <button type="button" id="signUpBtn" class="uk-button uk-button-danger">회원가입</button>
         </div>
     </form>
 </div>
 {{>layout/footer}} <!--</body>-->
+<script src="/js/member/signIn.js"></script>

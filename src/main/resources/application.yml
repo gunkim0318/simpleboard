@@ -3,8 +3,13 @@ spring:
     console:
       enabled: true  # H2 웹 콘솔을 사용
       path: /test_db  # 콘솔의 경로
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/db/test_db;AUTO_SERVER=TRUE  #접속 URL
+    username: test
+    password: 1234
   jpa:
-    show-sql: false
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
@@ -13,14 +18,11 @@ spring:
       charset: UTF-8
       enabled: true
       force: true
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:~/db/test_db;AUTO_SERVER=TRUE  #접속 URL
-    username: test
-    password: 1234
+  #devtools 사용하기 위한 설정
   devtools:
     livereload:
       enabled: true
   mustache:
     cache: false
     prefix: file:src/main/resources/templates/
+  #/devtools 사용하기 위한 설정

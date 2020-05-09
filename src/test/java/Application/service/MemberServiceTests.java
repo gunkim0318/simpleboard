@@ -1,10 +1,8 @@
 package Application.service;
 
-import application.domain.Gender;
 import application.domain.Member;
 import application.domain.MemberRepository;
-import application.domain.Role;
-import application.dto.MemberRequestDTO;
+import application.dto.request.MemberRequestDTO;
 import application.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -42,6 +40,7 @@ public class MemberServiceTests {
         memberService.signUp(dto);
 
         Member findMember = memberRepository.findAll().get(0);
+
         assertEquals(dto.getEmail(), findMember.getEmail());
         assertEquals(dto.getPassword(), findMember.getPassword());
         assertEquals(dto.getNickname(), findMember.getNickname());

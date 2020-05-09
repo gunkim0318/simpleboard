@@ -1,6 +1,6 @@
 package application.web;
 
-import application.dto.PostResponseDTO;
+import application.dto.response.PostResponseDTO;
 import application.service.PostService;
 import application.dto.PageDTO;
 import application.util.PagingUtil;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -33,8 +34,14 @@ public class PostController {
     }
 
     @GetMapping("/post/get")
-    public void get(@RequestParam("postNum") Long id, Model model){
-        model.addAttribute("post", postService.selectBoardContent(id));
+    public void get(@RequestParam("postNum") Long id, Model model, Principal principal){
+        PostResponseDTO dto = postService.selectBoardContent(id);
+        model.addAttribute("post", dto);
+
+        if(principal != null){
+            String email = principal.getName();
+            model.addAttribute("isMyPost", email.equals(dto.getWriter()));
+        }
     }
     @GetMapping("/post/modify")
     public void modify(@RequestParam("postNum") Long id, Model model){

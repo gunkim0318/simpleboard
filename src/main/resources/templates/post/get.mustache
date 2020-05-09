@@ -1,3 +1,5 @@
+<meta name="_csrf" content="{{_csrf.token}}"/>
+<meta name="_csrf_header" content="{{_csrf.headerName}}"/>
 {{>layout/header}} <!--<body>-->
 <article class="uk-article uk-align-center" style="width: 80%">
 
@@ -18,8 +20,11 @@
     </div>
     <div class="uk-grid">
         <div class="uk-align-center uk-width-auto">
-            <button id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
-            <button id="modiBtn" class="uk-button uk-button-primary">수정</button>
+            <button id="backBtn" class="uk-button uk-button-default">뒤로가기</button>
+            {{#isMyPost}}
+                <button id="modiBtn" class="uk-button uk-button-primary">수정</button>
+                <button id="delBtn" class="uk-button uk-button-danger">삭제</button>
+            {{/isMyPost}}
         </div>
     </div>
 </article>

@@ -1,10 +1,12 @@
 package application.web;
 
-import application.dto.PostRequestDTO;
+import application.dto.request.PostRequestDTO;
 import application.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 /**
  * 게시글 api
@@ -21,8 +23,9 @@ public class PostApiController {
      * @param dto
      */
     @PostMapping("/insert")
-    public void insert(@RequestBody PostRequestDTO dto) {
-        boardService.insertPost(dto);
+    public void insert(@RequestBody PostRequestDTO dto, Principal principal) {
+        String email = principal.getName();
+        boardService.insertPost(dto, email);
     }
 
     /**
@@ -31,8 +34,9 @@ public class PostApiController {
      * @param dto
      */
     @PutMapping("/update/{id}")
-    public void update(@PathVariable Long id, @RequestBody PostRequestDTO dto){
-        boardService.updatePost(id, dto);
+    public void update(@PathVariable Long id, @RequestBody PostRequestDTO dto, Principal principal){
+        String email = principal.getName();
+        boardService.updatePost(id, dto, email);
     }
 
     /**
@@ -40,7 +44,8 @@ public class PostApiController {
      * @param id
      */
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id){
-        boardService.deletePost(id);
+    public void delete(@PathVariable Long id, Principal principal){
+        String email = principal.getName();
+        boardService.deletePost(id, email);
     }
 }

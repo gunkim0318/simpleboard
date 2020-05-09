@@ -1,4 +1,4 @@
-package application.dto;
+package application.dto.response;
 
 import application.domain.Member;
 import application.domain.Post;
@@ -14,7 +14,7 @@ public class PostResponseDTO {
     private Long id;
     private String title;
     private String content;
-    private Member member;
+    private String writer;
     private String createDate;
     private Long hit;
 
@@ -22,7 +22,7 @@ public class PostResponseDTO {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.member = post.getMember();
+        this.writer = post.getMember().getNickname();
         this.hit = post.getHit();
         this.setCreateDate(post.getCreateDate());
     }

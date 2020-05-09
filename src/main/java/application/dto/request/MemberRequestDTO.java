@@ -1,11 +1,9 @@
-package application.dto;
+package application.dto.request;
 
 import application.domain.Gender;
 import application.domain.Member;
 import application.domain.Role;
-import com.sun.org.glassfish.gmbal.NameValue;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Getter
 @Setter

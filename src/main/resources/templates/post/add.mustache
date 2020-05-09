@@ -1,3 +1,5 @@
+<meta name="_csrf" content="{{_csrf.token}}"/>
+<meta name="_csrf_header" content="{{_csrf.headerName}}"/>
 {{>layout/header}} <!--<body>-->
     <div style="width: 80%;" class="uk-margin-auto">
         <h1 class="uk-heading-line uk-text-center"><span>글 작성</span></h1>
@@ -8,7 +10,6 @@
             <div class="uk-margin">
                 <textarea name="content" class="uk-textarea" rows="5" placeholder="내용을 입력하세요" style="resize: none;"></textarea>
             </div>
-            <input name="writer" type="hidden" value="김건"/>
         </form>
         <div class="js-upload uk-placeholder uk-text-center uk-align-center uk-width-1-1">
             <span uk-icon="icon: cloud-upload"></span>

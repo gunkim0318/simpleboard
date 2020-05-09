@@ -32,6 +32,7 @@ public class PostRepositoryTests {
     @Before
     public void before(){
         postRepository.deleteAll();
+        memberRepository.deleteAll();
 
         Member member = Member.builder()
                 .email("gunkim0318@gmail.com")
@@ -87,7 +88,7 @@ public class PostRepositoryTests {
         //for (1 ~ 154)
         IntStream.rangeClosed(1, 154).forEach(i -> {
             Member member = Member.builder()
-                    .email("gunkim0318@gmail.com")
+                    .email("gunkim"+i+"@gmail.com")
                     .password("rlarjs123")
                     .nickname("테스트")
                     .gender(Gender.M)

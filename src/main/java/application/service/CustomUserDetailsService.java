@@ -1,4 +1,4 @@
-package application.config;
+package application.service;
 
 import application.domain.Member;
 import application.domain.MemberRepository;
@@ -17,7 +17,7 @@ import java.util.Collection;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class CustomUserDetailService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

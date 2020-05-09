@@ -1,14 +1,12 @@
-package application.dto;
+package application.dto.request;
 
 import application.domain.Member;
 import application.domain.Post;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @ToString
 public class PostRequestDTO {
     private String title;
