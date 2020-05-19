@@ -10,16 +10,10 @@
             <div class="uk-margin">
                 <textarea name="content" class="uk-textarea" rows="5" placeholder="내용을 입력하세요" style="resize: none;"></textarea>
             </div>
-        </form>
-        <div class="js-upload uk-placeholder uk-text-center uk-align-center uk-width-1-1">
-            <span uk-icon="icon: cloud-upload"></span>
-            <span class="uk-text-middle">여기에 끌어다 놓거나</span>
-            <div uk-form-custom>
-                <input type="file" multiple>
-                <span class="uk-link" style="cursor:pointer;">여기를 눌러 직접 선택하세요</span>
+            <div class="uk-margin">
+                <input type="file" name="uploadFile" multiple>
             </div>
-        </div>
-        <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+        </form>
         <div class="uk-grid">
             <div class="uk-align-center uk-width-auto">
                 <button id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
@@ -29,63 +23,3 @@
     </div>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/post/add.js"></script>
-<script>
-
-    var bar = document.getElementById('js-progressbar');
-
-    UIkit.upload('.js-upload', {
-
-        url: '',
-        multiple: true,
-
-        beforeSend: function () {
-            console.log('beforeSend', arguments);
-        },
-        beforeAll: function () {
-            console.log('beforeAll', arguments);
-        },
-        load: function () {
-            console.log('load', arguments);
-        },
-        error: function () {
-            console.log('error', arguments);
-        },
-        complete: function () {
-            console.log('complete', arguments);
-        },
-
-        loadStart: function (e) {
-            console.log('loadStart', arguments);
-
-            bar.removeAttribute('hidden');
-            bar.max = e.total;
-            bar.value = e.loaded;
-        },
-
-        progress: function (e) {
-            console.log('progress', arguments);
-
-            bar.max = e.total;
-            bar.value = e.loaded;
-        },
-
-        loadEnd: function (e) {
-            console.log('loadEnd', arguments);
-
-            bar.max = e.total;
-            bar.value = e.loaded;
-        },
-
-        completeAll: function () {
-            console.log('completeAll', arguments);
-
-            setTimeout(function () {
-                bar.setAttribute('hidden', 'hidden');
-            }, 1000);
-
-            alert('Upload Completed');
-        }
-
-    });
-
-</script>

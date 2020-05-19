@@ -3,6 +3,7 @@ package application.dto.request;
 import application.domain.Member;
 import application.domain.Post;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @Getter
@@ -12,6 +13,7 @@ public class PostRequestDTO {
     private String title;
     private String content;
     private Member member;
+    private MultipartFile file;
 
     @Builder
     public PostRequestDTO(String title, String content, Member member){
