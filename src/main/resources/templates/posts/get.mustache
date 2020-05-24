@@ -11,7 +11,7 @@
         {{posts.content}}
     </p>
     <form id="modiForm" action="/posts/modify" method="get">
-        <input type="hidden" name="postNum" value="{{posts.id}}"/>
+        <input type="hidden" name="postsNum" value="{{posts.id}}"/>
     </form>
     <div class="uk-grid-small uk-child-width-auto" uk-grid>
         <div>
@@ -21,10 +21,10 @@
     <div class="uk-grid">
         <div class="uk-align-center uk-width-auto">
             <button id="backBtn" class="uk-button uk-button-default">뒤로가기</button>
-            {{#isMyPost}}
+            {{#isMyPosts}}
                 <button id="modiBtn" class="uk-button uk-button-primary">수정</button>
                 <button id="delBtn" class="uk-button uk-button-danger">삭제</button>
-            {{/isMyPost}}
+            {{/isMyPosts}}
         </div>
     </div>
 </article>

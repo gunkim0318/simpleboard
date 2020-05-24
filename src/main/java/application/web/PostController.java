@@ -66,9 +66,11 @@ public class PostController {
      * @param principal
      */
     @PostMapping("/posts/update")
-    public void update(@ModelAttribute PostRequestDTO dto, Principal principal){
+    public String update(@ModelAttribute PostRequestDTO dto, Principal principal){
         String email = principal.getName();
         postsService.updatePost(dto, email);
+
+        return "redirect:/";
     }
 
     /**

@@ -1,7 +1,7 @@
 {{>layout/header}} <!--<body>-->
     <div style="width: 80%;" class="uk-margin-auto">
         <h1 class="uk-heading-line uk-text-center"><span>글 작성</span></h1>
-        <form class="uk-width-1-1" method="post" action="/posts/insert">
+        <form id="addForm" class="uk-width-1-1" method="post" action="/posts/insert">
             <input type="hidden" name="_csrf" value="{{_csrf.token }}"/>
             <div class="uk-margin">
                 <input name="title" class="uk-input"type="text" placeholder="제목을 입력하세요">

@@ -1,9 +1,8 @@
-<meta name="_csrf" content="{{_csrf.token}}"/>
-<meta name="_csrf_header" content="{{_csrf.headerName}}"/>
 {{>layout/header}} <!--<body>-->
 <div style="width: 80%;" class="uk-margin-auto">
     <h1 class="uk-heading-line uk-text-center"><span>글 수정</span></h1>
-    <form class="uk-width-1-1">
+    <form class="uk-width-1-1" method="post" action="/posts/update">
+        <input type="hidden" name="_csrf" value="{{_csrf.token }}"/>
         <input type="hidden" name="id" value="{{posts.id}}"/>
         <div class="uk-margin">
             <input name="title" class="uk-input"type="text" placeholder="제목을 입력하세요" value="{{posts.title}}">
@@ -12,82 +11,13 @@
             <textarea name="content" class="uk-textarea" rows="5" placeholder="내용을 입력하세요" style="resize: none;">{{posts.content}}</textarea>
         </div>
         <input name="writer" type="hidden" value="{{posts.writer}}"/>
+        <div class="uk-grid">
+            <div class="uk-align-center uk-width-auto">
+                <button id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
+                <button type="submit" id="modiBtn" class="uk-button uk-button-primary">수정</button>
+            </div>
+        </div>
     </form>
-    <div class="js-upload uk-placeholder uk-text-center uk-align-center uk-width-1-1">
-        <span uk-icon="icon: cloud-upload"></span>
-        <span class="uk-text-middle">여기에 끌어다 놓거나</span>
-        <div uk-form-custom>
-            <input type="file" multiple>
-            <span class="uk-link" style="cursor:pointer;">여기를 눌러 직접 선택하세요</span>
-        </div>
-    </div>
-    <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
-    <div class="uk-grid">
-        <div class="uk-align-center uk-width-auto">
-            <button id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
-            <button id="modiBtn" class="uk-button uk-button-primary">수정</button>
-        </div>
-    </div>
 </div>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/post/modify.js"></script>
-<script>
-
-    var bar = document.getElementById('js-progressbar');
-
-    UIkit.upload('.js-upload', {
-
-        url: '',
-        multiple: true,
-
-        beforeSend: function () {
-            console.log('beforeSend', arguments);
-        },
-        beforeAll: function () {
-            console.log('beforeAll', arguments);
-        },
-        load: function () {
-            console.log('load', arguments);
-        },
-        error: function () {
-            console.log('error', arguments);
-        },
-        complete: function () {
-            console.log('complete', arguments);
-        },
-
-        loadStart: function (e) {
-            console.log('loadStart', arguments);
-
-            bar.removeAttribute('hidden');
-            bar.max = e.total;
-            bar.value = e.loaded;
-        },
-
-        progress: function (e) {
-            console.log('progress', arguments);
-
-            bar.max = e.total;
-            bar.value = e.loaded;
-        },
-
-        loadEnd: function (e) {
-            console.log('loadEnd', arguments);
-
-            bar.max = e.total;
-            bar.value = e.loaded;
-        },
-
-        completeAll: function () {
-            console.log('completeAll', arguments);
-
-            setTimeout(function () {
-                bar.setAttribute('hidden', 'hidden');
-            }, 1000);
-
-            alert('Upload Completed');
-        }
-
-    });
-
-</script>
