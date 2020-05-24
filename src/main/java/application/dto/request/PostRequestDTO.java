@@ -10,10 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @ToString
 public class PostRequestDTO {
+    private Long id;
     private String title;
     private String content;
     private Member member;
-    private MultipartFile file;
 
     @Builder
     public PostRequestDTO(String title, String content, Member member){

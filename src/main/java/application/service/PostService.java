@@ -22,13 +22,14 @@ public class PostService {
     public void insertPost(PostRequestDTO dto, String email){
         Member member = memberRepository.findByEmail(email);
         dto.setMember(member);
+
         postRepository.save(dto.toEntity());
     }
     public List<PostResponseDTO> selectPostList(PageDTO pagingDTO){
         return postRepository.findAllByOrderByIdDesc(pagingDTO.toEntity()).stream().map(PostResponseDTO::new).collect(Collectors.toList());
     }
-    public void updatePost(Long id, PostRequestDTO dto, String email){
-        Post post = postRepository.findById(id).get();
+    public void updatePost(PostRequestDTO dto, String email){
+        Post post = postRepository.findById(dto.getId()).get();
 
         boolean isMyPost = post.getMember().getEmail().equals(email);
 

@@ -1,25 +1,21 @@
-<meta name="_csrf" content="{{_csrf.token}}"/>
-<meta name="_csrf_header" content="{{_csrf.headerName}}"/>
 {{>layout/header}} <!--<body>-->
     <div style="width: 80%;" class="uk-margin-auto">
         <h1 class="uk-heading-line uk-text-center"><span>글 작성</span></h1>
-        <form class="uk-width-1-1">
+        <form class="uk-width-1-1" method="post" action="/posts/insert">
+            <input type="hidden" name="_csrf" value="{{_csrf.token }}"/>
             <div class="uk-margin">
                 <input name="title" class="uk-input"type="text" placeholder="제목을 입력하세요">
             </div>
             <div class="uk-margin">
                 <textarea name="content" class="uk-textarea" rows="5" placeholder="내용을 입력하세요" style="resize: none;"></textarea>
             </div>
-            <div class="uk-margin">
-                <input type="file" name="uploadFile" multiple>
+            <div class="uk-grid">
+                <div class="uk-align-center uk-width-auto">
+                    <button id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
+                    <button type="submit" id="addBtn" class="uk-button uk-button-primary">입력</button>
+                </div>
             </div>
         </form>
-        <div class="uk-grid">
-            <div class="uk-align-center uk-width-auto">
-                <button id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
-                <button id="addBtn" class="uk-button uk-button-primary">입력</button>
-            </div>
-        </div>
     </div>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/post/add.js"></script>

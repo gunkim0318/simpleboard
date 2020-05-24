@@ -3,15 +3,15 @@
 {{>layout/header}} <!--<body>-->
 <article class="uk-article uk-align-center" style="width: 80%">
 
-    <h1 class="uk-article-title"><a class="uk-link-reset" href="">{{post.title}}</a></h1>
+    <h1 class="uk-article-title"><a class="uk-link-reset" href="">{{posts.title}}</a></h1>
 
-    <p class="uk-article-meta">Written by <a href="#">{{post.writer}}</a> {{post.createDate}}</p>
+    <p class="uk-article-meta">Written by <a href="#">{{posts.writer}}</a> {{posts.createDate}}</p>
 
     <p class="uk-text-lead">
-        {{post.content}}
+        {{posts.content}}
     </p>
-    <form id="modiForm" action="/post/modify" method="get">
-        <input type="hidden" name="postNum" value="{{post.id}}"/>
+    <form id="modiForm" action="/posts/modify" method="get">
+        <input type="hidden" name="postNum" value="{{posts.id}}"/>
     </form>
     <div class="uk-grid-small uk-child-width-auto" uk-grid>
         <div>

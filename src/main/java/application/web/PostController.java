@@ -1,5 +1,6 @@
 package application.web;
 
+import application.dto.request.PostRequestDTO;
 import application.dto.response.PostResponseDTO;
 import application.service.PostService;
 import application.dto.PageDTO;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
@@ -19,32 +21,63 @@ import java.util.List;
 @RequiredArgsConstructor
 @Controller
 public class PostController {
-    private final PostService postService;
+    private final PostService postsService;
 
     @GetMapping("/")
     public String index(@ModelAttribute PageDTO pageDTO, Model model){
-        List<PostResponseDTO> boardList = postService.selectPostList(pageDTO);
+        List<PostResponseDTO> boardList = postsService.selectPostList(pageDTO);
         model.addAttribute("list", boardList);
-        model.addAttribute("pagingUtil", new PagingUtil(pageDTO, postService.selectTotalPostCnt()));
-        return "/post/list";
+        model.addAttribute("pagingUtil", new PagingUtil(pageDTO, postsService.selectTotalPostCnt()));
+        return "/posts/list";
     }
-    @GetMapping("/post/add")
-    public void add(Model model){
-        model.addAttribute("title", "글 입력");
+    @GetMapping("/posts/add")
+    public void add(){
     }
 
-    @GetMapping("/post/get")
-    public void get(@RequestParam("postNum") Long id, Model model, Principal principal){
-        PostResponseDTO dto = postService.selectBoardContent(id);
-        model.addAttribute("post", dto);
+    @GetMapping("/posts/get")
+    public void get(@RequestParam("postsNum") Long id, Model model, Principal principal){
+        PostResponseDTO dto = postsService.selectBoardContent(id);
+        model.addAttribute("posts", dto);
 
         if(principal != null){
             String email = principal.getName();
-            model.addAttribute("isMyPost", email.equals(dto.getWriter()));
+            model.addAttribute("isMyPosts", email.equals(dto.getWriter()));
         }
     }
-    @GetMapping("/post/modify")
-    public void modify(@RequestParam("postNum") Long id, Model model){
-        model.addAttribute("post", postService.selectBoardContent(id));
+    @GetMapping("/posts/modify")
+    public void modify(@RequestParam("postsNum") Long id, Model model){
+        model.addAttribute("posts", postsService.selectBoardContent(id));
+    }
+    /**
+     * 게시글 작성
+     * @param dto
+     */
+    @PostMapping("/posts/insert")
+    public String insert(@ModelAttribute PostRequestDTO dto, Principal principal){
+        String email = principal.getName();
+        postsService.insertPost(dto, email);
+
+        return "redirect:/";
+    }
+
+    /**
+     * 게시글 수정
+     * @param dto
+     * @param principal
+     */
+    @PostMapping("/posts/update")
+    public void update(@ModelAttribute PostRequestDTO dto, Principal principal){
+        String email = principal.getName();
+        postsService.updatePost(dto, email);
+    }
+
+    /**
+     * 게시글 삭제
+     * @param id
+     */
+    @PostMapping("/posts/delete")
+    public void delete(@RequestParam("id") Long id, Principal principal){
+        String email = principal.getName();
+        postsService.deletePost(id, email);
     }
 }

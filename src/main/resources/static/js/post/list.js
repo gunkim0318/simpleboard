@@ -8,7 +8,7 @@ var list = {
             location.href="/?pageNum="+pageNum;
         });
         $('#addBtn').on('click', function(){
-            location.href='/post/add';
+            location.href='/posts/add';
         });
     }
 };

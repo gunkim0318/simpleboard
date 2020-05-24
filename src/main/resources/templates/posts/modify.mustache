@@ -4,14 +4,14 @@
 <div style="width: 80%;" class="uk-margin-auto">
     <h1 class="uk-heading-line uk-text-center"><span>글 수정</span></h1>
     <form class="uk-width-1-1">
-        <input type="hidden" name="id" value="{{post.id}}"/>
+        <input type="hidden" name="id" value="{{posts.id}}"/>
         <div class="uk-margin">
-            <input name="title" class="uk-input"type="text" placeholder="제목을 입력하세요" value="{{post.title}}">
+            <input name="title" class="uk-input"type="text" placeholder="제목을 입력하세요" value="{{posts.title}}">
         </div>
         <div class="uk-margin">
-            <textarea name="content" class="uk-textarea" rows="5" placeholder="내용을 입력하세요" style="resize: none;">{{post.content}}</textarea>
+            <textarea name="content" class="uk-textarea" rows="5" placeholder="내용을 입력하세요" style="resize: none;">{{posts.content}}</textarea>
         </div>
-        <input name="writer" type="hidden" value="{{post.writer}}"/>
+        <input name="writer" type="hidden" value="{{posts.writer}}"/>
     </form>
     <div class="js-upload uk-placeholder uk-text-center uk-align-center uk-width-1-1">
         <span uk-icon="icon: cloud-upload"></span>
