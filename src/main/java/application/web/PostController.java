@@ -78,8 +78,10 @@ public class PostController {
      * @param id
      */
     @PostMapping("/posts/delete")
-    public void delete(@RequestParam("id") Long id, Principal principal){
+    public String delete(@RequestParam("postsNum") Long id, Principal principal){
         String email = principal.getName();
         postsService.deletePost(id, email);
+
+        return "redirect:/";
     }
 }
