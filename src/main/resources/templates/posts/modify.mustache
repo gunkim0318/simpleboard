@@ -1,7 +1,7 @@
 {{>layout/header}} <!--<body>-->
 <div style="width: 80%;" class="uk-margin-auto">
     <h1 class="uk-heading-line uk-text-center"><span>글 수정</span></h1>
-    <form class="uk-width-1-1" method="post" action="/posts/update">
+    <form class="uk-width-1-1" method="posts" action="/posts/update">
         <input type="hidden" name="_csrf" value="{{_csrf.token }}"/>
         <input type="hidden" name="id" value="{{posts.id}}"/>
         <div class="uk-margin">
@@ -20,4 +20,4 @@
     </form>
 </div>
 {{>layout/footer}} <!--</body>-->
-<script src="/js/post/modify.js"></script>
+<script src="/js/posts/modify.js"></script>

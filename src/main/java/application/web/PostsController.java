@@ -1,8 +1,8 @@
 package application.web;
 
-import application.dto.request.PostRequestDTO;
-import application.dto.response.PostResponseDTO;
-import application.service.PostService;
+import application.dto.request.PostsRequestDTO;
+import application.dto.response.PostsResponseDTO;
+import application.service.PostsService;
 import application.dto.PageDTO;
 import application.util.PagingUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +20,12 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-public class PostController {
-    private final PostService postsService;
+public class PostsController {
+    private final PostsService postsService;
 
     @GetMapping("/")
     public String index(@ModelAttribute PageDTO pageDTO, Model model){
-        List<PostResponseDTO> boardList = postsService.selectPostList(pageDTO);
+        List<PostsResponseDTO> boardList = postsService.selectPostList(pageDTO);
         model.addAttribute("list", boardList);
         model.addAttribute("pagingUtil", new PagingUtil(pageDTO, postsService.selectTotalPostCnt()));
         return "/posts/list";
@@ -36,7 +36,7 @@ public class PostController {
 
     @GetMapping("/posts/get")
     public void get(@RequestParam("postsNum") Long id, Model model, Principal principal){
-        PostResponseDTO dto = postsService.selectBoardContent(id);
+        PostsResponseDTO dto = postsService.selectBoardContent(id);
         model.addAttribute("posts", dto);
 
         if(principal != null){
@@ -53,7 +53,7 @@ public class PostController {
      * @param dto
      */
     @PostMapping("/posts/insert")
-    public String insert(@ModelAttribute PostRequestDTO dto, Principal principal){
+    public String insert(@ModelAttribute PostsRequestDTO dto, Principal principal){
         String email = principal.getName();
         postsService.insertPost(dto, email);
 
@@ -66,7 +66,7 @@ public class PostController {
      * @param principal
      */
     @PostMapping("/posts/update")
-    public String update(@ModelAttribute PostRequestDTO dto, Principal principal){
+    public String update(@ModelAttribute PostsRequestDTO dto, Principal principal){
         String email = principal.getName();
         postsService.updatePost(dto, email);
 

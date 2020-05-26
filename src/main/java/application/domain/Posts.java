@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Entity
 @ToString
-public class Post extends TimeEntity {
+public class Posts extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +31,7 @@ public class Post extends TimeEntity {
     private Long hit;
 
     @Builder
-    public Post(String title, String content, Member member, Long hit){
+    public Posts(String title, String content, Member member, Long hit){
         this.title = title;
         this.content = content;
         this.member = member;

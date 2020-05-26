@@ -22,6 +22,8 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailsService customUserDetailService;
 
+    private final LoginSuccessHandler loginSuccessHandler;
+
     private final PasswordEncoder passwordEncoder;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/member/signIn")
                     .usernameParameter("email")
                     .defaultSuccessUrl("/")
+                    .successHandler(loginSuccessHandler)
                     .permitAll()
                 .and()
                     .logout()

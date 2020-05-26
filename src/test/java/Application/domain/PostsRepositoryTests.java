@@ -1,11 +1,7 @@
 package Application.domain;
 
-import application.domain.Post;
-import application.domain.PostRepository;
-import application.domain.MemberRepository;
-import application.domain.Member;
-import application.domain.Role;
-import application.domain.Gender;
+import application.domain.*;
+import application.domain.Posts;
 import application.dto.PageDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -22,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PostRepositoryTests {
+public class PostsRepositoryTests {
     @Autowired
     private PostRepository postRepository;
 
@@ -44,7 +40,7 @@ public class PostRepositoryTests {
 
         memberRepository.save(member);
 
-        Post board = Post.builder()
+        Posts board = Posts.builder()
                 .title("테스트 게시글입니다.")
                 .content("테스트 내용입니다.")
                 .member(member)
@@ -58,27 +54,27 @@ public class PostRepositoryTests {
         String title = "테스트 게시글입니다.";
         String content = "테스트 내용입니다.";
 
-        Post findPost = postRepository.findAll().get(0);
+        Posts findPosts = postRepository.findAll().get(0);
 
-        log.info(findPost.toString());
-        assertEquals(title, findPost.getTitle());
-        assertEquals(content, findPost.getContent());
+        log.info(findPosts.toString());
+        assertEquals(title, findPosts.getTitle());
+        assertEquals(content, findPosts.getContent());
     }
     @Test
     public void testPostDelete(){
-        Post findPost = postRepository.findAll().get(0);
-        postRepository.delete(findPost);
+        Posts findPosts = postRepository.findAll().get(0);
+        postRepository.delete(findPosts);
     }
     @Test
     public void testPostUpdate(){
         String title = "수정된 제목";
         String content = "수정된 내용";
 
-        Post board = postRepository.findAll().get(0);
+        Posts board = postRepository.findAll().get(0);
         board.update(title, content);
         postRepository.save(board);
 
-        Post readBoard = postRepository.findAll().get(0);
+        Posts readBoard = postRepository.findAll().get(0);
 
         assertEquals(title, readBoard.getTitle());
         assertEquals(content, readBoard.getContent());
@@ -95,7 +91,7 @@ public class PostRepositoryTests {
                     .role(Role.ADMIN)
                     .build();
             memberRepository.save(member);
-            Post board = Post.builder()
+            Posts board = Posts.builder()
                     .title("테스트 게시글입니다.")
                     .content("테스트 내용입니다.")
                     .member(member)

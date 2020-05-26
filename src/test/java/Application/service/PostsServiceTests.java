@@ -2,9 +2,9 @@ package Application.service;
 
 import application.domain.*;
 import application.dto.PageDTO;
-import application.dto.request.PostRequestDTO;
-import application.dto.response.PostResponseDTO;
-import application.service.PostService;
+import application.dto.request.PostsRequestDTO;
+import application.dto.response.PostsResponseDTO;
+import application.service.PostsService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j
-public class PostServiceTests {
+public class PostsServiceTests {
     @Autowired
-    private PostService postService;
+    private PostsService postsService;
 
     @Autowired
     private PostRepository postRepository;
@@ -42,7 +42,7 @@ public class PostServiceTests {
                 .build();
         memberRepository.save(member);
 
-        Post board = Post.builder()
+        Posts board = Posts.builder()
                 .title("제목 테스트")
                 .content("내용 테스트")
                 .member(member)
@@ -53,15 +53,15 @@ public class PostServiceTests {
 
     @Test
     public void testBoardInsert(){
-        PostRequestDTO dto = PostRequestDTO.builder()
+        PostsRequestDTO dto = PostsRequestDTO.builder()
                 .title("제목 테스트")
                 .content("내용 테스트")
                 .build();
 
         String email = "gunkim0318@gmail.com";
-        postService.insertPost(dto, email);
+        postsService.insertPost(dto, email);
 
-        Post board = postRepository.findAll().get(0);
+        Posts board = postRepository.findAll().get(0);
         log.info(board.toString());
         assertEquals(board.getTitle(), dto.getTitle());
         assertEquals(board.getContent(), dto.getContent());
@@ -69,7 +69,7 @@ public class PostServiceTests {
     }
     @Test
     public void testBoardUpdate(){
-        PostRequestDTO updateDto = PostRequestDTO.builder()
+        PostsRequestDTO updateDto = PostsRequestDTO.builder()
                 .title("수정된 제목")
                 .content("수정된 내용")
                 .build();
@@ -77,13 +77,13 @@ public class PostServiceTests {
         PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(1);
 
-        Long updateId = postService.selectPostList(pagingUtil).get(0).getId();
+        Long updateId = postsService.selectPostList(pagingUtil).get(0).getId();
         String email = "gunkim0318@gmail.com";
 
-        postService.updatePost(updateId, updateDto, email);
+        postsService.updatePost(updateId, updateDto, email);
 
 
-        Post board = postRepository.findAll().get(0);
+        Posts board = postRepository.findAll().get(0);
         assertEquals(updateDto.getTitle(), board.getTitle());
         assertEquals(updateDto.getContent(), board.getContent());
     }
@@ -95,7 +95,7 @@ public class PostServiceTests {
         PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(1);
 
-        PostResponseDTO responseDTO = postService.selectPostList(pagingUtil).get(0);
+        PostsResponseDTO responseDTO = postsService.selectPostList(pagingUtil).get(0);
 
         assertEquals(responseDTO.getTitle(), title);
         assertEquals(responseDTO.getContent(), content);
@@ -105,10 +105,10 @@ public class PostServiceTests {
         PageDTO pagingUtil = new PageDTO();
         pagingUtil.setPageNum(1);
 
-        PostResponseDTO responseDTO = postService.selectPostList(pagingUtil).get(0);
+        PostsResponseDTO responseDTO = postsService.selectPostList(pagingUtil).get(0);
 
         String email = "gunkim0318@gmail.com";
-        postService.deletePost(responseDTO.getId(), email);
+        postsService.deletePost(responseDTO.getId(), email);
 
         if(postRepository.findAll().size() > 0){
             fail("삭제 실패");

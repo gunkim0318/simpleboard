@@ -1,7 +1,7 @@
 package Application.web;
 
 import application.domain.*;
-import application.dto.request.PostRequestDTO;
+import application.dto.request.PostsRequestDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Slf4j
-public class PostControllerTests {
+public class PostsControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
@@ -46,7 +46,7 @@ public class PostControllerTests {
                 .build();
         memberRepository.save(member);
 
-        Post board = Post.builder()
+        Posts board = Posts.builder()
                 .title("제목 테스트")
                 .content("내용 테스트")
                 .member(member)
@@ -61,7 +61,7 @@ public class PostControllerTests {
         String content = "내용입니다.";
         String writer = "사용자";
 
-        PostRequestDTO dto = PostRequestDTO.builder()
+        PostsRequestDTO dto = PostsRequestDTO.builder()
                 .title(title)
                 .content(content)
                 .build();
@@ -71,7 +71,7 @@ public class PostControllerTests {
                 .content(new ObjectMapper().writeValueAsString(dto))
         )).andExpect(status().isOk());
 
-        Post board = postRepository.findAll().get(1);
+        Posts board = postRepository.findAll().get(1);
         assertEquals(title, board.getTitle());
         assertEquals(content, board.getContent());
     }

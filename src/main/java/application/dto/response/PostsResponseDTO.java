@@ -1,7 +1,6 @@
 package application.dto.response;
 
-import application.domain.Member;
-import application.domain.Post;
+import application.domain.Posts;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @ToString
-public class PostResponseDTO {
+public class PostsResponseDTO {
     private Long id;
     private String title;
     private String content;
@@ -18,13 +17,13 @@ public class PostResponseDTO {
     private String createDate;
     private Long hit;
 
-    public PostResponseDTO(Post post){
-        this.id = post.getId();
-        this.title = post.getTitle();
-        this.content = post.getContent();
-        this.writer = post.getMember().getNickname();
-        this.hit = post.getHit();
-        this.setCreateDate(post.getCreateDate());
+    public PostsResponseDTO(Posts posts){
+        this.id = posts.getId();
+        this.title = posts.getTitle();
+        this.content = posts.getContent();
+        this.writer = posts.getMember().getNickname();
+        this.hit = posts.getHit();
+        this.setCreateDate(posts.getCreateDate());
     }
     private void setCreateDate(LocalDateTime createDate){
         String dateFormatStr = "yyyy-MM-dd HH:mm:ss";

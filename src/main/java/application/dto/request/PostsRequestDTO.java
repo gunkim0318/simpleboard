@@ -1,29 +1,28 @@
 package application.dto.request;
 
 import application.domain.Member;
-import application.domain.Post;
+import application.domain.Posts;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class PostRequestDTO {
+public class PostsRequestDTO {
     private Long id;
     private String title;
     private String content;
     private Member member;
 
     @Builder
-    public PostRequestDTO(String title, String content, Member member){
+    public PostsRequestDTO(String title, String content, Member member){
         this.title = title;
         this.content = content;
         this.member = member;
     }
 
-    public Post toEntity(){
-        return Post.builder()
+    public Posts toEntity(){
+        return Posts.builder()
                 .title(this.title)
                 .content(this.content)
                 .member(this.member)
