@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 페이지 권한 설정
-                .antMatchers("/posts/**").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
+                .antMatchers("/posts/add", "posts/insert", "posts/delete", "posts/modify").hasAnyRole(Role.USER.name(), Role.ADMIN.name())
                 .antMatchers("/").permitAll()
                 .antMatchers("/member/signUp").permitAll()
                 //여기부터는 개발 환경 시 h2-console 사용하기 위한 설정
@@ -51,7 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/member/signIn")
                     .usernameParameter("email")
                     .defaultSuccessUrl("/")
-                    .successHandler(loginSuccessHandler)
                     .permitAll()
                 .and()
                     .logout()
