@@ -1,6 +1,6 @@
-package application.dto.response;
+package application.service.dto;
 
-import application.domain.Posts;
+import application.jpa.domain.Posts;
 import lombok.Getter;
 import lombok.ToString;
 

@@ -1,9 +1,9 @@
 package Application.domain;
 
-import application.domain.Gender;
-import application.domain.Member;
-import application.domain.MemberRepository;
-import application.domain.Role;
+import application.jpa.enums.Gender;
+import application.jpa.domain.Member;
+import application.jpa.repository.MemberRepository;
+import application.jpa.enums.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;

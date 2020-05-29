@@ -1,10 +1,10 @@
-package application.domain;
+package application.jpa.domain;
 
+import application.jpa.domain.common.TimeEntity;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,6 +25,10 @@ public class Posts extends TimeEntity {
     @OneToOne
     @JoinColumn(nullable = false, name="member_id")
     private Member member;
+
+    @OneToMany
+    @JoinColumn(nullable = true, name="reply_id")
+    private List<Reply>replys;
 
     @Column(nullable = false)
     @ColumnDefault("0")

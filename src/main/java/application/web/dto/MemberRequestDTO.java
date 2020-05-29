@@ -1,8 +1,8 @@
-package application.dto.request;
+package application.web.dto;
 
-import application.domain.Gender;
-import application.domain.Member;
-import application.domain.Role;
+import application.jpa.enums.Gender;
+import application.jpa.domain.Member;
+import application.jpa.enums.Role;
 import lombok.*;
 
 @Getter

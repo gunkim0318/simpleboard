@@ -1,7 +1,7 @@
 package application.service;
 
-import application.domain.MemberRepository;
-import application.dto.request.MemberRequestDTO;
+import application.jpa.repository.MemberRepository;
+import application.web.dto.MemberRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

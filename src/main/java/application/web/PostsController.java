@@ -1,9 +1,9 @@
 package application.web;
 
-import application.dto.request.PostsRequestDTO;
-import application.dto.response.PostsResponseDTO;
+import application.web.dto.PostsRequestDTO;
+import application.service.dto.PostsResponseDTO;
 import application.service.PostsService;
-import application.dto.PageDTO;
+import application.web.dto.PageRequestDTO;
 import application.util.PagingUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +24,10 @@ public class PostsController {
     private final PostsService postsService;
 
     @GetMapping("/")
-    public String index(@ModelAttribute PageDTO pageDTO, Model model){
-        List<PostsResponseDTO> boardList = postsService.selectPostList(pageDTO);
+    public String index(@ModelAttribute PageRequestDTO pageRequestDTO, Model model){
+        List<PostsResponseDTO> boardList = postsService.selectPostList(pageRequestDTO);
         model.addAttribute("list", boardList);
-        model.addAttribute("pagingUtil", new PagingUtil(pageDTO, postsService.selectTotalPostCnt()));
+        model.addAttribute("pagingUtil", new PagingUtil(pageRequestDTO, postsService.selectTotalPostCnt()));
         return "/posts/list";
     }
     @GetMapping("/posts/add")

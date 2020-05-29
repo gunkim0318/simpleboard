@@ -1,5 +1,8 @@
-package application.domain;
+package application.jpa.domain;
 
+import application.jpa.domain.common.TimeEntity;
+import application.jpa.enums.Gender;
+import application.jpa.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +11,7 @@ import javax.persistence.*;
 @ToString
 @Getter
 @Entity
-public class Member {
+public class Member extends TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,8 +1,12 @@
 package Application.domain;
 
-import application.domain.*;
-import application.domain.Posts;
-import application.dto.PageDTO;
+import application.jpa.domain.*;
+import application.jpa.domain.Posts;
+import application.jpa.enums.Gender;
+import application.jpa.enums.Role;
+import application.jpa.repository.MemberRepository;
+import application.jpa.repository.PostsRepository;
+import application.web.dto.PageRequestDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,14 +24,14 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 public class PostsRepositoryTests {
     @Autowired
-    private PostRepository postRepository;
+    private PostsRepository postsRepository;
 
     @Autowired
     private MemberRepository memberRepository;
 
     @Before
     public void before(){
-        postRepository.deleteAll();
+        postsRepository.deleteAll();
         memberRepository.deleteAll();
 
         Member member = Member.builder()
@@ -40,21 +44,21 @@ public class PostsRepositoryTests {
 
         memberRepository.save(member);
 
-        Posts board = Posts.builder()
+        Posts posts = Posts.builder()
                 .title("테스트 게시글입니다.")
                 .content("테스트 내용입니다.")
                 .member(member)
                 .hit(0l)
                 .build();
 
-        postRepository.save(board);
+        postsRepository.save(posts);
     }
     @Test
     public void testPostInsert(){
         String title = "테스트 게시글입니다.";
         String content = "테스트 내용입니다.";
 
-        Posts findPosts = postRepository.findAll().get(0);
+        Posts findPosts = postsRepository.findAll().get(0);
 
         log.info(findPosts.toString());
         assertEquals(title, findPosts.getTitle());
@@ -62,22 +66,22 @@ public class PostsRepositoryTests {
     }
     @Test
     public void testPostDelete(){
-        Posts findPosts = postRepository.findAll().get(0);
-        postRepository.delete(findPosts);
+        Posts findPosts = postsRepository.findAll().get(0);
+        postsRepository.delete(findPosts);
     }
     @Test
     public void testPostUpdate(){
         String title = "수정된 제목";
         String content = "수정된 내용";
 
-        Posts board = postRepository.findAll().get(0);
-        board.update(title, content);
-        postRepository.save(board);
+        Posts posts = postsRepository.findAll().get(0);
+        posts.update(title, content);
+        postsRepository.save(posts);
 
-        Posts readBoard = postRepository.findAll().get(0);
+        Posts readPosts = postsRepository.findAll().get(0);
 
-        assertEquals(title, readBoard.getTitle());
-        assertEquals(content, readBoard.getContent());
+        assertEquals(title, readPosts.getTitle());
+        assertEquals(content, readPosts.getContent());
     }
     @Test
     public void testPostPaging(){
@@ -98,11 +102,11 @@ public class PostsRepositoryTests {
                     .hit(0l)
                     .build();
 
-            postRepository.save(board);
+            postsRepository.save(board);
         });
-        PageDTO pagingUtil = new PageDTO();
+        PageRequestDTO pagingUtil = new PageRequestDTO();
         pagingUtil.setPageNum(4);
-        postRepository.findAll(pagingUtil.toEntity()).stream()
+        postsRepository.findAll(pagingUtil.toEntity()).stream()
                 .forEach(post -> {
                        log.info("post : "+post);
         });

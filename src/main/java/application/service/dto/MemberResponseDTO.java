@@ -1,4 +1,4 @@
-package application.dto.response;
+package application.service.dto;
 
 import lombok.*;
 @Getter

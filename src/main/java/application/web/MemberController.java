@@ -1,6 +1,6 @@
 package application.web;
 
-import application.dto.request.MemberRequestDTO;
+import application.web.dto.MemberRequestDTO;
 import application.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

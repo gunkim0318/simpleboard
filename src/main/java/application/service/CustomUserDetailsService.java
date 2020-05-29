@@ -1,7 +1,7 @@
 package application.service;
 
-import application.domain.Member;
-import application.domain.MemberRepository;
+import application.jpa.domain.Member;
+import application.jpa.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

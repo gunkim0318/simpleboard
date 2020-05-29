@@ -1,7 +1,7 @@
-package application.dto.request;
+package application.web.dto;
 
-import application.domain.Member;
-import application.domain.Posts;
+import application.jpa.domain.Member;
+import application.jpa.domain.Posts;
 import lombok.*;
 
 @NoArgsConstructor

@@ -1,12 +1,12 @@
 package application.service;
 
-import application.domain.Member;
-import application.domain.MemberRepository;
-import application.domain.Posts;
-import application.domain.PostRepository;
-import application.dto.request.PostsRequestDTO;
-import application.dto.response.PostsResponseDTO;
-import application.dto.PageDTO;
+import application.jpa.domain.Member;
+import application.jpa.repository.MemberRepository;
+import application.jpa.domain.Posts;
+import application.jpa.repository.PostsRepository;
+import application.web.dto.PostsRequestDTO;
+import application.service.dto.PostsResponseDTO;
+import application.web.dto.PageRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class PostsService {
-    private final PostRepository postRepository;
+    private final PostsRepository postsRepository;
     private final MemberRepository memberRepository;
 
     @Transactional
@@ -33,43 +33,43 @@ public class PostsService {
             return 0;
         }
 
-        postRepository.save(dto.toEntity());
+        postsRepository.save(dto.toEntity());
         return 1;
     }
-    public List<PostsResponseDTO> selectPostList(PageDTO pagingDTO){
-        return postRepository.findAllByOrderByIdDesc(pagingDTO.toEntity()).stream().map(PostsResponseDTO::new).collect(Collectors.toList());
+    public List<PostsResponseDTO> selectPostList(PageRequestDTO pagingDTO){
+        return postsRepository.findAllByOrderByIdDesc(pagingDTO.toEntity()).stream().map(PostsResponseDTO::new).collect(Collectors.toList());
     }
     @Transactional
     public void updatePost(PostsRequestDTO dto, String email){
-        Posts posts = postRepository.findById(dto.getId()).get();
+        Posts posts = postsRepository.findById(dto.getId()).get();
 
         boolean isMyPost = posts.getMember().getEmail().equals(email);
 
         if(isMyPost){
             posts.update(dto.getTitle(), dto.getContent());
-            postRepository.save(posts);
+            postsRepository.save(posts);
         }
     }
     @Transactional
     public void deletePost(Long id, String email){
-        Posts posts = postRepository.findById(id).get();
+        Posts posts = postsRepository.findById(id).get();
 
         boolean isMyPost = posts.getMember().getEmail().equals(email);
 
         if(isMyPost){
-            postRepository.delete(posts);
+            postsRepository.delete(posts);
         }
     }
     @Transactional
     public PostsResponseDTO selectBoardContent(Long id){
-        Posts board = postRepository.findById(id).get();
+        Posts board = postsRepository.findById(id).get();
         board.hitUp();
 
-        postRepository.save(board);
+        postsRepository.save(board);
 
         return new PostsResponseDTO(board);
     }
     public Integer selectTotalPostCnt(){
-        return (int)postRepository.count();
+        return (int) postsRepository.count();
     }
 }

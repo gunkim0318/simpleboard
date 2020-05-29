@@ -1,6 +1,6 @@
 package application.util;
 
-import application.dto.PageDTO;
+import application.web.dto.PageRequestDTO;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -22,20 +22,21 @@ public class PagingUtil {
     private int prevPageNum, nextPageNum;
 
     private int totalPostNum, totalPageNum;
-    private PageDTO pageDTO;
+
+    private PageRequestDTO pageRequestDTO;
 
     private int viewPageNum = 5;
     @Getter
     private List<Map<String, String>> pagingList;
 
-    public PagingUtil(PageDTO pageDTO, int totalPostNum){
-        this.pageDTO = pageDTO;
+    public PagingUtil(PageRequestDTO pageRequestDTO, int totalPostNum){
+        this.pageRequestDTO = pageRequestDTO;
         this.totalPostNum = totalPostNum;
 
-        this.endPageNum =  (int)(Math.ceil(pageDTO.getPageNum() / (double) this.viewPageNum)) * this.viewPageNum;
+        this.endPageNum =  (int)(Math.ceil(pageRequestDTO.getPageNum() / (double) this.viewPageNum)) * this.viewPageNum;
         this.startPageNum = this.endPageNum - (this.viewPageNum - 1);
 
-        this.totalPageNum = (int) (Math.ceil( (totalPostNum * 1.0) / pageDTO.getViewPostCnt() ) );
+        this.totalPageNum = (int) (Math.ceil( (totalPostNum * 1.0) / pageRequestDTO.getViewPostCnt() ) );
 
         if(this.totalPageNum < this.endPageNum){
             this.endPageNum = this.totalPageNum;
@@ -51,7 +52,7 @@ public class PagingUtil {
             map.put("idx", String.valueOf(i));
 
             String active = "";
-            if(i == pageDTO.getPageNum()){
+            if(i == pageRequestDTO.getPageNum()){
                 active = "active";
             }
             map.put("active", active);

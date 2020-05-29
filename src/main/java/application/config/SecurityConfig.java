@@ -1,6 +1,6 @@
 package application.config;
 
-import application.domain.Role;
+import application.jpa.enums.Role;
 import application.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //여기까지
                 .and()
                     .formLogin()
+                    .successHandler(loginSuccessHandler)
                     .loginPage("/member/signIn")
                     .loginProcessingUrl("/member/signIn")
                     .usernameParameter("email")

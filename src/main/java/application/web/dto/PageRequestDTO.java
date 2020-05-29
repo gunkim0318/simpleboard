@@ -1,7 +1,6 @@
-package application.dto;
+package application.web.dto;
 
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 
 /**
@@ -10,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 @ToString
 @Getter
 @Setter
-public class PageDTO {
+public class PageRequestDTO {
     //보고자 하는 페이지 번호
     private int pageNum;
 
@@ -18,10 +17,10 @@ public class PageDTO {
     //보여줄 갯수는 10개 일단 고정...
     private int viewPostCnt;
 
-    public PageDTO(){
+    public PageRequestDTO(){
         this(1, 10);
     }
-    public PageDTO(int pageNum, int viewPostCnt){
+    public PageRequestDTO(int pageNum, int viewPostCnt){
         setPageNum(pageNum);
         setViewPostCnt(viewPostCnt);
     }
