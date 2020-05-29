@@ -7,6 +7,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * 회원 도메인
+ */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Getter
@@ -42,12 +45,27 @@ public class Member extends TimeEntity {
         this.gender = gender;
         this.role = role;
     }
+
+    /**
+     * 패스워드를 변경함
+     * @param password
+     */
     public void updatePassword(String password){
         this.password = password;
     }
+
+    /**
+     * 닉네임을 변경함
+     * @param nickname
+     */
     public void updateNickname(String nickname){
         this.nickname = nickname;
     }
+
+    /**
+     * 권한을 변경함
+     * @param role
+     */
     public void updateRole(Role role){
         this.role = role;
     }

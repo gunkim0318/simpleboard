@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 import java.util.List;
 
+/**
+ * 게시글 Controller
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Controller

@@ -1,6 +1,10 @@
 package application.service.dto;
 
 import lombok.*;
+
+/**
+ * 회원 Service 응답을 위한 DTO
+ */
 @Getter
 @ToString
 public class MemberResponseDTO {

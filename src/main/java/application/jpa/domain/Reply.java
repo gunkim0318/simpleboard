@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * 댓글 도메인
+ */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Reply extends TimeEntity {

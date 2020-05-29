@@ -14,11 +14,21 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/**
+ * 스프링 시큐리티 구현을 위해 UserDetailsService를 커스텀한 클래스
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
+
+    /**
+     * 해당 email값으로 조회한 domain을 스프링 시큐리티의 User로 변환 후 반환함.
+     * @param email
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = memberRepository.findByEmail(email);

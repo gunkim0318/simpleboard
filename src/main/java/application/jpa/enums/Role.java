@@ -3,6 +3,9 @@ package application.jpa.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 권한 데이터 enum
+ */
 @AllArgsConstructor
 @Getter
 public enum Role {

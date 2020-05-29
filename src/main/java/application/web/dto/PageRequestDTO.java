@@ -4,7 +4,7 @@ import lombok.*;
 import org.springframework.data.domain.PageRequest;
 
 /**
- * 페이징을 위한 유틸
+ * 페이징을 위한 유틸..인데 DTO로 분류.  DTO가 맞지 않나..?
  */
 @ToString
 @Getter

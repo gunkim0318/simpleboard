@@ -10,6 +10,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
+/**
+ * 공통 에러 페이지 표출을 위한 Controller
+ */
 @Controller
 @Slf4j
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {

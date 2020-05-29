@@ -4,6 +4,9 @@ import application.jpa.domain.Member;
 import application.jpa.domain.Posts;
 import lombok.*;
 
+/**
+ * 게시글 Service 요청을 위한 DTO
+ */
 @NoArgsConstructor
 @Getter
 @Setter

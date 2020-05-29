@@ -5,8 +5,11 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.List;
 
+/**
+ * 게시글 도메인
+ * 하나의 게시글은 하나의 멤버만 가질 수 있다.
+ */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
@@ -25,10 +28,6 @@ public class Posts extends TimeEntity {
     @OneToOne
     @JoinColumn(nullable = false, name="member_id")
     private Member member;
-
-    @OneToMany
-    @JoinColumn(nullable = true, name="reply_id")
-    private List<Reply>replys;
 
     @Column(nullable = false)
     @ColumnDefault("0")

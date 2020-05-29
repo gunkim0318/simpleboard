@@ -16,6 +16,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.Arrays;
 
+/**
+ * 스프링 시큐리티 설정
+ */
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
@@ -25,6 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final LoginSuccessHandler loginSuccessHandler;
 
     private final PasswordEncoder passwordEncoder;
+
+    /**
+     * 시큐리티 URL 설정
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -59,12 +68,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true);
     }
+
+    /**
+     * static 디렉터리의 하위 파일 목록은 인증 무시 설정
+     * @param web
+     * @throws Exception
+     */
     @Override
     public void configure(WebSecurity web) throws Exception
     {
-        // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
         web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
     }
+
+    /**
+     * 사용할 UserDetailsService, PasswordEncoder 설정
+     * @param auth
+     * @throws Exception
+     */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder);

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 /**
- * 페이징 처리를 위한 유틸
+ * 화면에서 표시하기 위한 페이징 유틸
  */
 @ToString
 public class PagingUtil {

@@ -5,6 +5,9 @@ import application.jpa.domain.Member;
 import application.jpa.enums.Role;
 import lombok.*;
 
+/**
+ * 회원 Service 요청을 위한 DTO
+ */
 @Getter
 @Setter
 @ToString

@@ -7,6 +7,9 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * 게시글 Service 응답을 위한 DTO
+ */
 @Getter
 @ToString
 public class PostsResponseDTO {

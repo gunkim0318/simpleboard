@@ -15,6 +15,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 게시글 Service
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service

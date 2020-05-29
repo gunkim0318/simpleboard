@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 세션에 등록할 유저 정보
+ */
 @Setter
 @Getter
 @ToString
