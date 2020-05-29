@@ -18,15 +18,15 @@ import java.util.Date;
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
     private static final String ERROR_PATH = "/error";
 
-    @RequestMapping("/error")
+    @RequestMapping(ERROR_PATH)
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
-        log.info("httpStatus : "+httpStatus.toString());
+
         model.addAttribute("code", status.toString());
         model.addAttribute("msg", httpStatus.getReasonPhrase());
         model.addAttribute("timestamp", new Date());
-        return "/error/error";
+        return ERROR_PATH+"/error";
     }
 
     @Override
