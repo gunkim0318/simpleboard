@@ -28,7 +28,7 @@ public class PostsController {
 
     @GetMapping("/")
     public String index(@ModelAttribute PageRequestDTO pageRequestDTO, Model model){
-        List<PostsResponseDTO> boardList = postsService.selectPostList(pageRequestDTO);
+        List<PostsResponseDTO> boardList = postsService.selectPostsList(pageRequestDTO);
         model.addAttribute("list", boardList);
         model.addAttribute("pagingUtil", new PagingUtil(pageRequestDTO, postsService.selectTotalPostCnt()));
         return "/posts/list";
@@ -58,7 +58,7 @@ public class PostsController {
     @PostMapping("/posts/insert")
     public String insert(@ModelAttribute PostsRequestDTO dto, Principal principal){
         String email = principal.getName();
-        postsService.insertPost(dto, email);
+        postsService.insertPosts(dto, email);
 
         return "redirect:/";
     }
@@ -71,7 +71,7 @@ public class PostsController {
     @PostMapping("/posts/update")
     public String update(@ModelAttribute PostsRequestDTO dto, Principal principal){
         String email = principal.getName();
-        postsService.updatePost(dto, email);
+        postsService.updatePosts(dto, email);
 
         return "redirect:/";
     }
@@ -83,7 +83,7 @@ public class PostsController {
     @PostMapping("/posts/delete")
     public String delete(@RequestParam("postsNum") Long id, Principal principal){
         String email = principal.getName();
-        postsService.deletePost(id, email);
+        postsService.deletePosts(id, email);
 
         return "redirect:/";
     }

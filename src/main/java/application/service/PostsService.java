@@ -26,24 +26,18 @@ public class PostsService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public int insertPost(PostsRequestDTO dto, String email){
+    public int insertPosts(PostsRequestDTO dto, String email){
         Member member = memberRepository.findByEmail(email);
         dto.setMember(member);
-
-        boolean isEmptyTitle = "".equals(dto.getTitle());
-        boolean isEmptyContent = "".equals(dto.getContent());
-        if(isEmptyTitle || isEmptyContent){
-            return 0;
-        }
 
         postsRepository.save(dto.toEntity());
         return 1;
     }
-    public List<PostsResponseDTO> selectPostList(PageRequestDTO pagingDTO){
+    public List<PostsResponseDTO> selectPostsList(PageRequestDTO pagingDTO){
         return postsRepository.findAllByOrderByIdDesc(pagingDTO.toEntity()).stream().map(PostsResponseDTO::new).collect(Collectors.toList());
     }
     @Transactional
-    public void updatePost(PostsRequestDTO dto, String email){
+    public void updatePosts(PostsRequestDTO dto, String email){
         Posts posts = postsRepository.findById(dto.getId()).get();
 
         boolean isMyPost = posts.getMember().getEmail().equals(email);
@@ -54,7 +48,7 @@ public class PostsService {
         }
     }
     @Transactional
-    public void deletePost(Long id, String email){
+    public void deletePosts(Long id, String email){
         Posts posts = postsRepository.findById(id).get();
 
         boolean isMyPost = posts.getMember().getEmail().equals(email);
