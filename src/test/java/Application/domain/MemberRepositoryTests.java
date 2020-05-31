@@ -1,22 +1,22 @@
 package Application.domain;
 
-import application.jpa.enums.Gender;
 import application.jpa.domain.Member;
-import application.jpa.repository.MemberRepository;
+import application.jpa.enums.Gender;
 import application.jpa.enums.Role;
+import application.jpa.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
 public class MemberRepositoryTests {
 
     @Autowired

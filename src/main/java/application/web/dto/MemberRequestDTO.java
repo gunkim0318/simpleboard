@@ -5,6 +5,8 @@ import application.jpa.domain.Member;
 import application.jpa.enums.Role;
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * 회원 Service 요청을 위한 DTO
  */
@@ -13,9 +15,13 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 public class MemberRequestDTO {
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String password;
+    @NotEmpty
     private String nickname;
+    @NotEmpty
     private String gender;
 
     @Builder

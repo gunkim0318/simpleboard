@@ -1,6 +1,6 @@
 package Application.domain;
 
-import application.jpa.domain.*;
+import application.jpa.domain.Member;
 import application.jpa.domain.Posts;
 import application.jpa.enums.Gender;
 import application.jpa.enums.Role;
@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.stream.IntStream;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
 public class PostsRepositoryTests {
     @Autowired
     private PostsRepository postsRepository;
@@ -54,7 +54,7 @@ public class PostsRepositoryTests {
         postsRepository.save(posts);
     }
     @Test
-    public void testPostInsert(){
+    public void testPostsInsert(){
         String title = "테스트 게시글입니다.";
         String content = "테스트 내용입니다.";
 
@@ -65,12 +65,12 @@ public class PostsRepositoryTests {
         assertEquals(content, findPosts.getContent());
     }
     @Test
-    public void testPostDelete(){
+    public void testPostsDelete(){
         Posts findPosts = postsRepository.findAll().get(0);
         postsRepository.delete(findPosts);
     }
     @Test
-    public void testPostUpdate(){
+    public void testPostsUpdate(){
         String title = "수정된 제목";
         String content = "수정된 내용";
 
@@ -84,31 +84,31 @@ public class PostsRepositoryTests {
         assertEquals(content, readPosts.getContent());
     }
     @Test
-    public void testPostPaging(){
+    public void testPostsPaging(){
+        Member member = Member.builder()
+                .email("gunkim0318@gmail.com")
+                .password("rlarjs123")
+                .nickname("테스트")
+                .gender(Gender.M)
+                .role(Role.ADMIN)
+                .build();
+        memberRepository.save(member);
         //for (1 ~ 154)
         IntStream.rangeClosed(1, 154).forEach(i -> {
-            Member member = Member.builder()
-                    .email("gunkim"+i+"@gmail.com")
-                    .password("rlarjs123")
-                    .nickname("테스트")
-                    .gender(Gender.M)
-                    .role(Role.ADMIN)
-                    .build();
-            memberRepository.save(member);
-            Posts board = Posts.builder()
+            Posts posts = Posts.builder()
                     .title("테스트 게시글입니다.")
                     .content("테스트 내용입니다.")
                     .member(member)
                     .hit(0l)
                     .build();
 
-            postsRepository.save(board);
+            postsRepository.save(posts);
         });
         PageRequestDTO pagingUtil = new PageRequestDTO();
         pagingUtil.setPageNum(4);
         postsRepository.findAll(pagingUtil.toEntity()).stream()
-                .forEach(post -> {
-                       log.info("post : "+post);
+                .forEach(posts -> {
+                       log.info("post : "+posts);
         });
     }
 }
