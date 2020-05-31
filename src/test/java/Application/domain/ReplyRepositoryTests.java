@@ -1,10 +1,12 @@
 package Application.domain;
 
 import application.jpa.domain.Member;
+import application.jpa.domain.Posts;
 import application.jpa.domain.Reply;
 import application.jpa.enums.Gender;
 import application.jpa.enums.Role;
 import application.jpa.repository.MemberRepository;
+import application.jpa.repository.PostsRepository;
 import application.jpa.repository.ReplyRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -25,6 +27,9 @@ public class ReplyRepositoryTests {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private PostsRepository postsRepository;
+
     @Before
     public void before(){
         memberRepository.deleteAll();
@@ -37,9 +42,19 @@ public class ReplyRepositoryTests {
                 .build();
         memberRepository.save(member);
 
+        Posts posts = Posts.builder()
+                .title("테스트 게시글입니다.")
+                .content("테스트 내용입니다.")
+                .member(member)
+                .hit(0l)
+                .build();
+
+        postsRepository.save(posts);
+
         Reply reply = Reply.builder()
                 .content("첫 번째 댓글입니더.")
                 .member(member)
+                .posts(posts)
                 .build();
 
         replyRepository.save(reply);
