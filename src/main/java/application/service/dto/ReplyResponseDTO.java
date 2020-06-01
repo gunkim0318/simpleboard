@@ -2,9 +2,11 @@ package application.service.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+@ToString
 @Getter
 public class ReplyResponseDTO {
     private final String content;
