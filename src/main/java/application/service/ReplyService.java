@@ -42,5 +42,4 @@ public class ReplyService {
 
         replyRepository.save(requestDTO.toEntity(member, posts));
     }
-    public void 
 }

@@ -1,31 +1,29 @@
 package Application.web;
 
-import application.jpa.domain.*;
+import application.jpa.domain.Member;
+import application.jpa.domain.Posts;
 import application.jpa.enums.Gender;
 import application.jpa.enums.Role;
 import application.jpa.repository.MemberRepository;
 import application.jpa.repository.PostsRepository;
-import application.web.dto.PostsRequestDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -38,7 +36,6 @@ public class PostsControllerTests {
 
     @Autowired
     private PostsRepository postRepository;
-
     @Autowired
     private MemberRepository memberRepository;
 
@@ -68,5 +65,32 @@ public class PostsControllerTests {
                 .build();
 
         postRepository.save(board);
+    }
+    @Test
+    public void testIndex() throws Exception{
+        mockMvc.perform(get("/")).andExpect(status().isOk());
+    }
+    @Test
+    public void testGet() throws Exception{
+        long postsId = postRepository.findAll().get(0).getId();
+        mockMvc.perform(get("/posts/get").param("postsNum", String.valueOf(postsId)))
+                .andExpect(status().isOk());
+    }
+    @Test
+    @WithMockUser(roles = "USER", username = "gunkim0318@gmail.com")
+    public void testInsert() throws Exception{
+        String title = "안녕";
+        String content = "안녕 내용";
+        mockMvc.perform(post("/posts/insert").param("title", title).param("content", content).with(csrf()))
+                .andExpect(status().is3xxRedirection());
+
+        Posts dto = postRepository.findAll().get(1);
+        Assert.assertEquals(dto.getTitle(), title);
+        Assert.assertEquals(dto.getContent(), content);
+    }
+    @Test
+    @WithMockUser(roles = "USER", username = "gunkim0318@gmail.com")
+    public void testUpdate() throws Exception{
+
     }
 }
