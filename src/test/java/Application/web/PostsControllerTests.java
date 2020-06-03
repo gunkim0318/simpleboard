@@ -7,7 +7,6 @@ import application.jpa.enums.Role;
 import application.jpa.repository.MemberRepository;
 import application.jpa.repository.PostsRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +19,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -35,7 +38,7 @@ public class PostsControllerTests {
     private WebApplicationContext context;
 
     @Autowired
-    private PostsRepository postRepository;
+    private PostsRepository postsRepository;
     @Autowired
     private MemberRepository memberRepository;
 
@@ -46,7 +49,7 @@ public class PostsControllerTests {
                 .apply(SecurityMockMvcConfigurers.springSecurity())
                 .build();
 
-        postRepository.deleteAll();
+        postsRepository.deleteAll();
         memberRepository.deleteAll();
 
         Member member = Member.builder()
@@ -64,7 +67,7 @@ public class PostsControllerTests {
                 .member(member)
                 .build();
 
-        postRepository.save(board);
+        postsRepository.save(board);
     }
     @Test
     public void testIndex() throws Exception{
@@ -72,7 +75,7 @@ public class PostsControllerTests {
     }
     @Test
     public void testGet() throws Exception{
-        long postsId = postRepository.findAll().get(0).getId();
+        long postsId = postsRepository.findAll().get(0).getId();
         mockMvc.perform(get("/posts/get").param("postsNum", String.valueOf(postsId)))
                 .andExpect(status().isOk());
     }
@@ -82,15 +85,38 @@ public class PostsControllerTests {
         String title = "안녕";
         String content = "안녕 내용";
         mockMvc.perform(post("/posts/insert").param("title", title).param("content", content).with(csrf()))
-                .andExpect(status().is3xxRedirection());
+                .andExpect(status().is3xxRedirection())
+                .andExpect(header().string("Location", "/"));
 
-        Posts dto = postRepository.findAll().get(1);
-        Assert.assertEquals(dto.getTitle(), title);
-        Assert.assertEquals(dto.getContent(), content);
+        Posts dto = postsRepository.findAll().get(1);
+        assertEquals(dto.getTitle(), title);
+        assertEquals(dto.getContent(), content);
     }
     @Test
     @WithMockUser(roles = "USER", username = "gunkim0318@gmail.com")
     public void testUpdate() throws Exception{
+        String title = "수정된 제목";
+        String content = "수정된 내용";
+        long postsId = postsRepository.findAll().get(0).getId();
+        mockMvc.perform(post("/posts/update").param("id",String.valueOf(postsId)).param("title", title).param("content", content).with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(header().string("Location", "/"));
 
+        Posts posts = postsRepository.findAll().get(0);
+        assertEquals(title, posts.getTitle());
+        assertEquals(content, posts.getContent());
+    }
+    @Test
+    @WithMockUser(roles = "USER", username = "gunkim0318@gmail.com")
+    public void testDelete() throws Exception{
+        long postsId = postsRepository.findAll().get(0).getId();
+
+        mockMvc.perform(post("/posts/delete").param("postsNum", String.valueOf(postsId)).with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(header().string("location", "/"));
+
+        Optional<Posts> posts = postsRepository.findById(postsId);
+
+        assertFalse(posts.isPresent());
     }
 }
