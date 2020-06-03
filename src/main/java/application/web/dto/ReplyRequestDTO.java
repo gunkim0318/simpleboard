@@ -10,13 +10,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ReplyRequestDTO {
-    private String content;
     private long postsId;
+    private long replyId;
+    private String content;
 
     @Builder
-    public ReplyRequestDTO(String content, long postsId){
-        this.content = content;
+    public ReplyRequestDTO(long postsId, long replyId, String content){
         this.postsId = postsId;
+        this.replyId = replyId;
+        this.content = content;
     }
     public Reply toEntity(Member member, Posts posts){
         return Reply.builder()

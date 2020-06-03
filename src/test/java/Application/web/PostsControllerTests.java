@@ -61,13 +61,13 @@ public class PostsControllerTests {
                 .build();
         memberRepository.save(member);
 
-        Posts board = Posts.builder()
+        Posts posts = Posts.builder()
                 .title("제목 테스트")
                 .content("내용 테스트")
                 .member(member)
                 .build();
 
-        postsRepository.save(board);
+        postsRepository.save(posts);
     }
     @Test
     public void testIndex() throws Exception{
