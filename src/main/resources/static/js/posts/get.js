@@ -14,6 +14,9 @@ var get = {
             target.attr('method', 'post');
             target.submit();
         });
+        $('#showReply').on('click', function(){
+
+        });
     }
 };
 get.eventInit();

@@ -61,4 +61,8 @@ public class ReplyService {
             replyRepository.delete(reply);
         }
     }
+    public Integer getReplyCnt(long postsId){
+        Posts posts = postsRepository.findById(postsId).get();
+        return replyRepository.countByPosts(posts);
+    }
 }

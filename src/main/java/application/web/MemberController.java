@@ -17,9 +17,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
     private final MemberService memberService;
 
+    /**
+     * 회원가입 페이지 이동
+     */
     @GetMapping("/member/signUp")
-    public void signUp(){
-    }
+    public void signUp(){}
+
+    /**
+     * 회원가입 처리
+     * @param dto
+     * @return
+     */
     @PostMapping("/member/signUp")
     public String signUp(MemberRequestDTO dto) {
         log.info(dto.toString());
@@ -27,7 +35,10 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    /**
+     * 로그인 페이지 이동
+     */
     @GetMapping("/member/signIn")
-    public void signIn(){
-    }
+    public void signIn(){}
 }

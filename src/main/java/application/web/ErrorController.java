@@ -18,6 +18,12 @@ import java.util.Date;
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
     private static final String ERROR_PATH = "/error";
 
+    /**
+     * Exception 발생 시 에러 페이지 호출
+     * @param request
+     * @param model
+     * @return
+     */
     @RequestMapping(ERROR_PATH)
     public String handleError(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);

@@ -16,7 +16,59 @@
     </form>
     <div class="uk-grid-small uk-child-width-auto" uk-grid>
         <div>
-            <a class="uk-button uk-button-text" href="#">5 Comments</a>
+            <div id="showReply" class="uk-button uk-button-text">{{replyCnt}} Comments</div>
+        </div>
+    </div>
+    <div id="replyList">
+        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
+            <div class="uk-text-left@s uk-card-body">
+                댓글 내용입니다.
+            </div>
+            <div class="uk-text-right@s">
+                <p class="uk-article-meta">Written by
+                    <a href="#">{{posts.writer}}</a>
+                    {{posts.createDate}}</p>
+            </div>
+        </div>
+        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
+            <div class="uk-text-left@s uk-card-body">
+                댓글 내용입니다.
+            </div>
+            <div class="uk-text-right@s">
+                <p class="uk-article-meta">Written by
+                    <a href="#">{{posts.writer}}</a>
+                    {{posts.createDate}}</p>
+            </div>
+        </div>
+        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
+            <div class="uk-text-left@s uk-card-body">
+                댓글 내용입니다.
+            </div>
+            <div class="uk-text-right@s">
+                <p class="uk-article-meta">Written by
+                    <a href="#">{{posts.writer}}</a>
+                    {{posts.createDate}}</p>
+            </div>
+        </div>
+        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
+            <div class="uk-text-left@s uk-card-body">
+                댓글 내용입니다.
+            </div>
+            <div class="uk-text-right@s">
+                <p class="uk-article-meta">Written by
+                    <a href="#">{{posts.writer}}</a>
+                    {{posts.createDate}}</p>
+            </div>
+        </div>
+        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
+            <div class="uk-text-left@s uk-card-body">
+                댓글 내용입니다.
+            </div>
+            <div class="uk-text-right@s">
+                <p class="uk-article-meta">Written by
+                    <span style="font-weight: 800;">{{posts.writer}}</span>
+                    {{posts.createDate}}</p>
+            </div>
         </div>
     </div>
     <div class="uk-grid">
