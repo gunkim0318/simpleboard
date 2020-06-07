@@ -1,40 +1,33 @@
 {{>layout/header}} <!--</body>-->
 <link rel="stylesheet" href="/css/member/signUp.css"/>
-    <div class="loginFrame">
-    <h1 class="uk-heading-line uk-text-center"><span>회원가입</span></h1>
+<div style="width: 30%; margin: 0 auto; text-align: center;">
+    <h1>회원가입</h1>
     <form class="uk-margin-auto" action="/member/signUp" method="post">
         <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
-        <div class="uk-margin uk-child-width-1-1">
-            <div class="uk-inline">
-                <span class="uk-form-icon" uk-icon="icon: mail"></span>
-                <input name="email" class="uk-input" type="text" placeholder="메일을 입력해주세요">
-            </div>
+        <div class="input-group input-group-lg" style="margin-bottom: 10px;">
+            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
+            <input name="email" type="text" class="form-control" placeholder="메일을 입력해주세요">
         </div>
-        <div class="uk-margin uk-child-width-1-1">
-            <div class="uk-inline ">
-                <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                <input name="password" class="uk-input" type="password" placeholder="비밀번호를 입력해주세요">
-            </div>
+        <div class="input-group input-group-lg" style="margin-bottom: 10px;">
+            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-eye-close"></span></span>
+            <input name="password" type="text" class="form-control" placeholder="비밀번호를 입력해주세요">
         </div>
-        <div class="uk-margin uk-child-width-1-1">
-            <div class="uk-inline">
-                <span class="uk-form-icon" uk-icon="icon: lock"></span>
-                <input name="passwordChk" class="uk-input" type="password" placeholder="비밀번호를 확인해주세요">
-            </div>
+        <div class="input-group input-group-lg" style="margin-bottom: 10px;">
+            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-eye-close"></span></span>
+            <input name="passwordChk" type="text" class="form-control" placeholder="비밀번호 확인을 입력해주세요">
         </div>
-        <div class="uk-margin uk-child-width-1-1">
-            <div class="uk-inline">
-                <span class="uk-form-icon" uk-icon="icon: happy"></span>
-                <input name="nickname" class="uk-input" type="text" placeholder="닉네임을 입력해주세요">
-            </div>
+        <div class="input-group input-group-lg" style="margin-bottom: 10px;">
+            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-user"></span></span>
+            <input name="nickname" type="text" class="form-control" placeholder="닉네임을 입력해주세요">
         </div>
-        <div class="radioBox uk-margin-auto uk-margin-bottom uk-margin-top">
+        <div>
             <label><input name="gender" class="uk-radio" type="radio" value="M" checked> 남성</label>
             <label><input name="gender" class="uk-radio" type="radio" value="F"> 여성</label>
         </div>
-        <div class="uk-margin-auto buttonBox">
-            <button id="backBtn" class="uk-button uk-button-danger">취소</button>
-            <button type="submit" id="signUpBtn" class="uk-button uk-button-primary">입력</button>
+        <div>
+            <button type="submit" id="signUpBtn" class="btn btn-primary" style="width: 100%;">입력</button>
+            <hr/>
+            <button id="backBtn" class="btn btn-default" style="width: 100%;">취소</button>
         </div>
     </form>
 </div>

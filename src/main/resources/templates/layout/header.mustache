@@ -3,22 +3,16 @@
     <head>
         <meta charset="utf-8"/>
         <title>게시판</title>
-        <link rel="stylesheet" href="/css/uikit.min.css" />
+        <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
     </head>
     <body>
-        <nav class="uk-navbar-container uk-margin" uk-navbar>
-            <div class="uk-navbar-center">
-                <a class="uk-navbar-item uk-logo" href="/">Gun</a>
-            </div>
-            <div class="uk-navbar-right">
-                <a class="uk-navbar-toggle" href="#modal-full" uk-search-icon uk-toggle></a>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">
+                        Gun
+                    </a>
+                </div>
             </div>
         </nav>
-        <div id="modal-full" class="uk-modal-full uk-modal" uk-modal>
-            <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
-                <button class="uk-modal-close-full" type="button" uk-close></button>
-                <form class="uk-search uk-search-large">
-                    <input class="uk-search-input uk-text-center" type="search" placeholder="검색어를 입력하세요..." autofocus>
-                </form>
-            </div>
-        </div>

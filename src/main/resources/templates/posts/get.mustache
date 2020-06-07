@@ -1,85 +1,23 @@
-<meta name="_csrf" content="{{_csrf.token}}"/>
-<meta name="_csrf_header" content="{{_csrf.headerName}}"/>
 {{>layout/header}} <!--<body>-->
-<article class="uk-article uk-align-center" style="width: 80%">
-
-    <h1 class="uk-article-title"><a class="uk-link-reset" href="">{{posts.title}}</a></h1>
-
-    <p class="uk-article-meta">Written by <a href="#">{{posts.writer}}</a> {{posts.createDate}}</p>
-
-    <p class="uk-text-lead">
+<div style="width: 80%; margin: 0 auto;">
+    <div class="page-header">
+        <h1>{{posts.title}} <br/><small>Written by <a href="#">{{posts.writer}}</a> {{posts.createDate}}</small></h1>
+    </div>
+    <h2>
         {{posts.content}}
-    </p>
-    <form id="actionForm">
-        <input type="hidden" name="_csrf" value="{{_csrf.token }}"/>
-        <input type="hidden" name="postsNum" value="{{posts.id}}"/>
-    </form>
-    <div class="uk-grid-small uk-child-width-auto" uk-grid>
-        <div>
-            <div id="showReply" class="uk-button uk-button-text">{{replyCnt}} Comments</div>
-        </div>
+    </h2>
+    <hr/>
+    <div style="text-align: center;">
+        <button id="backBtn" class="btn btn-default">뒤로가기</button>
+        {{#isMyPosts}}
+            <button id="modiBtn" class="btn btn-primary">수정</button>
+            <button id="delBtn" class="btn btn-danger">삭제</button>
+        {{/isMyPosts}}
     </div>
-    <div id="replyList">
-        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
-            <div class="uk-text-left@s uk-card-body">
-                댓글 내용입니다.
-            </div>
-            <div class="uk-text-right@s">
-                <p class="uk-article-meta">Written by
-                    <a href="#">{{posts.writer}}</a>
-                    {{posts.createDate}}</p>
-            </div>
-        </div>
-        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
-            <div class="uk-text-left@s uk-card-body">
-                댓글 내용입니다.
-            </div>
-            <div class="uk-text-right@s">
-                <p class="uk-article-meta">Written by
-                    <a href="#">{{posts.writer}}</a>
-                    {{posts.createDate}}</p>
-            </div>
-        </div>
-        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
-            <div class="uk-text-left@s uk-card-body">
-                댓글 내용입니다.
-            </div>
-            <div class="uk-text-right@s">
-                <p class="uk-article-meta">Written by
-                    <a href="#">{{posts.writer}}</a>
-                    {{posts.createDate}}</p>
-            </div>
-        </div>
-        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
-            <div class="uk-text-left@s uk-card-body">
-                댓글 내용입니다.
-            </div>
-            <div class="uk-text-right@s">
-                <p class="uk-article-meta">Written by
-                    <a href="#">{{posts.writer}}</a>
-                    {{posts.createDate}}</p>
-            </div>
-        </div>
-        <div class="uk-card uk-card-default uk-card-small uk-width-1-2">
-            <div class="uk-text-left@s uk-card-body">
-                댓글 내용입니다.
-            </div>
-            <div class="uk-text-right@s">
-                <p class="uk-article-meta">Written by
-                    <span style="font-weight: 800;">{{posts.writer}}</span>
-                    {{posts.createDate}}</p>
-            </div>
-        </div>
-    </div>
-    <div class="uk-grid">
-        <div class="uk-align-center uk-width-auto">
-            <button id="backBtn" class="uk-button uk-button-default">뒤로가기</button>
-            {{#isMyPosts}}
-                <button id="modiBtn" class="uk-button uk-button-primary">수정</button>
-                <button id="delBtn" class="uk-button uk-button-danger">삭제</button>
-            {{/isMyPosts}}
-        </div>
-    </div>
-</article>
+</div>
+<form id="actionForm">
+    <input type="hidden" name="_csrf" value="{{_csrf.token }}"/>
+    <input type="hidden" name="postsNum" value="{{posts.id}}"/>
+</form>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/posts/get.js"></script>
