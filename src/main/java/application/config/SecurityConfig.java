@@ -27,6 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final LoginSuccessHandler loginSuccessHandler;
 
+    private final LoginFailHandler loginFailHandler;
+
     private final PasswordEncoder passwordEncoder;
 
     /**
@@ -57,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .successHandler(loginSuccessHandler)
+                    .failureHandler(loginFailHandler)
                     .loginPage("/member/signIn")
                     .loginProcessingUrl("/member/signIn")
                     .usernameParameter("email")

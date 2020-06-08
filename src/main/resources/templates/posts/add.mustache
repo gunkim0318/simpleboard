@@ -1,21 +1,18 @@
 {{>layout/header}} <!--<body>-->
-    <div style="width: 80%;" class="uk-margin-auto">
-        <h1 class="uk-heading-line uk-text-center"><span>글 작성</span></h1>
-        <form id="addForm" class="uk-width-1-1" method="post" action="/posts/insert">
-            <input type="hidden" name="_csrf" value="{{_csrf.token }}"/>
-            <div class="uk-margin">
-                <input name="title" class="uk-input"type="text" placeholder="제목을 입력하세요">
-            </div>
-            <div class="uk-margin">
-                <textarea name="content" class="uk-textarea" rows="5" placeholder="내용을 입력하세요" style="resize: none;"></textarea>
-            </div>
-            <div class="uk-grid">
-                <div class="uk-align-center uk-width-auto">
-                    <button type="button" id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
-                    <button type="submit" id="addBtn" class="uk-button uk-button-primary">입력</button>
-                </div>
-            </div>
-        </form>
+<div style="width: 80%; margin: 0 auto;">
+    <div class="page-header">
+        <h1>글 작성</h1>
     </div>
+    <form action="/posts/insert" method="post">
+        <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
+        <input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요" style="margin-bottom: 20px;">
+        <textarea name="content" class="form-control" placeholder="내용을 입력해주세요" rows="8" style="resize: none;"></textarea>
+        <div>
+            <button type="submit" id="addBtn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">입력</button>
+            <hr/>
+            <button type="button" id="backBtn" class="btn btn-default" style="width: 100%;">뒤로가기</button>
+        </div>
+    </form>
+</div>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/posts/add.js"></script>
