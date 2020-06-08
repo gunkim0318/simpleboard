@@ -17,6 +17,7 @@ public class PostsResponseDTO {
     private String title;
     private String content;
     private String writer;
+    private String email;
     private String createDate;
     private Long hit;
 
@@ -25,6 +26,7 @@ public class PostsResponseDTO {
         this.title = posts.getTitle();
         this.content = posts.getContent();
         this.writer = posts.getMember().getNickname();
+        this.email = posts.getMember().getEmail();
         this.hit = posts.getHit();
         this.setCreateDate(posts.getCreateDate());
     }

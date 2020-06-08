@@ -34,9 +34,12 @@ public class PostsController {
         model.addAttribute("posts", dto);
         model.addAttribute("replyCnt", replyCnt);
 
+        log.info("pal : "+principal);
         if(principal != null){
             String email = principal.getName();
-            model.addAttribute("isMyPosts", email.equals(dto.getWriter()));
+            log.info("email : "+email);
+            log.info("writer : "+dto.getEmail());
+            model.addAttribute("isMyPosts", email.equals(dto.getEmail()));
         }
     }
     @GetMapping("/modify")

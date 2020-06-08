@@ -1,21 +1,17 @@
 {{>layout/header}} <!--<body>-->
-<div style="width: 80%;" class="uk-margin-auto">
-    <h1 class="uk-heading-line uk-text-center"><span>글 수정</span></h1>
-    <form class="uk-width-1-1" method="post" action="/posts/update">
+<div style="width: 80%; margin: 0 auto;">
+    <div class="page-header">
+        <h1>글 수정</h1>
+    </div>
+    <form action="/posts/update" method="post">
         <input type="hidden" name="_csrf" value="{{_csrf.token }}"/>
         <input type="hidden" name="id" value="{{posts.id}}"/>
-        <div class="uk-margin">
-            <input name="title" class="uk-input"type="text" placeholder="제목을 입력하세요" value="{{posts.title}}">
-        </div>
-        <div class="uk-margin">
-            <textarea name="content" class="uk-textarea" rows="5" placeholder="내용을 입력하세요" style="resize: none;">{{posts.content}}</textarea>
-        </div>
-        <input name="writer" type="hidden" value="{{posts.writer}}"/>
-        <div class="uk-grid">
-            <div class="uk-align-center uk-width-auto">
-                <button id="backBtn" class="uk-button uk-button-danger">뒤로가기</button>
-                <button type="submit" id="modiBtn" class="uk-button uk-button-primary">수정</button>
-            </div>
+        <input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요" style="margin-bottom: 20px;" value="{{posts.title}}">
+        <textarea name="content" class="form-control" placeholder="내용을 입력해주세요" rows="8" style="resize: none;">{{posts.content}}</textarea>
+        <div>
+            <button type="submit" id="modiBtn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">수정</button>
+            <hr/>
+            <button id="backBtn" class="btn btn-default" style="width: 100%;">뒤로가기</button>
         </div>
     </form>
 </div>
