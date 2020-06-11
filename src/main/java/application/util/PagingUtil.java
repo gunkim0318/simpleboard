@@ -17,26 +17,28 @@ import java.util.stream.IntStream;
 public class PagingUtil {
     private int startPageNum, endPageNum;
     @Getter
-    private boolean isPrev, isNext;
+    private final boolean isPrev, isNext;
     @Getter
-    private int prevPageNum, nextPageNum;
+    private final int prevPageNum, nextPageNum;
 
-    private int totalPostNum, totalPageNum;
+    private final int totalPostsNum, totalPageNum;
 
-    private PageRequestDTO pageRequestDTO;
+    private final PageRequestDTO pageRequestDTO;
 
-    private int viewPageNum = 5;
+    private final int viewPageNum;
+
     @Getter
     private List<Map<String, String>> pagingList;
 
-    public PagingUtil(PageRequestDTO pageRequestDTO, int totalPostNum){
+    public PagingUtil(PageRequestDTO pageRequestDTO, int totalPostsNum){
+        this.viewPageNum = 5;
         this.pageRequestDTO = pageRequestDTO;
-        this.totalPostNum = totalPostNum;
+        this.totalPostsNum = totalPostsNum;
 
         this.endPageNum =  (int)(Math.ceil(pageRequestDTO.getPageNum() / (double) this.viewPageNum)) * this.viewPageNum;
         this.startPageNum = this.endPageNum - (this.viewPageNum - 1);
 
-        this.totalPageNum = (int) (Math.ceil( (totalPostNum * 1.0) / pageRequestDTO.getViewPostCnt() ) );
+        this.totalPageNum = (int) (Math.ceil( (totalPostsNum * 1.0) / pageRequestDTO.getViewPostsCnt() ) );
 
         if(this.totalPageNum < this.endPageNum){
             this.endPageNum = this.totalPageNum;

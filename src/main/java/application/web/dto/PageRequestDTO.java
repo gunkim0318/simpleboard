@@ -8,31 +8,26 @@ import org.springframework.data.domain.PageRequest;
  */
 @ToString
 @Getter
-@Setter
 public class PageRequestDTO {
     //보고자 하는 페이지 번호
+    @Setter
     private int pageNum;
 
     //화면에 보여질 게시글 수
     //보여줄 갯수는 10개 일단 고정...
-    private int viewPostCnt;
+    @Setter(AccessLevel.PRIVATE)
+    private int viewPostsCnt = 10;
 
     public PageRequestDTO(){
         this(1, 10);
     }
-    public PageRequestDTO(int pageNum, int viewPostCnt){
-        setPageNum(pageNum);
-        setViewPostCnt(viewPostCnt);
+    public PageRequestDTO(int pageNum, int viewPostsCnt){
+        this.setPageNum(pageNum);
+        this.setViewPostsCnt(viewPostsCnt);
     }
 
     /**
-     * @return
-     */
-    public int getPageNum() {
-        return this.pageNum;
-    }
-
-    /**
+     *
      * @param pageNum
      */
     public void setPageNum(int pageNum){
@@ -48,6 +43,6 @@ public class PageRequestDTO {
      * @return
      */
     public PageRequest toEntity(){
-        return PageRequest.of(this.getPageNum() - 1, this.viewPostCnt);
+        return PageRequest.of(this.getPageNum() - 1, this.viewPostsCnt);
     }
 }
