@@ -22,6 +22,10 @@ import java.util.List;
 public class ReplyApiController {
     private final ReplyService replyService;
 
+    @GetMapping("/cnt/{postsId}")
+    public ResponseEntity<Integer> findPostsIdByReplyCnt(@PathVariable long postsId){
+        return new ResponseEntity<>(replyService.getReplyCnt(postsId), HttpStatus.OK);
+    }
     /**
      * 댓글 목록 조회
      * @param postsId

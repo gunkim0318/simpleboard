@@ -26,7 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailsService customUserDetailService;
 
     private final LoginSuccessHandler loginSuccessHandler;
-
     private final LoginFailHandler loginFailHandler;
 
     private final PasswordEncoder passwordEncoder;

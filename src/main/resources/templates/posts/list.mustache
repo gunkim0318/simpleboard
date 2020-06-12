@@ -40,25 +40,27 @@
         {{/list}}
         </tbody>
     </table>
-    <nav>
-        <ul class="pagination">
-            {{#isPrev}}
-                <li>
-                    <a href="{{prevPageNum}}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-            {{/isPrev}}
-            {{#pagingList}}
-                <li><a class="{{active}}" href="{{idx}}">{{idx}}</a></li>
-            {{/pagingList}}
-            {{#isNext}}
-                <li>
-                    <a href="{{nextPageNum}}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            {{/isNext}}
+    <nav style="text-align: center;">
+            <ul class="pagination">
+            {{#pagingUtil}}
+                {{#isPrev}}
+                    <li>
+                        <a href="{{prevPageNum}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {{/isPrev}}
+                {{#pagingList}}
+                    <li class="{{active}}"><a href="{{idx}}">{{idx}}</a></li>
+                {{/pagingList}}
+                {{#isNext}}
+                    <li>
+                        <a href="{{nextPageNum}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {{/isNext}}
+            {{/pagingUtil}}
         </ul>
     </nav>
 </div>

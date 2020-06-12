@@ -36,8 +36,6 @@ public class IndexController {
         model.addAttribute("list", boardList);
         model.addAttribute("pagingUtil", new PagingUtil(pageRequestDTO, postsService.selectTotalPostCnt()));
 
-        log.info("paging : "+model.getAttribute("pagingUtil"));
-
         return INDEX_PATH;
     }
 }
