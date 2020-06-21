@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -51,10 +52,11 @@ public class PostsController {
      * @param dto
      */
     @PostMapping("/insert")
-    public String insert(@ModelAttribute PostsRequestDTO dto, Principal principal){
+    public String insert(@ModelAttribute PostsRequestDTO dto, Principal principal, RedirectAttributes rttr){
         String email = principal.getName();
         postsService.insertPosts(dto, email);
 
+        rttr.addFlashAttribute("msg", "게시글 입력에 성공했습니다.");
         return "redirect:/";
     }
 
@@ -64,10 +66,11 @@ public class PostsController {
      * @param principal
      */
     @PostMapping("/update")
-    public String update(@ModelAttribute PostsRequestDTO dto, Principal principal){
+    public String update(@ModelAttribute PostsRequestDTO dto, Principal principal, RedirectAttributes rttr){
         String email = principal.getName();
         postsService.updatePosts(dto, email);
 
+        rttr.addFlashAttribute("msg", "게시글 수정에 성공했습니다.");
         return "redirect:/";
     }
 
@@ -76,10 +79,11 @@ public class PostsController {
      * @param id
      */
     @PostMapping("/delete")
-    public String delete(@RequestParam("postsNum") Long id, Principal principal){
+    public String delete(@RequestParam("postsNum") Long id, Principal principal, RedirectAttributes rttr){
         String email = principal.getName();
         postsService.deletePosts(id, email);
 
+        rttr.addFlashAttribute("msg", "게시글 삭제에 성공했습니다.");
         return "redirect:/";
     }
 }

@@ -66,3 +66,9 @@
 </div>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/posts/list.js"></script>
+<script>
+    {{#msg}}
+        var msg = "{{msg}}";
+        alert(msg);
+    {{/msg}}
+</script>

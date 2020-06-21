@@ -6,6 +6,7 @@ import application.web.dto.ReplyRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +45,7 @@ public class ReplyApiController {
      * @param principal
      * @return
      */
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity writeReply(@RequestBody ReplyRequestDTO replyRequestDTO, Principal principal){
         replyService.writeReply(replyRequestDTO, principal.getName());
 
