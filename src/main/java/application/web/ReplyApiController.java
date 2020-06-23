@@ -46,10 +46,10 @@ public class ReplyApiController {
      * @return
      */
     @PostMapping
-    public ResponseEntity writeReply(@RequestBody ReplyRequestDTO replyRequestDTO, Principal principal){
+    public ResponseEntity<String> writeReply(@RequestBody ReplyRequestDTO replyRequestDTO, Principal principal){
         replyService.writeReply(replyRequestDTO, principal.getName());
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     /**

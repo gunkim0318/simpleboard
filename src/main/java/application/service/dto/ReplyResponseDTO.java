@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @ToString
 @Getter
@@ -13,12 +14,12 @@ public class ReplyResponseDTO {
 
     private final String writer;
 
-    private final LocalDateTime creDatetime;
+    private final String creDatetime;
 
     @Builder
     public ReplyResponseDTO(String content, String writer, LocalDateTime creDatetime){
         this.content = content;
         this.writer = writer;
-        this.creDatetime = creDatetime;
+        this.creDatetime = creDatetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh24:mi:ss"));
     }
 }

@@ -51,17 +51,36 @@ var get = {
                 url: '/reply/api/',
                 type: 'POST',
                 contentType: 'application/json',
-                dataType: 'json',
                 data: JSON.stringify({
                     'postsId' : postsId,
                     "content" : replyContent
                 }),
-                success: function(json){
+                success: function(){
+                    $('#replyContent').val('');
                     $.get('/reply/api/cnt/'+postsId,
                         function(data){
                             $('#showReplyBtn').html(data+" 댓글");
                         }
                     );
+                    $.ajax({
+                        url: '/reply/api/'+postsId,
+                        type: 'GET',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        success: function(json){
+                            var replyList = $('#replyList');
+                            var tags = "";
+                            for(var i=0, item; item=json[i]; i++){
+                                var tag = "<div style=' width: 70%;'>"
+                                tag += "<div style='font-weight: 800; font-size: 2rem;'>"+item.writer+"<span style='float:right;'>"+item.creDatetime+"</span></div>";
+                                tag += "<div class='panel panel-primary' style='padding: 15px;'>"+item.content+"</div>";
+                                tag +="</div>";
+
+                                tags +=tag;
+                            }
+                            replyList.html(tags);
+                        }
+                    });
                 }
             });
         });
