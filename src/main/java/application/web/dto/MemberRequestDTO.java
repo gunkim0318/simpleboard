@@ -5,6 +5,7 @@ import application.jpa.domain.Member;
 import application.jpa.enums.Role;
 import lombok.*;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 /**
@@ -15,19 +16,23 @@ import javax.validation.constraints.NotEmpty;
 @ToString
 @NoArgsConstructor
 public class MemberRequestDTO {
+    @Email
     @NotEmpty
     private String email;
     @NotEmpty
     private String password;
+    @NotEmpty
+    private String passwordChk;
     @NotEmpty
     private String nickname;
     @NotEmpty
     private String gender;
 
     @Builder
-    public MemberRequestDTO(String email, String password, String nickname, String gender){
+    public MemberRequestDTO(String email, String password, String passwordChk, String nickname, String gender){
         this.email = email;
         this.password = password;
+        this.passwordChk = passwordChk;
         this.nickname = nickname;
         this.gender = gender;
     }
