@@ -4,35 +4,35 @@
     <h1>회원가입</h1>
     <form action="/member/signUp" method="post">
         <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
-        <span style="color: red;">{{#error.email}}{{error.email}}{{/error.email}}</span>
-        <div class="input-group input-group-lg" style="margin-bottom: 10px;">
+        <span class="valid-msg">{{#error.email}}{{error.email}}{{/error.email}}</span>
+        <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
             <input name="email" type="text" class="form-control" value="{{#member}}{{member.email}}{{/member}}" placeholder="메일을 입력해주세요">
         </div>
-        <span style="color: red;">{{#error.password}}{{error.password}}{{/error.password}}</span>
-        <div class="input-group input-group-lg" style="margin-bottom: 10px;">
+        <span class="valid-msg">{{#error.password}}{{error.password}}{{/error.password}}</span>
+        <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-eye-close"></span></span>
             <input name="password" type="password" class="form-control" value="{{#member}}{{member.password}}{{/member}}" placeholder="비밀번호를 입력해주세요">
         </div>
-        <span style="color: red;">{{#error.passwordChk}}{{error.passwordChk}}{{/error.passwordChk}}</span>
-        <div class="input-group input-group-lg" style="margin-bottom: 10px;">
+        <span class="valid-msg">{{#error.passwordChk}}{{error.passwordChk}}{{/error.passwordChk}}</span>
+        <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-eye-close"></span></span>
             <input name="passwordChk" type="password" class="form-control" value="{{#member}}{{member.passwordChk}}{{/member}}" placeholder="비밀번호 확인을 입력해주세요">
         </div>
-        <span style="color: red;">{{#error.nickname}}{{error.nickname}}{{/error.nickname}}</span>
-        <div class="input-group input-group-lg" style="margin-bottom: 10px;">
+        <span class="valid-msg">{{#error.nickname}}{{error.nickname}}{{/error.nickname}}</span>
+        <div class="input-group input-group-lg">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-user"></span></span>
             <input name="nickname" type="text" class="form-control" value="{{#member}}{{member.nickname}}{{/member}}" placeholder="닉네임을 입력해주세요">
         </div>
-        <span style="color: red;">{{#error.gender}}{{error.gender}}{{/error.gender}}</span>
+        <span class="valid-msg">{{#error.gender}}{{error.gender}}{{/error.gender}}</span>
         <div>
-            <label><input name="gender" class="uk-radio" type="radio" value="M" checked> 남성</label>
-            <label><input name="gender" class="uk-radio" type="radio" value="F" {{#isFemale}}checked{{/isFemale}}> 여성</label>
+            <label><input name="gender" type="radio" value="M" checked> 남성</label>
+            <label><input name="gender" type="radio" value="F" {{#isFemale}}checked{{/isFemale}}> 여성</label>
         </div>
         <div>
-            <button type="submit" id="signUpBtn" class="btn btn-primary" style="width: 100%;">입력</button>
+            <button type="submit" id="signUpBtn" class="btn btn-primary col-lg-12">입력</button>
             <hr/>
-            <button  id="backBtn" class="btn btn-default" style="width: 100%;">취소</button>
+            <button  id="backBtn" class="btn btn-default col-lg-12">취소</button>
         </div>
     </form>
 </div>
