@@ -37,7 +37,7 @@ public class MemberController {
      */
     @PostMapping("/member/signUp")
     public String signUp(@Validated MemberRequestDTO dto, BindingResult errors, Model model, RedirectAttributes rttr) {
-        if(errors.hasErrors()){
+        if(errors.hasErrors() || !dto.isPwEqualToCheckPw()){
             Map<String, String> errorMap = new HashMap<String, String>();
             errors.getFieldErrors().stream().forEach(fieldError -> {
                 String fieldName = fieldError.getField();
@@ -45,6 +45,9 @@ public class MemberController {
 
                 errorMap.put(fieldName, errorMsg);
             });
+            if(!dto.isPwEqualToCheckPw()){
+                errorMap.put("passwordChk", "비밀번호가 일치하지 않습니다.");
+            }
             boolean isFemale = dto.getGender().equals("F");
             model.addAttribute("member", dto);
             model.addAttribute("isFemale", isFemale);

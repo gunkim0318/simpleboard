@@ -1,8 +1,8 @@
 {{>layout/header}} <!--</body>-->
 <link rel="stylesheet" href="/css/member/signIn.css"/>
-<div style="width: 30%; margin: 0 auto; text-align: center;">
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center" style="float:none; margin: 0 auto;">
     <h1>로그인</h1>
-    <form action="/member/signIn" method="post">
+    <form  action="/member/signIn" method="post">
         <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
         <div class="input-group input-group-lg" style="margin-bottom: 10px;">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-envelope"></span></span>

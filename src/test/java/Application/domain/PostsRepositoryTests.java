@@ -85,15 +85,7 @@ public class PostsRepositoryTests {
     }
     @Test
     public void testPostsPaging(){
-        Member member = Member.builder()
-                .email("gunkim0318@gmail.com")
-                .password("rlarjs123")
-                .nickname("테스트")
-                .gender(Gender.M)
-                .role(Role.ADMIN)
-                .build();
-        memberRepository.save(member);
-        //for (1 ~ 154)
+        Member member = memberRepository.findAll().get(0);
         IntStream.rangeClosed(1, 154).forEach(i -> {
             Posts posts = Posts.builder()
                     .title("테스트 게시글입니다.")

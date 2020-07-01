@@ -1,8 +1,8 @@
 {{>layout/header}} <!--</body>-->
 <link rel="stylesheet" href="/css/member/signUp.css"/>
-<div style="width: 30%; margin: 0 auto; text-align: center;">
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center" style="float:none; margin: 0 auto;">
     <h1>회원가입</h1>
-    <form class="uk-margin-auto" action="/member/signUp" method="post">
+    <form action="/member/signUp" method="post">
         <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
         <span style="color: red;">{{#error.email}}{{error.email}}{{/error.email}}</span>
         <div class="input-group input-group-lg" style="margin-bottom: 10px;">
@@ -12,12 +12,12 @@
         <span style="color: red;">{{#error.password}}{{error.password}}{{/error.password}}</span>
         <div class="input-group input-group-lg" style="margin-bottom: 10px;">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-eye-close"></span></span>
-            <input name="password" type="text" class="form-control" value="{{#member}}{{member.password}}{{/member}}" placeholder="비밀번호를 입력해주세요">
+            <input name="password" type="password" class="form-control" value="{{#member}}{{member.password}}{{/member}}" placeholder="비밀번호를 입력해주세요">
         </div>
         <span style="color: red;">{{#error.passwordChk}}{{error.passwordChk}}{{/error.passwordChk}}</span>
         <div class="input-group input-group-lg" style="margin-bottom: 10px;">
             <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-eye-close"></span></span>
-            <input name="passwordChk" type="text" class="form-control" placeholder="비밀번호 확인을 입력해주세요">
+            <input name="passwordChk" type="password" class="form-control" value="{{#member}}{{member.passwordChk}}{{/member}}" placeholder="비밀번호 확인을 입력해주세요">
         </div>
         <span style="color: red;">{{#error.nickname}}{{error.nickname}}{{/error.nickname}}</span>
         <div class="input-group input-group-lg" style="margin-bottom: 10px;">

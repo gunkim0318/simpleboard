@@ -5,8 +5,7 @@ import application.jpa.domain.Member;
 import application.jpa.enums.Role;
 import lombok.*;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 
 /**
  * 회원 Service 요청을 위한 DTO
@@ -17,15 +16,18 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class MemberRequestDTO {
     @Email
-    @NotEmpty
+    @NotBlank
     private String email;
-    @NotEmpty
+    @NotBlank
+    @Pattern(regexp="([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9]){8,12}" ,message="숫자 영문자 특수 문자를 포함한 8 ~ 12 자를 입력하세요. ")
     private String password;
-    @NotEmpty
+    @NotBlank
+    @Pattern(regexp="([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9]){8,12}" ,message="숫자 영문자 특수 문자를 포함한 8 ~ 12 자를 입력하세요. ")
     private String passwordChk;
-    @NotEmpty
+    @Size(min=2, max=10)
+    @NotBlank
     private String nickname;
-    @NotEmpty
+    @NotBlank
     private String gender;
 
     @Builder
@@ -36,6 +38,10 @@ public class MemberRequestDTO {
         this.nickname = nickname;
         this.gender = gender;
     }
+    public boolean isPwEqualToCheckPw(){
+        return password.equals(passwordChk);
+    }
+
     public Member toEntity(){
         return Member.builder()
                 .email(this.email)

@@ -69,11 +69,13 @@ public class ReplyServiceTests {
     }
     @Test
     public void testGetReplyList(){
+        Member member = memberRepository.findAll().get(0);
+        Posts posts = postsRepository.findAll().get(0);
         IntStream.rangeClosed(1, 100).forEach(i ->{
             Reply reply = Reply.builder()
                     .content(i+"번째 댓글입니더.")
-                    .member(memberRepository.findAll().get(0))
-                    .posts(postsRepository.findAll().get(0))
+                    .member(member)
+                    .posts(posts)
                     .build();
 
             replyRepository.save(reply);
