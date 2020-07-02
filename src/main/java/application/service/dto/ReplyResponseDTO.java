@@ -20,6 +20,6 @@ public class ReplyResponseDTO {
     public ReplyResponseDTO(String content, String writer, LocalDateTime creDatetime){
         this.content = content;
         this.writer = writer;
-        this.creDatetime = creDatetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh24:mi:ss"));
+        this.creDatetime = creDatetime.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 hh시 mm분 ss초"));
     }
 }
