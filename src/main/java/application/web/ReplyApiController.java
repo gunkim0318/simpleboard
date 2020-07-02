@@ -2,12 +2,14 @@ package application.web;
 
 import application.service.ReplyService;
 import application.service.dto.ReplyResponseDTO;
+import application.util.ErrorsTransUtil;
 import application.web.dto.ReplyRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -46,7 +48,11 @@ public class ReplyApiController {
      * @return
      */
     @PostMapping
-    public ResponseEntity<String> writeReply(@RequestBody ReplyRequestDTO replyRequestDTO, Principal principal){
+    public ResponseEntity<Object> writeReply(@Validated @RequestBody ReplyRequestDTO replyRequestDTO, BindingResult errors, Principal principal){
+        if(errors.hasErrors()){
+            ErrorsTransUtil errorsUtil = new ErrorsTransUtil(errors);
+            return new ResponseEntity<>(errorsUtil.getMap(), HttpStatus.BAD_REQUEST);
+        }
         replyService.writeReply(replyRequestDTO, principal.getName());
 
         return new ResponseEntity<>("success", HttpStatus.OK);

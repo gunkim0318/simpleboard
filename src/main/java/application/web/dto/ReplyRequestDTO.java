@@ -7,11 +7,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NegativeOrZero;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Null;
+
 @NoArgsConstructor
 @Data
 public class ReplyRequestDTO {
+    @Null(message = "잘못된 접근인 것 같습니다.")
+    @NegativeOrZero(message = "잘못된 접근인 것 같습니다.")
     private long postsId;
+    @Null(message = "잘못된 접근인 것 같습니다.")
+    @NegativeOrZero(message = "잘못된 접근인 것 같습니다.")
     private long replyId;
+    @NotBlank
     private String content;
 
     @Builder

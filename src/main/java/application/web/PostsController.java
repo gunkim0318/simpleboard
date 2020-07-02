@@ -3,11 +3,14 @@ package application.web;
 import application.service.PostsService;
 import application.service.ReplyService;
 import application.service.dto.PostsResponseDTO;
+import application.util.ErrorsTransUtil;
 import application.web.dto.PostsRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,7 +55,13 @@ public class PostsController {
      * @param dto
      */
     @PostMapping("/insert")
-    public String insert(@ModelAttribute PostsRequestDTO dto, Principal principal, RedirectAttributes rttr){
+    public String insert(@Validated @ModelAttribute PostsRequestDTO dto, BindingResult errors, Model model, Principal principal, RedirectAttributes rttr){
+        if(errors.hasErrors()){
+            ErrorsTransUtil errorsUtil = new ErrorsTransUtil(errors);
+            model.addAttribute("errors", errorsUtil.getMap());
+            model.addAttribute("member", dto);
+            return "/posts/add";
+        }
         String email = principal.getName();
         postsService.insertPosts(dto, email);
 
@@ -66,7 +75,15 @@ public class PostsController {
      * @param principal
      */
     @PostMapping("/update")
-    public String update(@ModelAttribute PostsRequestDTO dto, Principal principal, RedirectAttributes rttr){
+    public String update(@Validated @ModelAttribute PostsRequestDTO dto, BindingResult errors, Model model, Principal principal, RedirectAttributes rttr){
+        if(errors.hasErrors()){
+            ErrorsTransUtil errorsUtil = new ErrorsTransUtil(errors);
+
+            model.addAttribute("errors", errorsUtil.getMap());
+            model.addAttribute("posts", dto);
+
+            return "/posts/modify";
+        }
         String email = principal.getName();
         postsService.updatePosts(dto, email);
 
