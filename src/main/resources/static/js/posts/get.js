@@ -40,6 +40,9 @@ var get = {
                             tags +=tag;
                         }
                         replyList.html(tags);
+                    },
+                    error: function(req, stat, err){
+                        console.log(req, stat, err);
                     }
                 });
             }

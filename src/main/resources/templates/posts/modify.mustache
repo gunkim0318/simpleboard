@@ -1,5 +1,5 @@
 {{>layout/header}} <!--<body>-->
-<div style="width: 80%; margin: 0 auto;">
+<div class="col-lg-8 col-xs-8 col-md-8 col-sm-8" style="float:none; margin: 0 auto;">
     <div class="page-header">
         <h1>글 수정</h1>
     </div>
@@ -9,11 +9,25 @@
         <input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요" style="margin-bottom: 20px;" value="{{posts.title}}">
         <textarea name="content" class="form-control" placeholder="내용을 입력해주세요" rows="8" style="resize: none;">{{posts.content}}</textarea>
         <div>
-            <button type="submit" id="modiBtn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">수정</button>
+            <button type="submit" id="modiBtn" class="btn btn-primary col-xs-12" style="margin-top: 10px;">수정</button>
             <hr/>
-            <button id="backBtn" class="btn btn-default" style="width: 100%;">뒤로가기</button>
+            <button type="button" id="backBtn" class="btn btn-default col-xs-12">뒤로가기</button>
         </div>
     </form>
 </div>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/posts/modify.js"></script>
+<script>
+        {{#errors}}
+            var titleErrorMsg = "{{title}}";
+            var contentErrorMsg = "{{content}}";
+
+            if(titleErrorMsg !== ''){
+                $('input[name=title]').focus();
+                alert(titleErrorMsg);
+            }else if(contentErrorMsg !== ''){
+                $('textarea[name=content]').focus();
+                alert(contentErrorMsg);
+            }
+        {{/errors}}
+</script>

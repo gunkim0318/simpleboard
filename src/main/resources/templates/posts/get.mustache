@@ -1,3 +1,4 @@
+{{<%=%>}}
 {{>layout/header}} <!--<body>-->
 <meta id="_csrf" name="_csrf" content="{{_csrf.token}}"/>
 <meta id="_csrf_header" name="_csrf_header" content="{{_csrf.headerName}}"/>
@@ -16,7 +17,7 @@
         <div class="panel-heading">댓글</div>
         <div class="panel-body">
             <div>
-                <textarea id="replyContent" class="form-control" rows="3" style="resize: none; "></textarea>
+                <textarea id="replyContent" name="content" class="form-control" rows="3" style="resize: none; "></textarea>
                 <div style="text-align: right; margin-top: 10px;">
                     <button id="replyAddBtn" type="button" class="btn btn-primary">작성</button>
                 </div>

@@ -5,8 +5,8 @@
     </div>
     <form action="/posts/insert" method="post">
         <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
-        <input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요" style="margin-bottom: 20px;">
-        <textarea name="content" class="form-control" placeholder="내용을 입력해주세요" rows="8" style="resize: none;"></textarea>
+        <input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요" value="{{member.title}}" style="margin-bottom: 20px;">
+        <textarea name="content" class="form-control" placeholder="내용을 입력해주세요" rows="8" style="resize: none;">{{member.content}}</textarea>
         <div>
             <button type="submit" id="addBtn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">입력</button>
             <hr/>
@@ -16,3 +16,17 @@
 </div>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/posts/add.js"></script>
+<script>
+    {{#errors}}
+        var titleErrorMsg = "{{title}}";
+        var contentErrorMsg = "{{content}}";
+
+        if(titleErrorMsg !== ''){
+            $('input[name=title]').focus();
+            alert(titleErrorMsg);
+        }else if(contentErrorMsg !== ''){
+            $('textarea[name=content]').focus();
+            alert(contentErrorMsg);
+        }
+    {{/errors}}
+</script>
