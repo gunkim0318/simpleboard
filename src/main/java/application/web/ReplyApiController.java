@@ -49,7 +49,7 @@ public class ReplyApiController {
      */
     @PostMapping
     public ResponseEntity<Object> writeReply(@Validated @RequestBody ReplyRequestDTO replyRequestDTO, BindingResult errors, Principal principal){
-        if(errors.hasErrors()){
+        if(errors.hasFieldErrors("content")){
             ErrorsTransUtil errorsUtil = new ErrorsTransUtil(errors);
             return new ResponseEntity<>(errorsUtil.getMap(), HttpStatus.BAD_REQUEST);
         }

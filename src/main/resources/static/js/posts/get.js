@@ -1,4 +1,25 @@
 var get = {
+    showListPrint : function(postsId){
+        $.ajax({
+            url: '/reply/api/'+postsId,
+            type: 'GET',
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function(json){
+                var replyList = $('#replyList');
+                var tags = "";
+                for(var i=0, item; item=json[i]; i++){
+                    var tag = "<div style=' width: 70%;'>"
+                    tag += "<div style='font-weight: 800; font-size: 2rem;'>"+item.writer+"<span style='float:right;'>"+item.creDatetime+"</span></div>";
+                    tag += "<div class='panel panel-primary' style='padding: 15px;'>"+item.content+"</div>";
+                    tag +="</div>";
+
+                    tags +=tag;
+                }
+                replyList.html(tags);
+            }
+        });
+    },
     eventInit : function() {
         var target = $('#actionForm');
         $('#backBtn').on('click', function(){
@@ -23,28 +44,7 @@ var get = {
             }else{
                 target.show();
                 var postsId = $('#actionForm').find('input[name=postsNum]').val();
-                $.ajax({
-                    url: '/reply/api/'+postsId,
-                    type: 'GET',
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    success: function(json){
-                        var replyList = $('#replyList');
-                        var tags = "";
-                        for(var i=0, item; item=json[i]; i++){
-                            var tag = "<div style=' width: 70%;'>"
-                                tag += "<div style='font-weight: 800; font-size: 2rem;'>"+item.writer+"<span style='float:right;'>"+item.creDatetime+"</span></div>";
-                                tag += "<div class='panel panel-primary' style='padding: 15px;'>"+item.content+"</div>";
-                                tag +="</div>";
-
-                            tags +=tag;
-                        }
-                        replyList.html(tags);
-                    },
-                    error: function(req, stat, err){
-                        console.log(req, stat, err);
-                    }
-                });
+                get.showListPrint(postsId);
             }
         });
         $('#replyAddBtn').on('click', function(){
@@ -65,25 +65,15 @@ var get = {
                             $('#showReplyBtn').html(data+" 댓글");
                         }
                     );
-                    $.ajax({
-                        url: '/reply/api/'+postsId,
-                        type: 'GET',
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        success: function(json){
-                            var replyList = $('#replyList');
-                            var tags = "";
-                            for(var i=0, item; item=json[i]; i++){
-                                var tag = "<div style=' width: 70%;'>"
-                                tag += "<div style='font-weight: 800; font-size: 2rem;'>"+item.writer+"<span style='float:right;'>"+item.creDatetime+"</span></div>";
-                                tag += "<div class='panel panel-primary' style='padding: 15px;'>"+item.content+"</div>";
-                                tag +="</div>";
+                    get.showListPrint(postsId);
+                },
+                error: function(req){
+                    var errorMsg = req.responseJSON.content;
 
-                                tags +=tag;
-                            }
-                            replyList.html(tags);
-                        }
-                    });
+                    if(errorMsg !== null){
+                        alert(errorMsg);
+                        $('#replyContent').focus();
+                    }
                 }
             });
         });
