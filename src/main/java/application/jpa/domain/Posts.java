@@ -19,7 +19,7 @@ public class Posts extends TimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String title;
 
     @Column(nullable = false)
