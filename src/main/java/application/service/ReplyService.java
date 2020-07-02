@@ -11,8 +11,8 @@ import application.web.dto.ReplyRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class ReplyService {
     private final MemberRepository memberRepository;
     private final PostsRepository postsRepository;
 
-    @Transactional
+    @Transactional()
     public List<ReplyResponseDTO> getReplyList(Long postsId){
         Posts posts = postsRepository.findById(postsId).get();
 
@@ -39,7 +39,7 @@ public class ReplyService {
         });
         return returnList;
     }
-    @Transactional
+    @Transactional(readOnly = true)
     public void writeReply(ReplyRequestDTO requestDTO, String email){
         Member member = memberRepository.findByEmail(email);
         Posts posts = postsRepository.findById(requestDTO.getPostsId()).get();
@@ -61,6 +61,7 @@ public class ReplyService {
             replyRepository.delete(reply);
         }
     }
+    @Transactional(readOnly = true)
     public Integer getReplyCnt(long postsId){
         Posts posts = postsRepository.findById(postsId).get();
         return replyRepository.countByPosts(posts);

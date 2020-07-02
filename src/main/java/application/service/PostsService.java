@@ -1,17 +1,17 @@
 package application.service;
 
 import application.jpa.domain.Member;
-import application.jpa.repository.MemberRepository;
 import application.jpa.domain.Posts;
+import application.jpa.repository.MemberRepository;
 import application.jpa.repository.PostsRepository;
-import application.web.dto.PostsRequestDTO;
 import application.service.dto.PostsResponseDTO;
 import application.web.dto.PageRequestDTO;
+import application.web.dto.PostsRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +25,6 @@ public class PostsService {
     private final PostsRepository postsRepository;
     private final MemberRepository memberRepository;
 
-    @Transactional
     public int insertPosts(PostsRequestDTO dto, String email){
         Member member = memberRepository.findByEmail(email);
         dto.setMember(member);
@@ -33,6 +32,7 @@ public class PostsService {
         postsRepository.save(dto.toEntity());
         return 1;
     }
+    @Transactional(readOnly=true)
     public List<PostsResponseDTO> selectPostsList(PageRequestDTO pagingDTO){
         return postsRepository.findAllByOrderByIdDesc(pagingDTO.toEntity()).stream().map(PostsResponseDTO::new).collect(Collectors.toList());
     }
@@ -57,7 +57,7 @@ public class PostsService {
             postsRepository.delete(posts);
         }
     }
-    @Transactional
+    @Transactional(readOnly = true)
     public PostsResponseDTO selectBoardContent(Long id){
         Posts board = postsRepository.findById(id).get();
         board.hitUp();
@@ -66,6 +66,7 @@ public class PostsService {
 
         return new PostsResponseDTO(board);
     }
+    @Transactional(readOnly = true)
     public Integer selectTotalPostCnt(){
         return (int) postsRepository.count();
     }
