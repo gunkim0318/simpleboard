@@ -10,9 +10,9 @@ import application.jpa.repository.PostsRepository;
 import application.jpa.repository.ReplyRepository;
 import application.service.ReplyService;
 import application.service.dto.ReplyResponseDTO;
+import application.web.dto.PageRequestDTO;
 import application.web.dto.ReplyRequestDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +22,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.stream.IntStream;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @Slf4j
@@ -81,10 +83,12 @@ public class ReplyServiceTests {
             replyRepository.save(reply);
         });
         long postsId = postsRepository.findAll().get(0).getId();
-        List<ReplyResponseDTO> replyList =  replyService.getReplyList(postsId);
+        PageRequestDTO pageDTO = new PageRequestDTO(2);
+        List<ReplyResponseDTO> replyList =  replyService.getReplyList(postsId, pageDTO);
 
-        Assert.assertEquals(replyList.get(0).getContent(), "1번째 댓글입니더.");
-        Assert.assertEquals(replyList.get(replyList.size()-1).getContent(), "100번째 댓글입니더.");
-
+        replyList.stream().forEach(replyResponseDTO -> {
+            log.info(replyResponseDTO.toString());
+        });
+        assertEquals(replyList.get(0).getContent(), "90번째 댓글입니더.");
     }
 }

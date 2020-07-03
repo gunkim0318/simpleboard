@@ -3,6 +3,8 @@ package application.web;
 import application.service.ReplyService;
 import application.service.dto.ReplyResponseDTO;
 import application.util.ErrorsTransUtil;
+import application.util.PagingUtil;
+import application.web.dto.PageRequestDTO;
 import application.web.dto.ReplyRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +15,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 댓글 컨트롤러
@@ -29,16 +33,24 @@ public class ReplyApiController {
     public ResponseEntity<Integer> findPostsIdByReplyCnt(@PathVariable long postsId){
         return new ResponseEntity<>(replyService.getReplyCnt(postsId), HttpStatus.OK);
     }
+
     /**
      * 댓글 목록 조회
      * @param postsId
+     * @param pageNum
      * @return
      */
-    @GetMapping("/{postsId}")
-    public ResponseEntity<List<ReplyResponseDTO>> findPostsIdByReplyList(@PathVariable long postsId){
-        List<ReplyResponseDTO> replyList =  replyService.getReplyList(postsId);
+    @GetMapping("/{postsId}/{pageNum}")
+    public ResponseEntity<Map<String, Object>> findPostsIdByReplyList(@PathVariable long postsId, @PathVariable int pageNum){
+        PageRequestDTO pageDTO = new PageRequestDTO(pageNum, 5);
+        int replyCnt = replyService.getReplyCnt(postsId);
+        PagingUtil paging = new PagingUtil(pageDTO, replyCnt);
 
-        return new ResponseEntity<>(replyList, HttpStatus.OK);
+        List<ReplyResponseDTO> replyList =  replyService.getReplyList(postsId, pageDTO);
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", replyList);
+        map.put("paging", paging);
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     /**

@@ -7,6 +7,7 @@ import application.jpa.repository.MemberRepository;
 import application.jpa.repository.PostsRepository;
 import application.jpa.repository.ReplyRepository;
 import application.service.dto.ReplyResponseDTO;
+import application.web.dto.PageRequestDTO;
 import application.web.dto.ReplyRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,19 +26,18 @@ public class ReplyService {
     private final PostsRepository postsRepository;
 
     @Transactional()
-    public List<ReplyResponseDTO> getReplyList(Long postsId){
+    public List<ReplyResponseDTO> getReplyList(Long postsId, PageRequestDTO pageDTO){
         Posts posts = postsRepository.findById(postsId).get();
-
-        List<ReplyResponseDTO> returnList = new ArrayList<ReplyResponseDTO>();
-        replyRepository.findAllByPosts(posts).stream().forEach(reply -> {
-            ReplyResponseDTO responseDTO = ReplyResponseDTO.builder()
-            .content(reply.getContent())
-            .creDatetime(reply.getCreateDate())
-            .writer(reply.getMember().getNickname())
-            .build();
-            returnList.add(responseDTO);
-        });
-        return returnList;
+        List<Reply> list = replyRepository.findAllByPostsOrderByIdDesc(posts, pageDTO.toEntity());
+        List<ReplyResponseDTO> dtoList = new ArrayList<>();
+        for(Reply reply : list){
+            dtoList.add(ReplyResponseDTO.builder()
+                    .content(reply.getContent())
+                    .creDatetime(reply.getCreateDate())
+                    .writer(reply.getMember().getNickname())
+                    .build());
+        }
+        return dtoList;
     }
     @Transactional(readOnly = true)
     public void writeReply(ReplyRequestDTO requestDTO, String email){

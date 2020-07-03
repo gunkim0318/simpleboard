@@ -15,7 +15,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.stream.IntStream;
 
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -75,5 +78,21 @@ public class ReplyRepositoryTests {
         Reply reply = replyRepository.findAll().get(0);
 
         replyRepository.delete(reply);
+    }
+    @Test
+    public void testReplyPaging(){
+        Member member = memberRepository.findAll().get(0);
+        Posts posts = postsRepository.findAll().get(0);
+
+        IntStream.rangeClosed(1, 100).forEach(i -> {
+            replyRepository.save(Reply.builder()
+                    .content(i+"안녕하십니꺼")
+                    .member(member)
+                    .posts(posts)
+                    .build());
+        });
+        replyRepository.findAllByPostsOrderByIdDesc(posts, PageRequest.of(1, 10)).stream().forEach(reply -> {
+            log.info(reply.toString());
+        });
     }
 }

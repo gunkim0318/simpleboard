@@ -1,22 +1,42 @@
+var StringBuffer = function(){
+    this.buffer = new Array();
+}
+StringBuffer.prototype.append = function(str){
+    this.buffer[this.buffer.length] = str;
+}
+StringBuffer.prototype.toString = function(){
+    return this.buffer.join("");
+}
+StringBuffer.prototype.empty = function(){
+    this.buffer = new Array();
+}
 var get = {
-    showListPrint : function(postsId){
+    showListPrint : function(postsId, pageNum){
         $.ajax({
-            url: '/reply/api/'+postsId,
+            url: '/reply/api/'+postsId+'/'+pageNum,
             type: 'GET',
             contentType: 'application/json',
             dataType: 'json',
             success: function(json){
-                var replyList = $('#replyList');
-                var tags = "";
-                for(var i=0, item; item=json[i]; i++){
-                    var tag = "<div style=' width: 70%;'>"
-                    tag += "<div style='font-weight: 800; font-size: 2rem;'>"+item.writer+"<span style='float:right;'>"+item.creDatetime+"</span></div>";
-                    tag += "<div class='panel panel-primary' style='padding: 15px;'>"+item.content+"</div>";
-                    tag +="</div>";
+                var list = json.list;
+                var paging = json.paging;
+                var sb = new StringBuffer();
 
-                    tags +=tag;
+                for(var i=0, item; item=list[i]; i++){
+                    sb.append("<div style=' width: 70%;'>");
+                    sb.append("<div style='font-weight: 800; font-size: 2rem;'>"+item.writer+"<span style='float:right;'>"+item.creDatetime+"</span></div>");
+                    sb.append("<div class='panel panel-primary' style='padding: 15px;'>"+item.content+"</div>");
+                    sb.append("</div>");
                 }
-                replyList.html(tags);
+                $('#replyList').html(sb.toString());
+
+                sb.empty();
+
+                for(var i = 0, item; item = paging.pagingList[i]; i++){
+                    sb.append('<li class="'+item.active+'"><a href="1">'+item.idx+'</a></li>');
+                }
+                $('.pagination').html(sb.toString());
+
             }
         });
     },
@@ -44,7 +64,7 @@ var get = {
             }else{
                 target.show();
                 var postsId = $('#actionForm').find('input[name=postsNum]').val();
-                get.showListPrint(postsId);
+                get.showListPrint(postsId, 1);
             }
         });
         $('#replyAddBtn').on('click', function(){
@@ -65,7 +85,7 @@ var get = {
                             $('#showReplyBtn').html(data+" 댓글");
                         }
                     );
-                    get.showListPrint(postsId);
+                    get.showListPrint(postsId, 1);
                 },
                 error: function(req){
                     var errorMsg = req.responseJSON.content;
@@ -76,6 +96,12 @@ var get = {
                     }
                 }
             });
+        });
+        $('.pagination').on('click', 'li a', function(e){
+            e.preventDefault();
+            var postsId = target.find('input[name=postsNum]').val();
+            var pageNum = $(this).attr('href');
+            get.showListPrint(postsId, pageNum);
         });
     }
 };

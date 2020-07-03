@@ -21,6 +21,9 @@ public class PageRequestDTO {
     public PageRequestDTO(){
         this(1, 10);
     }
+    public PageRequestDTO(int pageNum){
+        this(pageNum, 10);
+    }
     public PageRequestDTO(int pageNum, int viewPostsCnt){
         this.setPageNum(pageNum);
         this.setViewPostsCnt(viewPostsCnt);
