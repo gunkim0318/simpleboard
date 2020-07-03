@@ -1,16 +1,14 @@
 package application.jpa.domain;
 
 import application.jpa.domain.common.TimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 /**
  * 댓글 도메인
  */
+@ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
