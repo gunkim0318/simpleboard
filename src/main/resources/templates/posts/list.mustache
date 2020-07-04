@@ -41,34 +41,34 @@
         </tbody>
     </table>
     <nav style="text-align: center;">
-            <ul class="pagination">
-            {{#pagingUtil}}
-                {{#isPrev}}
-                    <li>
-                        <a href="{{prevPageNum}}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                {{/isPrev}}
-                {{#pagingList}}
-                    <li class="{{active}}"><a href="{{idx}}">{{idx}}</a></li>
-                {{/pagingList}}
-                {{#isNext}}
-                    <li>
-                        <a href="{{nextPageNum}}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                {{/isNext}}
-            {{/pagingUtil}}
+        <ul class="pagination">
         </ul>
     </nav>
 </div>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/posts/list.js"></script>
 <script>
-    {{#msg}}
-        var msg = "{{msg}}";
+    var msg = "{{msg}}";
+
+    if(msg !== ''){
         alert(msg);
-    {{/msg}}
+    }
+    {{#pagingUtil}}
+        var paging = {
+            startPageNum : {{startPageNum}},
+            endPageNum : {{endPageNum}},
+            prev : {{isPrev}},
+            next : {{isNext}},
+            prevPageNum : {{prevPageNum}},
+            nextPageNum : {{nextPageNum}},
+            pagingList : new Array()
+        };
+        {{#pagingList}}
+            paging.pagingList.push({
+                active : '{{active}}',
+                idx : {{idx}}
+            })
+        {{/pagingList}}
+        util.printPagination('.pagination', paging);
+    {{/pagingUtil}}
 </script>

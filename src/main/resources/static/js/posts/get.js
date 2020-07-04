@@ -1,15 +1,3 @@
-var StringBuffer = function(){
-    this.buffer = new Array();
-}
-StringBuffer.prototype.append = function(str){
-    this.buffer[this.buffer.length] = str;
-}
-StringBuffer.prototype.toString = function(){
-    return this.buffer.join("");
-}
-StringBuffer.prototype.empty = function(){
-    this.buffer = new Array();
-}
 var get = {
     showListPrint : function(postsId, pageNum){
         $.ajax({
@@ -32,11 +20,7 @@ var get = {
 
                 sb.empty();
 
-                for(var i = 0, item; item = paging.pagingList[i]; i++){
-                    sb.append('<li class="'+item.active+'"><a href="1">'+item.idx+'</a></li>');
-                }
-                $('.pagination').html(sb.toString());
-
+                util.printPagination('.pagination', paging);
             }
         });
     },

@@ -1,6 +1,6 @@
 var list = {
     eventInit : function(){
-        $('.pagination li a').on("click", function(e){
+        $('.pagination').on("click", 'li a', function(e){
             e.preventDefault();
 
             var pageNum = $(this).attr('href');
@@ -12,5 +12,4 @@ var list = {
         });
     }
 };
-
 list.eventInit();
