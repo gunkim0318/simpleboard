@@ -13,8 +13,14 @@ var get = {
                 for(var i=0, item; item=list[i]; i++){
                     sb.append("<div style=' width: 70%;'>");
                     sb.append("<div style='font-weight: 800; font-size: 2rem;'>"+item.writer+"<span style='float:right;'>"+item.creDatetime+"</span></div>");
-                    sb.append("<div class='panel panel-primary' style='padding: 15px;'>"+item.content+"</div>");
+                    sb.append("<div class='panel panel-primary' style='padding: 15px;'>");
+                        sb.append("<div>"+item.content+"</div>");
+                        sb.append('<div class="text-right">');
+                            sb.append('<button class="btn btn-info">수정</button>');
+                            sb.append('<button class="btn btn-danger">삭제</button>');
+                        sb.append('</div>');
                     sb.append("</div>");
+                    sb.append('</div>');
                 }
                 $('#replyList').html(sb.toString());
 
