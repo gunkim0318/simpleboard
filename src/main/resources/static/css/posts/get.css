@@ -1,0 +1,12 @@
+.replyItem{
+}
+.replyItem .head{
+    font-weight: 800;
+    font-size: 2rem;
+}
+.replyItem .head span{
+    float:right;
+}
+.replyItem .body{
+    padding: 15px;
+}

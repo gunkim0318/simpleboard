@@ -32,6 +32,7 @@ public class ReplyService {
         List<ReplyResponseDTO> dtoList = new ArrayList<>();
         for(Reply reply : list){
             dtoList.add(ReplyResponseDTO.builder()
+                    .rno(reply.getId())
                     .content(reply.getContent())
                     .creDatetime(reply.getCreateDate())
                     .writer(reply.getMember().getNickname())
@@ -46,20 +47,25 @@ public class ReplyService {
 
         replyRepository.save(requestDTO.toEntity(member, posts));
     }
-    public void modifyReply(ReplyRequestDTO requestDTO, String email){
+    public Integer modifyReply(ReplyRequestDTO requestDTO, String email){
         Reply reply = replyRepository.findById(requestDTO.getReplyId()).get();
 
         if(email.equals(reply.getMember().getEmail())){
             reply.update(requestDTO.getContent());
             replyRepository.save(reply);
+            return 1;
         }
+        return 0;
     }
-    public void deleteReply(long replyId, String email){
+    public Integer deleteReply(long replyId, String email){
         Reply reply = replyRepository.findById(replyId).get();
 
         if(email.equals(reply.getMember().getEmail())){
             replyRepository.delete(reply);
+
+            return 1;
         }
+        return 0;
     }
     @Transactional(readOnly = true)
     public Integer getReplyCnt(long postsId){

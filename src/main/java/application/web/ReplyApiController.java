@@ -72,20 +72,35 @@ public class ReplyApiController {
 
     /**
      * 댓글 수정
-     * @param reply
+     * @param rno
+     * @param dto
+     * @param principal
      * @return
      */
-    @PutMapping("/")
-    public ResponseEntity updateReply(@RequestBody ReplyRequestDTO reply){
-        return null;
+    @PutMapping("/{rno}")
+    public ResponseEntity updateReply(@PathVariable long rno, @RequestBody ReplyRequestDTO dto, Principal principal) {
+        String email = principal.getName();
+        boolean isSuccess = replyService.modifyReply(dto, email) == 1;
+        if(isSuccess){
+            return new ResponseEntity("success", HttpStatus.OK);
+        }
+        return new ResponseEntity("fail", HttpStatus.BAD_REQUEST);
     }
 
     /**
      * 댓글 삭제
+     * @param rno
+     * @param principal
      * @return
      */
-    @DeleteMapping("/")
-    public ResponseEntity deleteReply(){
-        return null;
+    @DeleteMapping("/{rno}")
+    public ResponseEntity deleteReply(@PathVariable long rno, Principal principal){
+        String email = principal.getName();
+        boolean isSuccess = replyService.deleteReply(rno, email) == 1;
+
+        if(isSuccess){
+            return new ResponseEntity("success", HttpStatus.OK);
+        }
+        return new ResponseEntity("fail", HttpStatus.BAD_REQUEST);
     }
 }
