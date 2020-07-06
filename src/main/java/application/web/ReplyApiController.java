@@ -78,8 +78,13 @@ public class ReplyApiController {
      * @return
      */
     @PutMapping("/{rno}")
-    public ResponseEntity updateReply(@PathVariable long rno, @RequestBody ReplyRequestDTO dto, Principal principal) {
+    public ResponseEntity updateReply(@PathVariable long rno, @Validated @RequestBody ReplyRequestDTO dto, BindingResult errors, Principal principal) {
+        if(errors.hasFieldErrors("content")){
+            ErrorsTransUtil errorsUtil = new ErrorsTransUtil(errors);
+            return new ResponseEntity<>(errorsUtil.getMap(), HttpStatus.BAD_REQUEST);
+        }
         String email = principal.getName();
+        dto.setReplyId(rno);
         boolean isSuccess = replyService.modifyReply(dto, email) == 1;
         if(isSuccess){
             return new ResponseEntity("success", HttpStatus.OK);
