@@ -38,8 +38,8 @@ public class MemberRequestDTO {
         this.nickname = nickname;
         this.gender = gender;
     }
-    public boolean isPwEqualToCheckPw(){
-        return password.equals(passwordChk);
+    public boolean isPwNotEquals(){
+        return !password.equals(passwordChk);
     }
 
     public Member toEntity(){

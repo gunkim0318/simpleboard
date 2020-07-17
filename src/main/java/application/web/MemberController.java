@@ -2,6 +2,7 @@ package application.web;
 
 import application.service.MemberService;
 import application.util.ErrorsTransUtil;
+import application.validator.PasswordCheckValidator;
 import application.web.dto.MemberRequestDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,6 +24,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class MemberController {
     private final MemberService memberService;
+    private final PasswordCheckValidator passwordCheckValidator;
+
+    /**
+     * 커스텀 유효성 검증을 위해 추가
+     * @param binder
+     */
+    @InitBinder
+    public void validatorBinder(WebDataBinder binder){
+        binder.addValidators(passwordCheckValidator);
+    }
+
     /**
      * 회원가입 페이지 이동
      */
@@ -34,11 +48,8 @@ public class MemberController {
      */
     @PostMapping("/member/signUp")
     public String signUp(@Validated MemberRequestDTO dto, BindingResult errors, Model model, RedirectAttributes rttr) {
-        if(errors.hasErrors() || !dto.isPwEqualToCheckPw()){
+        if(errors.hasErrors()){
             ErrorsTransUtil errorUtil = new ErrorsTransUtil(errors);
-            if(!dto.isPwEqualToCheckPw()){
-                errorUtil.addCustomErrorMsg("passwordChk", "비밀번호가 일치하지 않습니다.");
-            }
             boolean isFemale = dto.getGender().equals("F");
             model.addAttribute("member", dto);
             model.addAttribute("isFemale", isFemale);
