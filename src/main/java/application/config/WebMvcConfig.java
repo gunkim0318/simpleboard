@@ -1,7 +1,7 @@
 package application.config;
 
 import com.samskivert.mustache.Mustache;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.mustache.MustacheEnvironmentCollector;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * WebMvc 설정 클래스
  */
 @Configuration
+@RequiredArgsConstructor
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-    @Autowired
-    CsrfInterceptor csrfInterceptor;
+    private final CsrfInterceptor csrfInterceptor;
 
     /**
      * csrf토큰 처리를 위한 인터셉터
