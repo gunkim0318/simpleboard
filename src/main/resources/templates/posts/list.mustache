@@ -1,12 +1,11 @@
 {{>layout/header}} <!--<body>-->
+<link rel="stylesheet" href="/css/posts/list.css"/>
 <div style="width: 80%; margin: 0 auto;">
-    <div class="page-header">
-        <h1>자유 게시판 <small>자유롭게 글을 남겨보세요</small></h1>
-    </div>
+    <h1>자유 게시판 <small>자유롭게 글을 남겨보세요</small></h1>
     <div style="text-align: right;">
-        <button id="addBtn" class="btn btn-primary">글쓰기</button>
+        <button id="addBtn" class="mui-btn mui-btn--raised mui-btn--primary">글쓰기</button>
     </div>
-    <table style="text-align: center;" class="table table-hover">
+    <table style="text-align: center;" class="mui-table">
         <colgroup>
             <col width="10%"/>
             <col width="40%"/>
@@ -40,9 +39,7 @@
         {{/list}}
         </tbody>
     </table>
-    <nav style="text-align: center;">
-        <ul class="pagination">
-        </ul>
+    <nav class="pagination">
     </nav>
 </div>
 {{>layout/footer}} <!--</body>-->

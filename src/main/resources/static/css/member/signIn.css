@@ -1,3 +1,8 @@
 body{
     background: #f9f9f9;
 }
+.frame{
+    width: 30%;
+    float:none;
+    margin: 150px auto 0;
+}

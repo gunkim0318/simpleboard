@@ -18,13 +18,13 @@ var util = {
         var sb = new StringBuffer();
 
         if(paging.prev){
-            sb.append('<li><a href="'+paging.prevPageNum+'" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>');
+            sb.append(`<button data-no="${paging.prevPageNum}" class="mui-btn mui-btn--fab mui-btn--primary">&laquo;</button>`);
         }
         for(var i = 0, item; item = paging.pagingList[i]; i++){
-            sb.append('<li class="'+item.active+'"><a href="'+item.idx+'">'+item.idx+'</a></li>');
+            sb.append(`<button data-no="${item.idx}" class="mui-btn mui-btn--fab" ${item.active==='active'?'disabled':''}>${item.idx}</button>`);
         }
         if(paging.next){
-            sb.append('<li><a href="'+paging.nextPageNum+'" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
+            sb.append(`<button data-no="${paging.nextPageNum}" class="mui-btn mui-btn--fab mui-btn--primary">&raquo;</button>`);
         }
         target.html(sb.toString());
     }

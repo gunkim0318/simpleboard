@@ -1,9 +1,9 @@
 var list = {
     eventInit : function(){
-        $('.pagination').on("click", 'li a', function(e){
+        $('.pagination').on("click", 'button', function(e){
             e.preventDefault();
 
-            var pageNum = $(this).attr('href');
+            var pageNum = $(this).data("no");
 
             location.href="/?pageNum="+pageNum;
         });
