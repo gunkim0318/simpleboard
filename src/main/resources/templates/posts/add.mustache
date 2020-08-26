@@ -1,16 +1,19 @@
 {{>layout/header}} <!--<body>-->
 <div style="width: 80%; margin: 0 auto;">
-    <div class="page-header">
-        <h1>글 작성</h1>
-    </div>
-    <form action="/posts/insert" method="post">
+    <form class="mui-form" action="/posts/insert" method="post">
         <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
-        <input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요" value="{{member.title}}" style="margin-bottom: 20px;">
-        <textarea name="content" class="form-control" placeholder="내용을 입력해주세요" rows="8" style="resize: none;">{{member.content}}</textarea>
+        <legend><h1>글 작성</h1></legend>
+        <div class="mui-textfield">
+            <input name="title" type="text" value="{{member.title}}">
+            <label>제목</label>
+        </div>
+        <div class="mui-textfield">
+            <textarea name="content" rows="10">{{member.content}}</textarea>
+            <label>Textarea</label>
+        </div>
         <div>
-            <button type="submit" id="addBtn" class="btn btn-primary" style="width: 100%; margin-top: 10px;">입력</button>
-            <hr/>
-            <button type="button" id="backBtn" class="btn btn-default" style="width: 100%;">뒤로가기</button>
+            <button type="submit" id="addBtn" class="mui-btn mui-btn--primary">입력</button>
+            <button type="button" id="backBtn" class="mui-btn mui-btn--raised">뒤로가기</button>
         </div>
     </form>
 </div>

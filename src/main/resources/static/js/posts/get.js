@@ -11,14 +11,14 @@ const get = {
                 const paging = json.paging;
                 const sb = new StringBuffer();
 
-                for (let i = 0, item; item = list[i]; i++) {
-                    sb.append("<div class='replyItem' data-rno='" + item.rno + "'>");
-                    sb.append("<div class='head'>" + item.writer + "<span>" + item.creDatetime + "</span></div>");
-                    sb.append("<div class='body panel panel-primary'>");
-                    sb.append("<div class='content'>" + item.content + "</div>");
-                    sb.append("</div>");
-                    sb.append('</div>');
-                }
+                // for (let i = 0, item; item = list[i]; i++) {
+                //     sb.append("<div class='replyItem mui-panel' data-rno='" + item.rno + "'>");
+                //     sb.append("<div class='head'>" + item.writer + "<span>" + item.creDatetime + "</span></div>");
+                //     sb.append("<div class='body panel panel-primary'>");
+                //     sb.append("<div class='content'>" + item.content + "</div>");
+                //     sb.append("</div>");
+                //     sb.append('</div>');
+                // }
                 $('#replyList').html(sb.toString());
 
                 util.printPagination('.pagination', paging);
