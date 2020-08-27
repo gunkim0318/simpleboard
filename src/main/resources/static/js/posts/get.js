@@ -11,14 +11,12 @@ const get = {
                 const paging = json.paging;
                 const sb = new StringBuffer();
 
-                // for (let i = 0, item; item = list[i]; i++) {
-                //     sb.append("<div class='replyItem mui-panel' data-rno='" + item.rno + "'>");
-                //     sb.append("<div class='head'>" + item.writer + "<span>" + item.creDatetime + "</span></div>");
-                //     sb.append("<div class='body panel panel-primary'>");
-                //     sb.append("<div class='content'>" + item.content + "</div>");
-                //     sb.append("</div>");
-                //     sb.append('</div>');
-                // }
+                for (let i = 0, item; item = list[i]; i++) {
+                    sb.append(`<div class="mui-panel" data-rno="${item.rno}">`);
+                    sb.append(`<h2>${item.writer}</h2> ${item.creDatetime}`);
+                    sb.append(`<p style="font-size: 1.5rem;">${item.content}</p>`);
+                    sb.append(`</div>`);
+                }
                 $('#replyList').html(sb.toString());
 
                 util.printPagination('.pagination', paging);
@@ -82,9 +80,9 @@ const get = {
                 }
             });
         });
-        $('.pagination').on('click', 'li a', function (e) {
+        $('.pagination').on('click', 'button', function (e) {
             e.preventDefault();
-            const pageNum = $(this).attr('href');
+            const pageNum = $(this).data("no");
             get.showListPrint(postsId, pageNum);
         });
         $(document).on('click', '.replyItem', function () {
