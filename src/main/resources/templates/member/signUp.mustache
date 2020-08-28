@@ -1,40 +1,46 @@
 {{>layout/header}} <!--</body>-->
 <link rel="stylesheet" href="/css/member/signUp.css"/>
-<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center" style="float:none; margin: 0 auto;">
-    <h1>회원가입</h1>
-    <form action="/member/signUp" method="post">
+    <form class="mui-form mui-panel" action="/member/signUp" method="post" style="width: 30%; margin: 0 auto;">
         <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
+        <legend><h1>회원가입</h1></legend>
         <span class="valid-msg">{{errors.email}}</span>
-        <div class="input-group input-group-lg">
-            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
-            <input name="email" type="text" class="form-control" value="{{member.email}}" placeholder="메일을 입력해주세요">
+        <div class="mui-textfield">
+            <input name="email" type="text" placeholder="메일을 입력해주세요" value="{{member.email}}">
         </div>
         <span class="valid-msg">{{errors.password}}</span>
-        <div class="input-group input-group-lg">
-            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-eye-close"></span></span>
-            <input name="password" type="password" class="form-control" value="{{member.password}}" placeholder="비밀번호를 입력해주세요">
+        <div class="mui-textfield">
+            <input name="password" type="text" placeholder="비밀번호를 입력해주세요" value="{{member.password}}">
         </div>
         <span class="valid-msg">{{errors.passwordChk}}</span>
-        <div class="input-group input-group-lg">
-            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-eye-close"></span></span>
-            <input name="passwordChk" type="password" class="form-control" value="{{member.passwordChk}}" placeholder="비밀번호 확인을 입력해주세요">
+        <div class="mui-textfield">
+            <input name="passwordChk" type="text" placeholder="비밀번호 확인을 입력해주세요" value="{{member.passwordChk}}">
         </div>
         <span class="valid-msg">{{errors.nickname}}</span>
-        <div class="input-group input-group-lg">
-            <span class="input-group-addon" id="sizing-addon1"><span class="glyphicon glyphicon-user"></span></span>
-            <input name="nickname" type="text" class="form-control" value="{{member.nickname}}" placeholder="닉네임을 입력해주세요">
+        <div class="mui-textfield">
+            <input name="nickname" type="text" placeholder="닉네임을 입력해주세요" value="{{member.nickname}}">
         </div>
         <span class="valid-msg">{{errors.gender}}</span>
-        <div>
-            <label><input name="gender" type="radio" value="M" checked> 남성</label>
-            <label><input name="gender" type="radio" value="F" {{#isFemale}}checked{{/isFemale}}> 여성</label>
+        <div class="mui-radio" style="text-align: center;">
+            <label>
+                <input type="radio"
+                       name="gender"
+                       value="M"
+                       checked>
+                남자
+            </label>
+            <label>
+                <input type="radio"
+                       name="gender"
+                       value="F"
+                       {{#isFemale}}checked{{/isFemale}}
+                >
+                여자
+            </label>
         </div>
-        <div style="margin-bottom: 20px;">
-            <button type="submit" id="signUpBtn" class="btn btn-primary" style="width: 100%;">입력</button>
-            <hr/>
-            <button  id="backBtn" class="btn btn-default" style="width: 100%;">취소</button>
+        <div style="text-align: center;">
+            <button id="backBtn" class="mui-btn mui-btn--raised">뒤로가기</button>
+            <button type="submit" id="signUpBtn" class="mui-btn mui-btn--raised mui-btn--primary">입력</button>
         </div>
     </form>
-</div>
 {{>layout/footer}} <!--</body>-->
 <script src="/js/member/signUp.js"></script>
