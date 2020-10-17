@@ -1,15 +1,17 @@
 {{>layout/header}} <!--<body>-->
 <div style="width: 80%; margin: 0 auto;">
+    <div class="page-header">
+        <h1>글 작성</h1>
+    </div>
     <form class="mui-form" action="/posts/insert" method="post">
         <input name="_csrf" type="hidden" value="{{_csrf.token}}" />
-        <legend><h1>글 작성</h1></legend>
         <div class="mui-textfield">
             <input name="title" type="text" value="{{member.title}}">
             <label>제목</label>
         </div>
         <div class="mui-textfield">
             <textarea name="content" rows="10">{{member.content}}</textarea>
-            <label>Textarea</label>
+            <label>내용</label>
         </div>
         <div>
             <button type="submit" id="addBtn" class="mui-btn mui-btn--primary">입력</button>

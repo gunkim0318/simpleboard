@@ -1,17 +1,23 @@
 {{>layout/header}} <!--<body>-->
-<div class="col-lg-8 col-xs-8 col-md-8 col-sm-8" style="float:none; margin: 0 auto;">
+<div style="width: 80%; margin: 0 auto;">
     <div class="page-header">
         <h1>글 수정</h1>
     </div>
-    <form action="/posts/update" method="post">
+    <form class="mui-form" action="/posts/update" method="post">
         <input type="hidden" name="_csrf" value="{{_csrf.token }}"/>
         <input type="hidden" name="id" value="{{posts.id}}"/>
-        <input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요" style="margin-bottom: 20px;" value="{{posts.title}}">
-        <textarea name="content" class="form-control" placeholder="내용을 입력해주세요" rows="8" style="resize: none;">{{posts.content}}</textarea>
-        <div>
-            <button type="submit" id="modiBtn" class="btn btn-primary col-xs-12" style="margin-top: 10px;">수정</button>
-            <hr/>
-            <button type="button" id="backBtn" class="btn btn-default col-xs-12">뒤로가기</button>
+
+        <div class="mui-textfield">
+            <input  name="title" type="text" placeholder="제목을 입력해주세요" value="{{posts.title}}">
+            <label>제목</label>
+        </div>
+        <div class="mui-textfield">
+            <textarea name="content" placeholder="내용을 입력해주세요" style="resize: none;" rows="8">{{posts.content}}</textarea>
+            <label>내용</label>
+        </div>
+        <div style="text-align: center;">
+            <button type="submit" id="modiBtn" class="mui-btn mui-btn--raised mui-btn--primary">수정</button>
+            <button type="button" id="backBtn" class="mui-btn mui-btn--raised">뒤로가기</button>
         </div>
     </form>
 </div>
