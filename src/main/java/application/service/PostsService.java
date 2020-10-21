@@ -25,12 +25,11 @@ public class PostsService {
     private final PostsRepository postsRepository;
     private final MemberRepository memberRepository;
 
-    public int insertPosts(PostsRequestDTO dto, String email){
+    public void insertPosts(PostsRequestDTO dto, String email){
         Member member = memberRepository.findByEmail(email);
         dto.setMember(member);
 
         postsRepository.save(dto.toEntity());
-        return 1;
     }
     @Transactional(readOnly=true)
     public List<PostsResponseDTO> selectPostsList(PageRequestDTO pagingDTO){
@@ -38,7 +37,8 @@ public class PostsService {
     }
     @Transactional
     public void updatePosts(PostsRequestDTO dto, String email){
-        Posts posts = postsRepository.findById(dto.getId()).get();
+        Posts posts = postsRepository.findById(dto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 번호로 등록된 게시글을 찾을 수 없습니다. id=="+dto.getId()));
 
         boolean isMyPost = posts.getMember().getEmail().equals(email);
 
@@ -49,7 +49,8 @@ public class PostsService {
     }
     @Transactional
     public void deletePosts(Long id, String email){
-        Posts posts = postsRepository.findById(id).get();
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 번호로 등록된 게시글을 찾을 수 없습니다. id=="+id));
 
         boolean isMyPost = posts.getMember().getEmail().equals(email);
 
@@ -59,12 +60,14 @@ public class PostsService {
     }
     @Transactional(readOnly = true)
     public PostsResponseDTO selectBoardContent(Long id){
-        Posts board = postsRepository.findById(id).get();
-        board.hitUp();
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 번호로 등록된 게시글을 찾을 수 없습니다. id=="+id));
 
-        postsRepository.save(board);
+        posts.hitUp();
 
-        return new PostsResponseDTO(board);
+        postsRepository.save(posts);
+
+        return new PostsResponseDTO(posts);
     }
     @Transactional(readOnly = true)
     public Integer selectTotalPostCnt(){
