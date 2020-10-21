@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 게시글 도메인
@@ -32,6 +33,9 @@ public class Posts extends TimeEntity {
     @Column(nullable = false)
     @ColumnDefault("0")
     private Long hit;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "posts")
+    private List<Reply> reply;
 
     @Builder
     public Posts(String title, String content, Member member, Long hit){
