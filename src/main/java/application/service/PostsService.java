@@ -26,10 +26,9 @@ public class PostsService {
     private final MemberRepository memberRepository;
 
     public void insertPosts(PostsRequestDTO dto, String email){
-        Member member = memberRepository.findByEmail(email);
-        dto.setMember(member);
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException(String.format("해당 %s로 등록된 사용자가 없습니다.", email)));
 
-        postsRepository.save(dto.toEntity());
+        postsRepository.save(dto.toEntity(member));
     }
     @Transactional(readOnly=true)
     public List<PostsResponseDTO> selectPostsList(PageRequestDTO pagingDTO){

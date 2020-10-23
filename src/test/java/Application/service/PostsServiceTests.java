@@ -27,7 +27,6 @@ import static org.junit.Assert.fail;
 public class PostsServiceTests {
     @Autowired
     private PostsService postsService;
-
     @Autowired
     private PostsRepository postsRepository;
     @Autowired
@@ -57,7 +56,7 @@ public class PostsServiceTests {
     }
 
     @Test
-    public void testBoardInsert(){
+    public void testPostsInsert(){
         PostsRequestDTO dto = PostsRequestDTO.builder()
                 .title("제목 테스트")
                 .content("내용 테스트")
@@ -67,13 +66,12 @@ public class PostsServiceTests {
         postsService.insertPosts(dto, email);
 
         Posts board = postsRepository.findAll().get(0);
-        log.info(board.toString());
         assertEquals(board.getTitle(), dto.getTitle());
         assertEquals(board.getContent(), dto.getContent());
         assertEquals(board.getMember().getEmail(), dto.getMember().getEmail());
     }
     @Test
-    public void testBoardUpdate(){
+    public void testPostsUpdate(){
         Long updateId = postsRepository.findAll().get(0).getId();
         String email = "gunkim0318@gmail.com";
 
@@ -105,7 +103,9 @@ public class PostsServiceTests {
     @Test
     public void testPostsDelete(){
         String email = "gunkim0318@gmail.com";
-        postsService.deletePosts(1l, email);
+
+        long postsId = postsRepository.findAll().get(0).getId();
+        postsService.deletePosts(postsId, email);
 
         if(postsRepository.findAll().size() > 0){
             fail("삭제 실패");

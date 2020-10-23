@@ -32,11 +32,11 @@ public class PostsRequestDTO {
         this.member = member;
     }
 
-    public Posts toEntity(){
+    public Posts toEntity(Member member){
         return Posts.builder()
                 .title(this.title)
                 .content(this.content)
-                .member(this.member)
+                .member(member)
                 .build();
     }
 }
