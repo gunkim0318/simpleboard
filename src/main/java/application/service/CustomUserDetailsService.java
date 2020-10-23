@@ -31,11 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Member member = memberRepository.findByEmail(email);
-
-        if(member == null){
-            throw new UsernameNotFoundException("해당 "+email+"(email)의 유저가 없습니다.");
-        }
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("해당 "+email+"의 유저가 없습니다."));
 
         Collection<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 
