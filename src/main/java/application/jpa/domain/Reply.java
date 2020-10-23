@@ -19,7 +19,7 @@ public class Reply extends TimeEntity {
 
     private String content;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(nullable = false, name = "member_id")
     private Member member;
 
