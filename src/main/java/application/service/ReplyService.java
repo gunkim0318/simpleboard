@@ -27,7 +27,8 @@ public class ReplyService {
 
     @Transactional()
     public List<ReplyResponseDTO> getReplyList(Long postsId, PageRequestDTO pageDTO){
-        Posts posts = postsRepository.findById(postsId).get();
+        Posts posts = postsRepository.findById(postsId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("해당 %d로 등록된 게시이 없습니다.", postsId)));
         List<Reply> list = replyRepository.findAllByPostsOrderByIdDesc(posts, pageDTO.toEntity());
         List<ReplyResponseDTO> dtoList = new ArrayList<>();
         for(Reply reply : list){
@@ -42,13 +43,16 @@ public class ReplyService {
     }
     @Transactional(readOnly = true)
     public void writeReply(ReplyRequestDTO requestDTO, String email){
-        Member member = memberRepository.findByEmail(email);
-        Posts posts = postsRepository.findById(requestDTO.getPostsId()).get();
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("해당 %s로 등록된 유저가 없습니다.", email)));
+        Posts posts = postsRepository.findById(requestDTO.getPostsId())
+                .orElseThrow(() -> new IllegalArgumentException(String.format("해당 %d로 등록된 게시이 없습니다.", requestDTO.getPostsId())));
 
         replyRepository.save(requestDTO.toEntity(member, posts));
     }
     public Integer modifyReply(ReplyRequestDTO requestDTO, String email){
-        Reply reply = replyRepository.findById(requestDTO.getReplyId()).get();
+        Reply reply = replyRepository.findById(requestDTO.getReplyId())
+                .orElseThrow(() -> new IllegalArgumentException(String.format("해당 %d로 등록된 댓글이 없습니다.", requestDTO.getReplyId())));
 
         if(email.equals(reply.getMember().getEmail())){
             reply.update(requestDTO.getContent());
@@ -58,7 +62,8 @@ public class ReplyService {
         return 0;
     }
     public Integer deleteReply(long replyId, String email){
-        Reply reply = replyRepository.findById(replyId).get();
+        Reply reply = replyRepository.findById(replyId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("해당 %d로 등록된 댓글이 없습니다.", replyId)));
 
         if(email.equals(reply.getMember().getEmail())){
             replyRepository.delete(reply);
@@ -69,7 +74,8 @@ public class ReplyService {
     }
     @Transactional(readOnly = true)
     public Integer getReplyCnt(long postsId){
-        Posts posts = postsRepository.findById(postsId).get();
+        Posts posts = postsRepository.findById(postsId)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("해당 %d로 등록된 게시글이 없습니다.", postsId)));
         return replyRepository.countByPosts(posts);
     }
 }
