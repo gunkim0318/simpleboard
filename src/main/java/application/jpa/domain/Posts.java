@@ -26,15 +26,15 @@ public class Posts extends TimeEntity {
     @Column(nullable = false)
     private String content;
 
-    @OneToOne
-    @JoinColumn(nullable = false, name="member_id")
+    @ManyToOne
+    @JoinColumn(name="member_id")
     private Member member;
 
     @Column(nullable = false)
     @ColumnDefault("0")
     private Long hit;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "posts")
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reply> reply;
 
     @Builder

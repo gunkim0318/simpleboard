@@ -6,6 +6,7 @@ import application.jpa.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * 회원 도메인
@@ -35,6 +36,9 @@ public class Member extends TimeEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Posts> postsList;
 
     @Builder
     public Member(Long id, String email, String password, String nickname, Gender gender, Role role){
