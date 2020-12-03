@@ -41,7 +41,6 @@ public class MemberRepositoryTests {
         String password = "rlarjs123";
 
         Member findMember = memberRepository.findAll().get(0);
-        log.info(findMember.toString());
         assertEquals(email, findMember.getEmail());
         assertEquals(password, findMember.getPassword());
     }

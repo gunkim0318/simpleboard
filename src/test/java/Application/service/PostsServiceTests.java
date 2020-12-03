@@ -68,7 +68,6 @@ public class PostsServiceTests {
         Posts board = postsRepository.findAll().get(0);
         assertEquals(board.getTitle(), dto.getTitle());
         assertEquals(board.getContent(), dto.getContent());
-        assertEquals(board.getMember().getEmail(), dto.getMember().getEmail());
     }
     @Test
     public void testPostsUpdate(){
